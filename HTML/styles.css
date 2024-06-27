@@ -1,0 +1,143 @@
+﻿body {
+    margin: 0;
+    display: flex;
+}
+
+.navbar {
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    width: 90%; /* Ширина без выбора*/
+    height: 38px; /*высота в процентах бара*/
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    font-size: 20px; /* Измените размер шрифта на желаемый */
+    /*background-color: #666;*/
+    
+}
+
+    .navbar .logo { /*логотип*/
+        position: absolute;
+        top: -2px;
+        left: 0px;
+        height: 40px; /*высота в процентах бара*/
+}
+
+    .navbar li, a {
+        display: flex;
+        color: rgba(0, 0, 0, 0.6);
+        text-align: center;
+        align-items: center;
+        text-decoration: none; /*чтобы не подчеркивать текст*/
+        padding: 10px;
+        margin-right: -10px; /* -10px */
+        margin-left: 10px; /* -10px */
+        float: left; /*объекты друг за другом*/
+    }
+
+        .navbar li img {
+            
+            width: 36px;
+            height: 36px;
+            margin-right: 10px; /* между текстом и иконкой растояние*/
+        }
+
+    .navbar a:hover {
+        background-color: rgba(128, 128, 128, 0.16); /* Полупрозрачный серый цвет */
+    }
+
+.form-1 {
+    position: absolute;
+    left: 5%;
+    top: 70px;
+    border: 2px;
+    width: 90%;
+    height: 90%;
+    border-color: #000000;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 100);
+}
+
+
+/* Контейнер для формы */
+.form-question {
+    position: absolute;
+    background-color: #fff;
+    top: calc(50% - 100px);
+    left: calc(50% - 20%);
+    height: 320px;
+    width: 40%;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1; /*размещаем по верх остальных блоков на form*/
+}
+
+    .form-question h1 {
+        text-align: center;
+        height: 70px;
+        margin-bottom: 120px;
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        font-size: 50px; /* Измените размер шрифта на желаемый */
+    }
+
+    .form-question input {
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        font-size: 30px; /* Измените размер шрифта на желаемый */
+        width: 100%;
+    }
+
+    .form-question label {
+        text-align: center;
+        display: block;
+        margin-bottom: 10px;
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        font-size: 20px; /* Измените размер шрифта на желаемый */
+    }
+
+    .form-question progress {
+        width: 100%;
+        height: 20px;
+    }
+
+
+/*верхнее меню настройкми оплатой и входом*/
+.menu-user {
+    position: relative;
+}
+
+    .menu-user ul {
+        position: absolute;
+        z-index: 1; /*размещаем по верх остальных блоков на */
+        left: -200px;
+        top: 100%;
+        display: none;
+        padding: 20px 0;
+        border-radius: 10px;
+        background: white;
+        border: 1px solid rgb(128, 128, 128);
+    }
+
+    .menu-user:hover > ul {
+        display: block;
+    }
+
+    .menu-user li {
+        list-style: none;
+        height: 20px;
+    }
+
+        .menu-user li a {
+            position: relative;
+            width: 230px;
+            border-radius: 5px;
+            height: 20px;
+        }
+
+    .menu-user ul a:hover {
+        border: 1px solid rgb(128, 128, 128);
+    }
+

@@ -1,0 +1,45 @@
+/*меню для при нажатии правой копкой мыший*/
+
+.context-menu {
+    padding: 0px;
+    position: fixed;
+    margin-top: 40px; /*относительно других*/
+    display: none;
+    z-index: 2; /*размещаем по верх остальных блоков на */
+    width: 200px;
+    height: 330px;
+    border-radius: 5px;
+    border: 1px solid rgb(128, 128, 128);
+    background: white;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    font-size: 14px; /* Измените размер шрифта на желаемый */
+    padding: 10px;
+}
+    .context-menu .menu-cont {
+        border: 1px solid rgb(128, 128, 128);
+        border-color: black;
+        border-radius: 5px;
+        border: 2px solid transparent; /* Прозрачная граница по умолчанию */
+    }
+
+    .context-menu .menu-cont img {
+        position: relative;
+        height: 25px;
+        left: 8px;
+        top: 2px;
+    }
+
+    .context-menu .menu-cont span {
+        position: relative;
+        top: -6px;
+        left: 8px;
+    }
+
+    .context-menu .menu-cont:last-child {
+        color: red;
+    }
+
+        .context-menu .menu-cont:hover {
+            border-color: #969696;
+            background: #969696;
+        }

@@ -1,0 +1,91 @@
+:root {
+    --sidebar-color: #535050; /* Общая переменная для цвета */
+    --sidebar-hover-color: rgb(58, 57, 57); /* Общая переменная для цвета search*/
+    --sidebar-select-color: rgb(70, 70, 70);
+  }
+
+.sidebar {
+    z-index: 3; /*размещаем по верх остальных блоков на form*/
+    position: absolute;
+    top: 0px;
+    width: 60px; /* Ширина без выбора*/
+    background-color: var(--sidebar-color);
+    color: white;
+    transform: translateX(1);
+    will-change: transform;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden; /*обрезание за границы блока*/
+    flex-direction: column;
+    height: 100%; /*высота в процентах бара*/
+    border-right: 1px solid rgb(19, 0, 0); /*для того чтобы убрать при сворачивании артифакты*/
+    outline: none; /* Убираем outline по умолчанию */
+}
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+    .sidebar:hover {
+        left: 0px;
+        width: 600px;
+    }
+
+    .sidebar .block {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar hr {
+    width: 100%; /* Ширина линии */
+    border: 0;
+    border-top: 1px solid #555; /* Цвет и стиль линии */
+    margin: 10px 0; /* Отступы сверху и снизу */
+}
+
+.sidebar .icon, .icon-sidebar {
+    padding: 10px; /*отступы от края иконок*/
+    cursor: pointer;
+    position: relative;
+}
+
+.sidebar .icon img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .sidebar .icon-sidebar img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .sidebar .icon::after {
+        content: attr(data-description);
+        position: absolute;
+        font-size: 20px; /* Измените размер шрифта на желаемый */
+        left: 60px; /*размещение текста после иконки*/
+        top: 50%; /* Расположение радом с иконкой */
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        transform: translateY(-50%);
+        white-space: nowrap; /* Оставить текст в одну строку */
+        padding: 5px 10px;
+        border-radius: 3px;
+        pointer-events: none;
+        
+    }
+
+    .sidebar .text {
+    display: none;
+    position: absolute;
+    }
+
+    .sidebar:hover .icon::after {
+        opacity: 1;
+    }
+
+    .sidebar .icon:hover {
+        background-color: var(--sidebar-hover-color);
+    }
+
+    .sidebar:hover .icon.selected {
+        background-color: var(--sidebar-select-color);
+    }

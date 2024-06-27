@@ -1,0 +1,211 @@
+:root {
+    --theme-color: rgb(128, 128, 128); /* Общая переменная для цвета */
+    --theme-select-color: rgba(255, 255, 255, 1);
+  }
+
+/* Основное поле ввода данных материала и темы */
+.content {
+    position: absolute;
+    left: calc( 5% + 60px);
+    top: 70px;
+    
+    width: calc( 90% - 60px);
+    height: 90%;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    opacity:1;
+
+}
+
+    .form-theme {
+        position: absolute;
+        height: 100%;
+        width: 25%;
+        background-color: var(--theme-color);
+        /*background-color: #ebebeb;*/
+        
+    }
+
+
+    .content .form-theme .table-menu {
+        padding-top: 5px;
+        padding-left: 10px;
+        padding-right: 20px;
+        
+    }
+
+    .cell-menu {
+        position: relative;
+        display: flex;
+        height: 30px;
+        margin-top: 5px;
+        
+    }
+    
+
+        .content .form-theme .table-menu {
+            height: 70px;
+        }
+       
+
+        .cell-menu img{
+            height: 100%;
+            vertical-align: middle;
+
+        }    
+
+        .cell-menu span{
+            padding-left: 2px;
+            display: grid;
+            position: relative;
+            height: 100%;
+            align-items: center; /* Вертикальное выравнивание */
+        }   
+
+        .content .form-theme .table-menu #search_menu{
+            visibility: hidden; /*сделать блок невидемым но оставить отступы до соседних блоков*/
+            border: 1px solid var(--theme-select-color);; /* Границы ячеек */
+            /*pointer-events: none; /* чтобы изображение не перехватывало клики */
+            border-radius: 5px; /* Закругленные углы трека */
+            margin-top: 2px;
+            background-color: var(--theme-select-color);
+
+        }
+
+        .cell-menu input{
+            margin-top: 3px;
+            height: 20px;
+            width: 100%;
+            font-size: 16px;
+            background-color: var(--theme-select-color);
+            border: none; /* убираем бордюры */
+            outline: none; /* убираем обводку при фокусе */
+        }    
+
+
+        .content .form-theme .table-menu #folder_root {
+            border-radius: 5px;
+        }
+
+        .content .form-theme .table-menu #folder_root:hover {
+            background-color: var(--theme-select-color);
+            border-radius: 6px;
+            transition: background-color 0.13s; /* Плавный переход */
+        }
+
+
+        
+
+        .content .form-theme .table {
+            padding: 10px;
+            overflow: auto; /* добавляет прокрутку по мере необходимости.*/
+            height: calc(100% - 100px);
+        }
+
+        .content .form-theme .table::-webkit-scrollbar {
+            position: absolute;
+            width: 10px; /* Ширина скроллбара */
+        }
+
+        .content .form-theme .table::-webkit-scrollbar-thumb {
+            background: #a8a7a7; /* Цвет ползунка при наведении */
+            border-radius: 10px; /* Закругленные углы трека */
+        }
+
+        .content .form-theme .table::-webkit-scrollbar-thumb:hover {
+            background: #383838; /* Цвет ползунка при наведении */
+        }
+
+
+        .content .form-theme .table-theme {
+            display: flex;
+            position: relative;
+            height: 28px; /*делаем чуть меньше icon чтоб не прерывался рисунок*/
+            margin-top: 2px; /*оставляем зазор для выделения при клике на элемент*/
+            border-radius: 6px; /* Закругленные углы трека */
+            border: 1px solid var(--theme-color);
+            outline: none; /* Убираем outline по умолчанию */
+        }
+
+
+        .content .form-theme .table-theme img, span{
+            position:relative;
+            margin-top: -1px;
+            height: 32px;
+        }
+
+            .content .form-theme .table-theme span {
+                left: 1px;
+                top: 6px;
+                overflow: hidden; /* Скрывает контент, который выходит за границы блока */
+                white-space: nowrap; /* Запрещает перенос текста */
+                text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
+                box-sizing: border-box; /* Учитываем границу и внутренние отступы в размерах блока */
+                padding-right: 10px;
+                max-width: 100%; /* Устанавливаем максимальную ширину ячеек */
+                vertical-align: middle;
+            }
+
+
+        .content .form-theme .table-theme:hover {
+            background-color: var(--theme-select-color);
+            /*transition: background-color 0.6s ease; /* Плавный переход для outline */
+        }
+
+
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    .content .form-material {
+        position: absolute;
+        height: 100%;
+        left: 25%;
+        top: 0px;
+        width: 75%;
+        white-space: nowrap;
+        overflow: auto; /* добавляет прокрутку по мере необходимости.*/
+    }
+
+    .form-material table {
+        width: 100%; /* Полная ширина таблицы */
+        border-collapse: collapse; /* Удаление промежутков между ячейками */
+    }
+
+    .form-material  th {
+        /*border: 1px solid #ddd; /* Границы ячеек */
+        padding: 8px; /* Внутренние отступы */
+        text-align: left; /* Выравнивание текста по левому краю */
+        /*border: 1px solid #000;*/
+        max-width: 100px; /* Устанавливаем максимальную ширину ячеек */
+        overflow: hidden; /* Скрывает контент, выходящий за пределы */
+        text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
+        white-space: nowrap; /* Позволяет перенос на новую строку */
+    }
+
+    .form-material tr:hover {
+        background-color: #1d1b1b; /* Фон заголовков таблицы */
+        border-radius: 0px;
+        
+    }

@@ -1,0 +1,174 @@
+
+
+/* Контейнер для формы */
+.form-login {
+    position: absolute;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    background-color: #fff;
+    top: calc(50% - 158px);
+    left: calc(50% - 125px);
+    height: 366px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1; /*размещаем по верх остальных блоков на form*/
+}
+    .form-login h1 {
+        position: relative;
+        text-align: center;
+    }
+
+    .form-login img {
+        position: relative;
+        left: 220px;
+        width: 24px;
+        top: 10px;
+        cursor: pointer; /* Курсор в виде руки при наведении */
+    }
+
+    .form-login input, #enter-login {
+        position: relative;
+        box-sizing: border-box;
+        border: 1px solid rgb(128, 128, 128);
+        font-size: 18px; /* Измените размер шрифта на желаемый */
+        border-radius: 5px;
+        left: 19px;
+        top: 2px;
+        width: 212px;
+        height: 35px;
+        margin-bottom: 2px;
+    }
+
+    .form-login form h1 {
+        cursor: pointer; /* Курсор в виде руки при наведении */
+        display: inline-block;
+        position: relative;
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        font-size: 14px; /* Измените размер шрифта на желаемый */
+        top: 16px;
+        left: 19px;
+        text-align: center;
+        width: 212px;
+        margin-bottom: 2px;
+        height: 3px;
+    }
+
+    .form-login form h1:hover {
+        color: darkblue; /* Цвет текста при наведении */
+    }
+
+        .form-reg form #enter-reg:hover {
+        background-color: rgba(128, 128, 128, 0.46); /* Полупрозрачный серый цвет */
+    }
+
+
+
+/* Контейнер для формы */
+.form-reg {
+    position: absolute;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    background-color: #fff;
+    top: calc(50% - 158px);
+    left: calc(50% - 125px);
+    height: 366px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1; /*размещаем по верх остальных блоков на form*/
+}
+
+    .form-reg h1 {
+        position: relative;
+        text-align: center;
+    }
+
+    .form-reg img {
+        position: relative;
+        left: 220px;
+        width: 24px;
+        top: 10px;
+        cursor: pointer; /* Курсор в виде руки при наведении */
+    }
+
+    .form-reg input, #enter-reg {
+        position: relative;
+        box-sizing: border-box;
+        border: 1px solid rgb(128, 128, 128);
+        font-size: 18px; /* Измените размер шрифта на желаемый */
+        border-radius: 5px;
+        left: 19px;
+        top: 2px;
+        width: 212px;
+        height: 35px;
+        margin-bottom: -2px;
+    }
+
+    .form-reg form h1 {
+        display: inline-block;
+        cursor: pointer; /* Курсор в виде руки при наведении */
+        position: relative;
+        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+        font-size: 14px; /* Измените размер шрифта на желаемый */
+        top: 18px;
+        left: 19px;
+        text-align: center;
+        width: 212px;
+        margin-bottom: 2px;
+        height: 3px;
+    }
+
+    .form-reg form h1:hover {
+        color: darkblue; /* Цвет текста при наведении */
+    }
+
+    .form-reg form #enter-reg:hover {
+        background-color: rgba(128, 128, 128, 0.46); /* Полупрозрачный серый цвет */
+    }
+
+
+
+.form-restore {
+    position: absolute;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    background-color: #fff;
+    top: calc(50% - 118px);
+    left: calc(50% - 175px);
+    height: 226px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1; /*размещаем по верх остальных блоков на form*/
+}
+
+    .form-restore h1 {
+        position: relative;
+        text-align: center;
+    }
+
+    .form-restore img {
+        position: relative;
+        left: 320px;
+        width: 24px;
+        top: 10px;
+        cursor: pointer; /* Курсор в виде руки при наведении */
+    }
+
+    .form-restore input, #enter-restore {
+        position: relative;
+        box-sizing: border-box;
+        border: 1px solid rgb(128, 128, 128);
+        font-size: 18px; /* Измените размер шрифта на желаемый */
+        border-radius: 5px;
+        left: 19px;
+        top: 2px;
+        width: 312px;
+        height: 35px;
+        margin-bottom: -2px;
+    }
+
+    .form-restore form #enter-restore:hover {
+        background-color: rgba(128, 128, 128, 0.46); /* Полупрозрачный серый цвет */
+    }

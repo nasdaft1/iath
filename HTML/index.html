@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expandable Sidebar</title>
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="tree.css">
+    <link rel="stylesheet" href="mouse.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- для передачи данных на сервер и обратно -->
+    <script src="sidebar.js"></script>
+    <script src="auth.js"></script>
+    <script src="tree.js"></script>
+    <script src="mouse.js"></script>
+    <script src="javascript.js"></script>
+    <script src="menu_contex.js"></script>
+    <header>
+        <!-- верхнее меню -->
+        <nav class="navbar">
+            <img class="logo" src="png\logo_iath_2.png" alt="logo">
+            <ul class="navbar-menu">
+                <li>
+                    <a href="#">
+                        <img src="png\config.png">
+                        <span> Настройки </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="png\money_rub.png">
+                        <span> Оплата </span>
+                    </a>
+                </li>
+                <li>
+                    <div class="menu-user">
+                        <a href="#">
+                            <img src="png\user.png">
+                            <span> Вход </span>
+                        </a>
+                        <ul>
+                            <li><a href="#service1" id="link-login">Login</a></li>
+                            <li><a href="#service2" id="link-reg">Registration</a></li>
+                            <li><a href="#logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="form-1">
+        <!-- Левый бар -->
+        <div class="sidebar">
+            <div class="block" id="block-0">
+                <div class="icon-sidebar" data-description="Наименование" id="sidebar">
+                    <img src="png\sidebar.png">
+                </div>
+            </div>
+
+            <div class="block" id="block-1">
+                <div class="icon" data-description="Материалы" id="material">
+                    <img src="png\material.png">
+                </div>
+                <div class="icon" data-description="Учить" id="teach">
+                    <img src="png\teach.png">
+                </div>
+                <div class="icon" data-description="Аналитика" id="analysis">
+                    <img src="png\analysis.png">
+                </div>
+            </div>
+
+            <div class="block" id="block-2">
+                <hr>
+                <div class="icon" data-description="Вопрос текстом ответ аудио" id="txt_audio">
+                    <img src="png\tx_au.png">
+                </div>
+                <div class="icon" data-description="Вопрос audio ответ аудио" id="audio_audio">
+                    <img src="png\au_au.png">
+                </div>
+                <div class="icon" data-description="Вопрос audio ответ текстом" id="audio_txt">
+                    <img src="png\au_tx.png">
+                </div>
+            </div>
+
+            <div class="block" id="block-3">
+                <hr>
+                <div class="icon" data-description="Вопрос на английском ответ русском" id="foreign_native">
+                    <img src="png\al_na.png">
+                </div>
+                <div class="icon" data-description="Вопрос на английском ответ английском" id="foreign_foreign">
+                    <img src="png\al_al.png">
+                </div>
+                <div class="icon" data-description="Вопрос на руском ответ английском" id="native_foreign">
+                    <img src="png\na_al.png">
+                </div>
+            </div>
+
+            <div class="block" id="block-4">
+                <hr>
+                <div class="icon" data-description="Редактирование" id="edit">
+                    <img src="png\edit.png">
+                </div>
+                <div class="icon" data-description="Приоритет" id="priority">
+                    <img src="png\priority.png">
+                </div>
+                <div class="icon" data-description="Загрузка файлов" id="load">
+                    <img src="png\load.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Основное содержание страницы -->
+        <div class="form-question" id="form-question">
+            <h1>I want coffee</h1>
+            <form id="textForm">
+                <label for="textInput">Введите перевод:</label>
+
+                <input type="text" id="textInput" name="textInput" required>
+                <progress id="progressBar" value="0" max="100"></progress>
+            </form>
+        </div>
+
+        <div class="form-login" id="form-login">
+            <img src="png\close.png" id="close-login">
+            <h1>Login</h1>
+            <form action="/login" method="post">
+                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <input type="password" id="login-password" name="password" placeholder="Password" required><br><br>
+                <button id="enter-login" type="submit">Login Now</button>
+                <h1 id="link-forgot-password">Forgot Password</h1>
+                <h1 id="link-reg-2">Registration</h1>
+            </form>
+        </div>
+
+        <div class="form-restore" id="form-restore">
+            <img src="png\close.png" id="close-restore">
+            <h1>Restore password</h1>
+            <form action="/login" method="post">
+                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <button id="enter-restore" type="submit">Send by email</button>
+            </form>
+        </div>
+
+        <div class="form-reg" id="form-reg">
+            <img src="png\close.png" id="close-reg">
+            <h1>Registration</h1>
+            <form action="/registration" method="post">
+                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <input type="password" id="reg-password" name="password" placeholder="Password" required><br><br>
+                <input type="password" id="reg-confirm_password" name="confirm_password" placeholder="Confirm password" required><br><br>
+                <button id="enter-reg" type="submit">Registration</button>
+                <h1 id="link-login-2">Login</h1>
+            </form>
+        </div>
+        <!--меню выпадающее при нажати е правой кнопки мыши по контенту-->
+        <div id="contextMenu" class="context-menu">
+            <div class="menu-cont" id="search">
+                <img src="png\search.png">
+                <span>Поиск</span>
+            </div>
+            <div class="menu-cont" id="roll_up">
+                <img src="png\roll_up.png">
+                <span>Свернуть все</span>
+            </div>
+            <div class="menu-cont" id="un_roll">
+                <img src="png\un_roll.png">
+                <span>Развернуть все</span>
+            </div>
+            <hr> 
+            <div class="menu-cont" id="new_label">
+                <img src="png\new_label.png">
+                <span>Новый документ</span>
+            </div>
+            <div class="menu-cont" id="new_folder">
+                <img src="png\new_folder.png">
+                <span>Новая папка</span>
+            </div>
+            <div class="menu-cont" id="copy">
+                <img src="png\copy.png">
+                <span>Копировать</span>
+            </div>
+            <div class="menu-cont" id="insert">
+                <img src="png\insert.png">
+                <span>Вставить</span>
+            </div>
+            <div class="menu-cont" id="rename">
+                <img src="png\rename.png">
+                <span>Переименовать</span>
+            </div>
+            <div class="menu-cont" id="delete">
+                <img src="png\delete.png">
+                <span>Удалить</span>
+            </div>
+        </div>
+
+        <div class="form-theme" id="form-theme">
+            <div class="table-menu">
+                <div class="cell-menu" id="search_menu">
+                    <img src="png/search.png" alt="Icon">
+                    <!-- <input type="search" name="search"/>-->
+                    <input type="text" name="search"/>
+                    <img src="png/close_input.png" alt="Icon">
+                </div>
+                <div class="cell-menu" id="folder_root">
+                    <img src="png/folder_root.png" alt="Icon">
+                    <span>Root</span>
+                </div>
+
+            </div>
+            <div class="table" id="form-table"></div>
+        </div>
+        <div class="form-material" id="form-material">
+            <div class="form-material" id="form-material"></div>
+            <table>
+                <!-- Генерация строк и ячеек таблицы -->
+                <!-- 20 строк и 3 столбца -->
+                <!-- Вы можете использовать серверный язык или JavaScript для генерации, здесь показан статический пример -->
+                <tr><td>Row 1, Cell 1</td><td>Row 1, Cell 2</td><td>Row 1, Cell 3</td></tr>
+                <tr><td>Row 2, Cell 1</td><td>Row 2, Cell 2</td><td>Row 2, Cell 3</td></tr>
+                <tr><td>Row 3, Cell 1</td><td>Row 3, Cell 2</td><td>Row 3, Cell 3</td></tr>
+                <tr><td>Row 4, Cell 1</td><td>Row 4, Cell 2</td><td>Row 4, Cell 3</td></tr>
+                <tr><td>Row 5, Cell 1</td><td>Row 5, Cell 2</td><td>Row 5, Cell 3</td></tr>
+                <tr><td>Row 6, Cell 1</td><td>Row 6, Cell 2</td><td>Row 6, Cell 3</td></tr>
+                <tr><td>Row 7, Cell 1</td><td>Row 7, Cell 2</td><td>Row 7, Cell 3</td></tr>
+                <tr><td>Row 8, Cell 1</td><td>Row 8, Cell 2</td><td>Row 8, Cell 3</td></tr>
+                <tr><td>Row 9, Cell 1</td><td>Row 9, Cell 2</td><td>Row 9, Cell 3</td></tr>
+                <tr><td>Row 10, Cell 1</td><td>Row 10, Cell 2</td><td>Row 10, Cell 3</td></tr>
+                <tr><td>Row 11, Cell 1</td><td>Row 11, Cell 2</td><td>Row 11, Cell 3</td></tr>
+                <tr><td>Row 12, Cell 1</td><td>Row 12, Cell 2</td><td>Row 12, Cell 3</td></tr>
+                <tr><td>Row 13, Cell 1</td><td>Row 13, Cell 2</td><td>Row 13, Cell 3</td></tr>
+                <tr><td>Row 14, Cell 1</td><td>Row 14, Cell 2 ааааааааааааааааааааааааааааааааааааааааааааааа</td><td>Row 14, Cell 3</td></tr>
+                <tr><td>Row 15, Cell 1</td><td>Row 15, Cell 2</td><td>Row 15, Cell 3</td></tr>
+                <tr><td>Row 16, Cell 1</td><td>Row 16, Cell 2</td><td>Row 16, Cell 3</td></tr>
+                <tr><td>Row 17, Cell 1</td><td>Row 17, Cell 2</td><td>Row 17, Cell 3</td></tr>
+                <tr><td>Row 18, Cell 1</td><td>Row 18, Cell 2</td><td>Row 18, Cell 3</td></tr>
+                <tr><td>Row 19, Cell 1</td><td>Row 19, Cell 2</td><td>Row 19, Cell 3</td></tr>
+                <tr><td>Row 20, Cell 1</td><td>Row 20, Cell 2</td><td>Row 20, Cell 3</td></tr>
+                <tr><td>Row 16, Cell 1</td><td>Row 16, Cell 2</td><td>Row 16, Cell 3</td></tr>
+                <tr><td>Row 17, Cell 1</td><td>Row 17, Cell 2</td><td>Row 17, Cell 3</td></tr>
+                <tr><td>Row 18, Cell 1</td><td>Row 18, Cell 2</td><td>Row 18, Cell 3</td></tr>
+                <tr><td>Row 19, Cell 1</td><td>Row 19, Cell 2</td><td>Row 19, Cell 3</td></tr>
+                <tr><td>Row 20, Cell 1</td><td>Row 20, Cell 2</td><td>Row 20, Cell 3</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
