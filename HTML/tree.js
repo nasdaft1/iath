@@ -52,7 +52,6 @@ function iterateJSON(obj, depth, parent, indent = '') {
     // depth: дла передачи и расчета глубины вложенности
     // parent: для передачи id наследнику от родителя
     // создание корневога каталога
-    
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
             // var id = incrementer();
@@ -69,10 +68,10 @@ function iterateJSON(obj, depth, parent, indent = '') {
 };
 
 // загрузка из json
-function fetchDataWithFetchAPI() {
+function fetchDataWithFetchAPI(method, url) {
     // const incrementer = new Incrementer(); // инициализация счетчика
     // const boundIncrementMethod = incrementer.getIncrementMethod(); //функции с передачей контекста
-    const url = 'http://213.178.34.212:18000/api/theme';
+    // const url = 'http://213.178.34.212:18000/api/theme';
     var xhr = new XMLHttpRequest();
     // Установка обработчика события, который будет вызван при получении ответа
     xhr.onload = function () {
@@ -80,14 +79,16 @@ function fetchDataWithFetchAPI() {
         if (xhr.status >= 200 && xhr.status < 300) {
             // Преобразование ответа в JSON
             var data = JSON.parse(xhr.responseText);
-            // iterateJSON(data, boundIncrementMethod, 0, 0)
+            // очистак внутри блока перед загрузкой и формированием    
+            document.getElementById('form-table').innerHTML = '';
+            console.log('загрузить данные в дерево');
             iterateJSON(data, 0, 0)
         } else {
             console.error('Запрос не удался. Статус:', xhr.status);
         };
     };
     // Настройка запроса: метод GET и URL
-    xhr.open('GET', url, true);
+    xhr.open(method, url, true);
     // Обработчик ошибок
     xhr.onerror = function () {
         console.error('Произошла ошибка запроса.');
@@ -99,5 +100,5 @@ function fetchDataWithFetchAPI() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Вызов функции для загрузки данных
-    fetchDataWithFetchAPI();
+    fetchDataWithFetchAPI('GET', 'http://213.178.34.212:18000/api/theme');
 });
