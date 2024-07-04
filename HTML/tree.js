@@ -57,10 +57,12 @@ function iterateJSON(obj, depth, parent, indent = '') {
             // var id = incrementer();
             var id = obj[key]['#0#id'];
             var data = obj[key]['#1#folder'];
-            if (data!==undefined) {
+            if (data!==null) { 
+                // каталог
                 createDivBlocks(depth, id, parent, key, true);
                 iterateJSON(data, depth + 1, id , indent + '  ');
             } else {
+                // файл
                 createDivBlocks(depth, id, parent, key, false);
             };
         };
@@ -82,7 +84,8 @@ function fetchDataWithFetchAPI(method, url) {
             // очистак внутри блока перед загрузкой и формированием    
             document.getElementById('form-table').innerHTML = '';
             console.log('загрузить данные в дерево');
-            iterateJSON(data, 0, 0)
+            iterateJSON(data['root']['#1#folder'],0, data['root']['#0#id'])
+            // iterateJSON(data, 0, 0)
         } else {
             console.error('Запрос не удался. Статус:', xhr.status);
         };
