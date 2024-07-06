@@ -33,7 +33,7 @@ function search(){
     tree_focus.deleteFocus(); //удалить фокус выделение а дереве
     inputDiv('Текст для поиска', 'png/search.png');
     var name='jinx';
-    fetchDataWithFetchAPI('GET', `http://213.178.34.212:18000/api/search?name=${name}`);
+    fetchDataWithFetchAPI('GET', `http://213.178.34.212:18000/api/v1/tree/search?name=${name}`);
 };
 
 
@@ -82,7 +82,7 @@ function new_label(){
     var name='jax';
     var id_parent='34';
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/new_label?id_parent=${id_parent}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/new_label?id_parent=${id_parent}&name=${name}`);
 
 };
 
@@ -93,7 +93,7 @@ function new_folder(){
     var name='jax';
     var id_parent='32';
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/new_folder?id_parent=${id_parent}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/new_folder?id_parent=${id_parent}&name=${name}`);
 };
 
 function copy(){
@@ -113,7 +113,7 @@ function insert(){
     var id_old='2';
     var id_parent='32';
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/insert?id_old=${id_old}&id_parent=${id_parent}`);
+        `http://213.178.34.212:18000/api/v1/tree/insert?id_old=${id_old}&id_parent=${id_parent}`);
     
 };
 
@@ -124,7 +124,7 @@ function rename(){
     var name='boot';
     var id_index='32';
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/rename?id_index=${id_index}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/rename?id_index=${id_index}&name=${name}`);
 };
 
 
@@ -140,7 +140,7 @@ function delet(){
     console.log("getFocus id=", del_id);    
     if ((element)&&(del_id!=="folder_root")) {
         fetchDataWithFetchAPI('DELETE', 
-            `http://213.178.34.212:18000/api/del?id_index=${del_id}`);
+            `http://213.178.34.212:18000/api/v1/tree/del?id_index=${del_id}`);
         element.remove();
         
     } else {

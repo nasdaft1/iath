@@ -103,5 +103,5 @@ function fetchDataWithFetchAPI(method, url) {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Вызов функции для загрузки данных
-    fetchDataWithFetchAPI('GET', 'http://213.178.34.212:18000/api/theme');
+    fetchDataWithFetchAPI('GET', 'http://213.178.34.212:18000/api/v1/tree/theme');
 });

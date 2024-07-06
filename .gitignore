@@ -263,6 +263,7 @@ env.bak/
 venv.bak/
 certbot/
 static/*.*
+.vscode/*.*
 
 # Spyder project settings
 .spyderproject
