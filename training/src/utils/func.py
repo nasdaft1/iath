@@ -6,7 +6,7 @@ class Incrementer:
     def increment(self):
         # Увеличение значения на 1
         self.value += 1
-        return str(self.value)
+        return self.value
 
 
 incrementer = Incrementer(20)

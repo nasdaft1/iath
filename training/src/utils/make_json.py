@@ -21,9 +21,9 @@ def dir_to_dict(path: str, depth: int):
             "#0#id": incrementer.increment(),
             '#1#folder': dir_to_dict(item_path, depth + 1) if os.path.isdir(item_path) else None}
     if depth == 0:
-        return {'root': {'#0#id': 'folder_root',
+        return {'root': {'#0#id': 0,
                          '#1#folder': directory_dict,
-                         '#2#max_id': str(incrementer.increment())}}
+                         '#2#max_id': incrementer.increment()}}
     return directory_dict
 
 
