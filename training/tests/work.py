@@ -117,7 +117,10 @@ print('-' * 100)
 # pprint.pprint(rename_json(start_data_json, [0, 36, 45, 46, 47, 48],'xxx'))
 
 # pprint.pprint(rename_json(start_data_json, [0, 52],'xxx'))
-#pprint.pprint(buffer_insert(start_data_json, [0, 52],'xxx'))
+# pprint.pprint(buffer_insert(start_data_json, [0, 52],'xxx'))
 
-pprint.pprint(tree.new_folder([0,36,36], 'www'))
-#pprint.pprint(buffer_insert(start_data_json, [0, 0], {'Z99task3b1.txt': {'#1#folder': {}, '#0#id': 53}}))
+pprint.pprint(tree.new_folder([0], 'www'))
+pprint.pprint(tree.new_folder([0], 'Z99task3b1.txt'))
+pprint.pprint(tree.new_folder([0, 36, 45, 46, 47, 48], 'Z99task3b1.txt'))
+#pprint.pprint(tree.new_folder([0, 36, 45, 46, 47], 'Z99task3b1.txt'))
+# pprint.pprint(buffer_insert(start_data_json, [0, 0], {'Z99task3b1.txt': {'#1#folder': {}, '#0#id': 53}}))

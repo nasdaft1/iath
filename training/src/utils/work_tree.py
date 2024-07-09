@@ -2,8 +2,6 @@ import pprint
 
 import orjson
 
-from utils.func import incrementer
-
 
 def buffer_copy(data_json: dict, id_index: str):
     """
@@ -16,7 +14,7 @@ def buffer_copy(data_json: dict, id_index: str):
         for key, value in data_json.items():
             folder = value.get('#1#folder')
             index = value.get('#0#id')
-            fun = buffer_in(folder, id_index)
+            fun = buffer_copy(folder, id_index)
             if fun:
                 return fun  # выполняется после найденного индекса
             if index == id_index:
@@ -25,7 +23,7 @@ def buffer_copy(data_json: dict, id_index: str):
     return {}  # выполняется до найденного индекса
 
 
-def buffer_insert(data_json: dict, insert_index: list, buffer: dict, level: int = 0, found=False):
+def buffer_insert(data_json: dict, insert_index: list, name: str, buffer: dict, level: int = 0, found=False):
     """
         Удаление файла или каталога
         :param data_json: Введенный json дерево
@@ -36,73 +34,22 @@ def buffer_insert(data_json: dict, insert_index: list, buffer: dict, level: int 
         :return: словарь, представляющий структуру директорий и файлов
         """
     data_out_json = {}
+    index_level = insert_index[level]
     if isinstance(data_json, dict):
         for key, value in data_json.items():
             folder = value.get('#1#folder', None)
+            print('->',folder)
             index = value.get('#0#id', None)
-            index_level = insert_index[level]
-
             if index_level == index:
-                if index_level == insert_index[-1]:
-                    print('222222222222222222')
-                    found = True
-                    print(folder)
-                    fun, found = buffer_insert(folder, insert_index, buffer, level + 1, found)
-                    print(fun,found)
-                    # data_out_json[key] = {'#1#folder': buffer, '#0#id': index}
-                    # нужна проверка на совпадения
-                else:
-                    print('111111111111111111111')
-                    fun, found = buffer_insert(folder, insert_index, buffer, level + 1, found)
-
-                    data_out_json[key] = {'#1#folder': fun if folder is not None else None, '#0#id': index}
+                fun, found = buffer_insert(folder, insert_index, name, buffer, level + 1, found)
+                data_out_json[key] = {'#1#folder': fun if folder is not None else None, '#0#id': index}
             else:
                 data_out_json[key] = {'#1#folder': folder, '#0#id': index}
+    print(level, index_level ,data_out_json)
+    if index_level is None:
+        data_out_json[name + '-copy' if data_out_json.get(name) else name] = buffer
+        found = True
     return data_out_json, found
-
-
-# def buffer_out(data_json: dict, id_index: str, buffer: dict,
-#                data_copy: dict = {}, marker=False, index_max=None):
-#     """
-#         Удаление файла или каталога
-#         :param data_json: Введенный json дерево
-#         :param id_index: Копируемый индекс
-#         :param buffer : Буфер json который вставляется в json
-#         :param data_copy : Буфер с данными копирования id-new:id-old
-#         :param marker : маркер вставки данных
-#         :param index_max: Максимальное значение индекса
-#         :return: словарь, представляющий структуру директорий и файлов
-#         """
-#     data_out_json = {}
-#     if isinstance(data_json, dict):
-#         for key, value in data_json.items():
-#             folder = value.get('#1#folder')
-#             index = value.get('#0#id')
-#             if max_id := value.get('#2#max_id'):
-#                 index_max = max_id
-#                 # if max_id < id_index:
-#                 #     raise ValueError("Cannot be added to a label/file")
-#
-#             fun, data_copy = buffer_out(folder, id_index, buffer, data_copy, marker, index_max)
-#             if index == id_index:
-#                 # для замены
-#                 key_buffer = next(iter(buffer.keys()))  # получить первый ключ по правилам он единственный
-#                 if fun.get(key_buffer):  # значит есть совпадение имен в элементе дерева
-#                     buffer[key_buffer + '-copy'] = buffer.pop(key_buffer)
-#                 fun_buffer, data_copy = buffer_out(buffer, id_index, buffer, data_copy, True, index_max)
-#                 fun.update(fun_buffer)
-#
-#             data = {'#1#folder': fun if folder is not None else None,
-#                     '#0#id': index}
-#             print(index_max)
-#             if marker:
-#                 index_max += 1
-#                 data['#0#id'] = index_max
-#                 data_copy.update({index_max: index})
-#             if index == 0:
-#                 data['#2#max_id'] = index_max
-#             data_out_json[key] = data
-#     return data_out_json, data_copy  # выполняется до найденного индекса
 
 
 def delete_json(data_json: dict, index_del: list, level: int = 0, found=False):
@@ -115,11 +62,12 @@ def delete_json(data_json: dict, index_del: list, level: int = 0, found=False):
     :return: словарь, представляющий структуру директорий и файлов, True если выполнено действие
     """
     data_out_json = {}
+    index_level = index_del[level]
     if isinstance(data_json, dict):
         for key, value in data_json.items():
             folder = value.get('#1#folder', None)
             index = value.get('#0#id', None)
-            index_level = index_del[level]
+            # index_level = index_del[level]
             if index_level == index:
                 if index_level == index_del[-1]:
                     found = True
@@ -142,11 +90,12 @@ def rename_json(data_json: dict, rename_index: list, name: str, level: int = 0, 
     :return: словарь, представляющий структуру директорий и файлов, True если выполнено действие
     """
     data_out_json = {}
+    index_level = rename_index[level]
     if isinstance(data_json, dict):
         for key, value in data_json.items():
             folder = value.get('#1#folder', None)
             index = value.get('#0#id', None)
-            index_level = rename_index[level]
+            # index_level = rename_index[level]
             if index_level == index:
                 if index_level == rename_index[-1]:
                     found = True
@@ -217,9 +166,10 @@ class DataJson:
     def new_label(self, id_parent: list, name: str) -> dict:
         print(id_parent, name)
         try:
+            id_parent.append(None)
             index_max = self.data.get('root').get('#2#max_id')
             buffer, action = buffer_insert(
-                self.data, id_parent, {name: {'#1#folder': None, '#0#id': '1'}})
+                self.data, id_parent, name, {'#1#folder': None, '#0#id': index_max + 1})
             buffer['root']['#2#max_id'] = index_max + 1 if action else index_max
         except AttributeError:
             raise ValueError("Cannot be added to a label/file")
@@ -228,11 +178,13 @@ class DataJson:
     def new_folder(self, id_parent: list, name: str) -> dict:
         print(id_parent, name)
         try:
+            id_parent.append(None)
             index_max = self.data.get('root').get('#2#max_id')
             buffer, action = buffer_insert(
-                self.data, id_parent, {name: {'#1#folder': {}, '#0#id': index_max+1}})
-            buffer['root']['#2#max_id'] = index_max+1
+                self.data, id_parent, name, {'#1#folder': {}, '#0#id': index_max + 1})
+            buffer['root']['#2#max_id'] = index_max + 1
             self.data = buffer
+            print(id_parent,action)
         except AttributeError:
             raise ValueError("Cannot be added to a label/file")
         return self.data

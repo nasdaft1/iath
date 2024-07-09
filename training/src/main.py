@@ -35,8 +35,8 @@ app.add_middleware(
 
 if __name__ == '__main__':
     # uvicorn.run("main:app", host="127.0.0.1", port=8000)
-    load_tree('d:\\12')
-    pprint.pprint(tree_work.get())
+    #load_tree('d:\\12')
+    #pprint.pprint(tree_work.get())
     uvicorn.run(app, host="192.168.1.81", port=8000)
 
     # main('d:\\12')  # Замените на путь к нужной директории
