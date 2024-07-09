@@ -70,7 +70,7 @@ function iterateJSON(obj, depth, parent, indent = '') {
 };
 
 // загрузка из json
-function fetchDataWithFetchAPI(method, url) {
+function fetchDataWithFetchAPI(method, url, data) {
     // const incrementer = new Incrementer(); // инициализация счетчика
     // const boundIncrementMethod = incrementer.getIncrementMethod(); //функции с передачей контекста
     // const url = 'http://213.178.34.212:18000/api/theme';
@@ -97,7 +97,9 @@ function fetchDataWithFetchAPI(method, url) {
         console.error('Произошла ошибка запроса.');
     };
     // Отправка запроса
-    xhr.send();
+    if (data !== undefined){
+        xhr.send(JSON.stringify(data))
+    } else {xhr.send();}
 };
 
 

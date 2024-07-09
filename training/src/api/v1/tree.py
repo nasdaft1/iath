@@ -1,7 +1,8 @@
 import logging
 import pprint
+import orjson
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from utils.work_tree import tree
 
 router = APIRouter()
@@ -24,7 +25,7 @@ async def search(  # request: Request,
 
 
 @router.post("/insert")
-async def insert(  # request: Request,
+async def insert(request: Request,
         id_old: str,
         id_parent: str):
     logging.info('/api/insert -> id_old=%id_old id_parent=%id_parent')
@@ -32,15 +33,16 @@ async def insert(  # request: Request,
 
 
 @router.post("/new_label")
-async def new_label(  # request: Request,
+async def new_label(request: Request,
         id_parent: str,
         name: str):
+
     logging.info('/api/new_label -> id_parent=%id_parent name=%name')
     return tree.new_label(id_parent, name)
 
 
 @router.post("/new_folder")
-async def new_folder(  # request: Request,
+async def new_folder(request: Request,
         id_parent: str,
         name: str):
     logging.info('/api/new_folder -> id_parent=%id_parent name=%name')
@@ -48,7 +50,7 @@ async def new_folder(  # request: Request,
 
 
 @router.post("/rename")
-async def rename(  # request: Request,
+async def rename(request: Request,
         id_index: str,
         name: str):
     logging.info('/api/rename -> id_index=%id_index name=%name')
@@ -57,9 +59,12 @@ async def rename(  # request: Request,
 
 @router.delete("/del")
 # @app.get("/api/theme", response_model=Data)
-async def delete_index(  # request: Request,
+async def delete_index( request: Request,
         id_index: str):
     logging.info('/api/del -> id_index=%id_index')
+    json_data = await request.json()
+    data_dict = orjson.loads(orjson.dumps(json_data))
+    pprint.pprint(data_dict)
     tree.delete(id_index)
     pprint.pprint(tree.get())
     return tree.get()

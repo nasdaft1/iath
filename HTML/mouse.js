@@ -133,17 +133,18 @@ function close_input(element_id) {
 
 // Рекурсивная функция для нахождения пути до корневого элемента
 function findPathToRoot(id) {
-    console.log('start')
+    // console.log('start')
     const path = [];
     let currentElement = document.getElementById(id);
-    console.log(currentElement)
+    // console.log(currentElement)
     while (currentElement) {
-        path.push(currentElement.id);
-        console.log(path)
-        console.log(currentElement)
+        path.push(parseInt(currentElement.id));
+        // console.log(path)
+        // console.log(currentElement)
         x = currentElement.getAttribute('parent_id')
         currentElement = document.getElementById(x);
     }
+    path.push(0);
     return path.reverse();
 }
 
@@ -151,22 +152,8 @@ function findPathToRoot(id) {
 function tree_focus_set(element){
     tree_focus.setFocus(element)
     const index = element.id
-    console.log('id-',index)
     const pathToRoot = findPathToRoot(index);
     console.log(pathToRoot)
-    /*
-    x=element.getAttribute('parent_id');
-    console.log('parent_id=',x)
-    element=document.getElementById(x)
-    console.log('parent_id1=',x.id)
-    
-    do {
-        console.log(element.x)
-        x = element.getAttribute('parent_id');
-    
-    } while (x=0) ;
-    */
-    
 }
 
 function check_run(func, element, parent_element, value){

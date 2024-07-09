@@ -714,3 +714,46 @@ new_label_52_data_json = {'root': {'#0#id': 0,
                                           'Z99task3b1.txt': {'#0#id': 52, '#1#folder': None}},
                             '#2#max_id': 52}}
 
+
+new_label_0_copy_root_data_json = {'root': {'#0#id': 0,
+                                '#1#folder': {'1B': {'#0#id': 36,
+                                                     '#1#folder': {'task1b1': {'#0#id': 37,
+                                                                               '#1#folder': {
+                                                                                   '111task1b1.txt': {'#0#id': 38,
+                                                                                                      '#1#folder': None},
+                                                                                   '222task1b1.txt': {'#0#id': 39,
+                                                                                                      '#1#folder': None},
+                                                                                   '333task1b1.txt': {'#0#id': 40,
+                                                                                                      '#1#folder': None}}},
+                                                                   'task2b1': {'#0#id': 41,
+                                                                               '#1#folder': {
+                                                                                   '444task2b1.txt': {'#0#id': 42,
+                                                                                                      '#1#folder': None},
+                                                                                   '555task2b1.txt': {'#0#id': 43,
+                                                                                                      '#1#folder': None},
+                                                                                   '666task2b1.txt': {'#0#id': 44,
+                                                                                                      '#1#folder': None}}},
+                                                                   'task3b1': {'#0#id': 45,
+                                                                               '#1#folder': {'1': {'#0#id': 46,
+                                                                                                   '#1#folder': {
+                                                                                                       'task1b1': {
+                                                                                                           '#0#id': 47,
+                                                                                                           '#1#folder': {
+                                                                                                               '111task1b1.txt': {
+                                                                                                                   '#0#id': 48,
+                                                                                                                   '#1#folder': None}}}}},
+                                                                                             '777task3b1.txt': {
+                                                                                                 '#0#id': 49,
+                                                                                                 '#1#folder': None},
+                                                                                             '888task3b1.txt': {
+                                                                                                 '#0#id': 50,
+                                                                                                 '#1#folder': None},
+                                                                                             '999task3b1.txt': {
+                                                                                                 '#0#id': 51,
+                                                                                                 '#1#folder': None}}}}},
+                                              'Z99task3b1.txt': {'#0#id': 52, '#1#folder': None},
+                                              'Z99task3b1.txt-copy': {'#0#id': 53, '#1#folder': None}
+                                              },
+                                '#2#max_id': 53}}
+
+

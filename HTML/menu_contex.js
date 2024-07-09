@@ -137,10 +137,13 @@ function delet(){
     var del_id = tree_focus.getFocus();
     var element = document.getElementById(del_id);
     tree_focus.setFocus();
-    console.log("getFocus id=", del_id);    
+    console.log("getFocus id=", del_id);
+
+    const data = {id:['36', '45', '46', '47']}
     if ((element)&&(del_id!=="folder_root")) {
         fetchDataWithFetchAPI('DELETE', 
-            `http://213.178.34.212:18000/api/v1/tree/del?id_index=${del_id}`);
+            `http://213.178.34.212:18000/api/v1/tree/del?id_index=${del_id}`,
+            data);
         element.remove();
         
     } else {
