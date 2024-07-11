@@ -2,8 +2,8 @@ var name_table = 'form-table';
 
 
 // Для генерации таблицы из json
-// Функция для создания блоков div с классом table-theme рекурсивно
 function createDivBlocks(depth, id , parent_id, text, folder) {
+    // Функция для создания блоков div с классом table-theme рекурсивно
     // depth - глубина дерева
     // id - идентификатор 
     // parent_id - идентификатор родителя
@@ -45,7 +45,6 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
 
 
 // Функция для перебора JSON данных
-
 // function iterateJSON(obj, incrementer, depth, parent, indent = '') {
 function iterateJSON(obj, depth, parent, indent = '') {
     // incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)

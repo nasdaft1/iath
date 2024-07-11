@@ -168,7 +168,7 @@ function check_run(func, element, parent_element, value){
 
 
 document.addEventListener('contextmenu', function (event) {
-    
+    // расчет выползания контекстного меню
     close_input_element(); // закрыть search_menu
     // Предотвращаем появление контекстного меню по умолчанию
     event.preventDefault();

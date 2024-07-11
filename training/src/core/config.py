@@ -104,9 +104,9 @@ def config_lang():
         return result
 
 
-security_config = Crypt()
-config = AppConfig()
-param_voice = config_lang()
-storage_config = StorageConfig()
-context_question = ContextQuestion()
-error_message = ErrorMessage()
+# security_config = Crypt()
+# config = AppConfig()
+# param_voice = config_lang()
+# storage_config = StorageConfig()
+# context_question = ContextQuestion()
+# error_message = ErrorMessage()

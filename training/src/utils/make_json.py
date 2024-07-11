@@ -5,6 +5,7 @@ from utils.work_tree import tree
 from utils.func import incrementer
 
 
+
 def dir_to_dict(path: str, depth: int):
     """
     Формирование json из файлов и каталогов в папке
@@ -27,7 +28,7 @@ def dir_to_dict(path: str, depth: int):
     return directory_dict
 
 
-def load_tree(directory: str) -> None:
+def load_tree_dir(directory: str) -> None:
     """
     Преобразование структуры директорий в словарь и запись в файл.
     :param directory: Результат json дерева после обработки
@@ -41,3 +42,13 @@ def load_tree(directory: str) -> None:
         json_file.write(json_structure)
     print("Структура директорий сохранена в файл directory_structure.json")
     tree.set(dir_structure)
+
+def load_tree_file(file_path: str) -> None:
+    """
+    Преобразование структуры директорий в словарь и запись в файл.
+    :param directory: Результат json дерева после обработки
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+        print("Структура директорий сохранена в файл directory_structure.json")
+        tree.set(data)

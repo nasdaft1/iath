@@ -119,8 +119,50 @@ print('-' * 100)
 # pprint.pprint(rename_json(start_data_json, [0, 52],'xxx'))
 # pprint.pprint(buffer_insert(start_data_json, [0, 52],'xxx'))
 
-pprint.pprint(tree.new_folder([0], 'www'))
-pprint.pprint(tree.new_folder([0], 'Z99task3b1.txt'))
-pprint.pprint(tree.new_folder([0, 36, 45, 46, 47, 48], 'Z99task3b1.txt'))
-#pprint.pprint(tree.new_folder([0, 36, 45, 46, 47], 'Z99task3b1.txt'))
+# pprint.pprint(tree.new_folder([0], 'www'))
+# pprint.pprint(tree.new_folder([0], 'Z99task3b1.txt'))
+# pprint.pprint(tree.new_folder([0, 36, 45, 46, 47, 48], 'Z99task3b1.txt'))
+
+
+# pprint.pprint(new_label_0_root_data_json)
+# pprint.pprint(tree.new_label([0], 'www0'))
+
+# pprint.pprint(tree.new_label([0, 21, 22, 1], '111task1b1.txt'))
+
 # pprint.pprint(buffer_insert(start_data_json, [0, 0], {'Z99task3b1.txt': {'#1#folder': {}, '#0#id': 53}}))
+# pprint.pprint(tree.get())
+
+# pprint.pprint(buffer_copy(start_data_json, [0, 36, 45, 46, 47, 48, None]))
+# pprint.pprint(tree.buffer_copy(start_data_json, [0]))
+# pprint.pprint(buffer_copy(start_data_json, [0, 36, 45, 46, 47, 48, None]))
+# pprint.pprint(buffer_copy(start_data_json, [0, 52, None]))
+# pprint.pprint(buffer_copy(start_data_json, [0, 36, 45, 46, 47, None]))
+#
+buffer_copy_22 = {'task1a1': {'#0#id': 22,
+                              '#1#folder': {'111task1a1.txt': {'#0#id': 23, '#1#folder': {}},
+                                            '222task1a1.txt': {'#0#id': 24, '#1#folder': None},
+                                            '333task1a1.txt': {'#0#id': 25, '#1#folder': None},
+                                            'task3b1': {'#0#id': 26,
+                                                        '#1#folder': {'G333task1a1.txt': {'#0#id': 27,
+                                                                                          '#1#folder': None}}}}}}
+
+# pprint.pprint(buffer_indexation(buffer_copy_22, 50, []))
+#
+# print('-' * 100)
+#
+# buffer_copy_22_1 = {'task1a1': {'#0#id': 22,
+#                                 '#1#folder': {'111task1a1.txt': {'#0#id': 23, '#1#folder': None}}}}
+#
+# pprint.pprint(buffer_indexation(buffer_copy_22_1, 50, []))
+#
+#
+# print('-' * 100)
+#
+# buffer_copy_22_1 = {'111task1a1.txt': {'#0#id': 23, '#1#folder': None}}
+#
+# pprint.pprint(buffer_indexation(buffer_copy_22_1, 50, []))
+#
+#
+# key, value = next(iter(buffer_copy_22_1.items()))
+# print(key, value)
+pprint.pprint(tree.copy_insert_data([0, 36, 45, 46, 47], [0, 21, 122]))
