@@ -18,7 +18,7 @@
     <script src="mouse.js"></script>
     <script src="javascript.js"></script>
     <script src="menu_contex.js"></script>
-    <script src="cookies.js"></script>
+    <script src="local.js"></script>
     <header>
         <!-- верхнее меню -->
         <nav class="navbar">
@@ -131,7 +131,7 @@
             <img src="png\close.png" id="close-login">
             <h1>Login</h1>
             <form action="/login" method="post">
-                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <input type="email" id="email" name="email" placeholder="E-mail" autocomplete="email" required><br><br>
                 <input type="password" id="login-password" name="password" placeholder="Password" required><br><br>
                 <button id="enter-login" type="submit">Login Now</button>
                 <h1 id="link-forgot-password">Forgot Password</h1>
@@ -143,7 +143,7 @@
             <img src="png\close.png" id="close-restore">
             <h1>Restore password</h1>
             <form action="/login" method="post">
-                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <input type="email" id="email" name="email" placeholder="E-mail" autocomplete="email" required><br><br>
                 <button id="enter-restore" type="submit">Send by email</button>
             </form>
         </div>
@@ -152,7 +152,7 @@
             <img src="png\close.png" id="close-reg">
             <h1>Registration</h1>
             <form action="/registration" method="post">
-                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+                <input type="email" id="email" name="email" placeholder="E-mail" autocomplete="email" required><br><br>
                 <input type="password" id="reg-password" name="password" placeholder="Password" required><br><br>
                 <input type="password" id="reg-confirm_password" name="confirm_password" placeholder="Confirm password" required><br><br>
                 <button id="enter-reg" type="submit">Registration</button>
@@ -205,7 +205,7 @@
                 <div class="cell-menu" id="search_menu">
                     <img src="png/search.png" id="img_input" alt="Icon">
                     <!-- <input type="search" name="search"/>-->
-                    <input type="text" id="search_input" >
+                    <input type="text" id="tree_input" >
                     <img src="png/close_input.png" id="close_input" alt="Icon">
                 </div>
                 <div class="cell-menu" id="folder_root">

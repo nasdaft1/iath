@@ -5,3 +5,4 @@ orjson==3.10.5
 
 fastapi-pagination==0.12.10
 pytest==7.4.0
+pydantic==2.8.2

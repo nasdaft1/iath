@@ -1,29 +1,18 @@
 
 
-class ExchangeBuffer {
-    setBuffer(element_id){
-        this.id = element_id;
-    }
 
-    getBuffer(){
-        return this.id;
-    }
-}
-
-
-const exchange_buffer = new ExchangeBuffer();
 
 
 function inputDiv(text_placeholder, path_img){
     // обработка поля ввода визуализаци и фокусировка
     var targetDiv = document.getElementById("search_menu");
     var targetImg = document.getElementById("img_input");
-    var targetInput= document.getElementById("search_input");
+    var targetInput= document.getElementById("tree_input");
     targetInput.placeholder =text_placeholder;
     targetInput.value="";
     targetImg.src=path_img;
     targetDiv.style.visibility = "visible";
-    document.getElementById("search_input").focus();
+    document.getElementById("tree_input").focus();
 }
 
 
@@ -41,9 +30,7 @@ function roll(name_old_png, name_new_png, element_display){
     // для сворачивания и разворачивания дерева с каталогами 
     var formTables = document.querySelectorAll(".table-theme");
     const lenght_name_old_png =name_old_png.length;
-
     // console.log(lenght_name_old_png, name_old_png);
-
     // Перебрать все элементы
     formTables.forEach(function(table, index) {
         var element= document.getElementById(table.id);
@@ -52,6 +39,14 @@ function roll(name_old_png, name_new_png, element_display){
         var iconImg = iconImgAll[nextDepth].src;
         if (nextDepth !== 0){
             element.style.display = element_display
+            if (element_display === 'none') {
+                // передать в глабальную переменную состояние видимости дерева
+                delete globalСonditionTree[String(element.id)]
+            }
+            else{
+                // передать в глабальную переменную состояние не видимости дерева
+                globalСonditionTree[String(element.id)]= 1
+            }
         }
         if (iconImg.slice(-lenght_name_old_png) === name_old_png){
             iconImgAll[nextDepth].src = name_new_png;
@@ -64,25 +59,22 @@ function roll_up(){
     // свернуть все дерево
     roll("tree-open.png","png/tree-close.png",'none');
     console.log("Свернуть");
-    tree_focus.deleteFocus(); //удалить фокус выделение а дереве
 };
 
 function un_roll(){
     // развернуть все дерево
     console.log("Развернуть");
     roll("tree-close.png","png/tree-open.png","flex");
-    tree_focus.deleteFocus(); //удалить фокус выделение а дереве
 };
 
 function new_label(){
     console.log("Новая заметка");
     // Новая заметка
     inputDiv('Имя новой заметки', 'png/new_label.png');
-    //document.getElementById("search_input").focus();
-    var name='jax';
-    var id_parent='34';
+
+    const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/new_label?id_parent=${id_parent}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/new_label`, data);
 
 };
 
@@ -90,41 +82,37 @@ function new_folder(){
     // Новая папка
     console.log("Новая папка");
     inputDiv('Имя новой папки', 'png/new_folder.png');
-    var name='jax';
-    var id_parent='32';
+    const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/new_folder?id_parent=${id_parent}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/new_folder`, data);
 };
 
 function copy(){
     // Новая заметка
-    console.log("Копировать",tree_focus.getFocus());
-    exchange_buffer.setBuffer(tree_focus.getFocus());
+    console.log("Копировать");
+    //exchange_buffer.setBuffer(tree_focus.getFocus());
+    tree_focus.copy_in_buffer();
     tree_focus.deleteFocus(); //удалить фокус выделение а дереве
 };
 
 function insert(){
     // Новая папка
     console.log("Вставить");
-    var id_buffer = exchange_buffer.getBuffer();
-    console.log("Взять из ",id_buffer);
-    console.log("Вставить в ",tree_focus.getFocus());
     tree_focus.deleteFocus();
-    var id_old='2';
-    var id_parent='32';
+    const data = {"id_path_copy":tree_focus.id_path_buffer,
+                  "id_path_insert":tree_focus.id_path}
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/insert?id_old=${id_old}&id_parent=${id_parent}`);
-    
+        `http://213.178.34.212:18000/api/v1/tree/insert`, data);
 };
 
 function rename(){
     // Новая папка
     console.log("Переименовать");
     inputDiv('Введите новое имя', 'png/rename.png');
-    var name='boot';
-    var id_index='32';
+    var name='xxxx.txt';
+    const data = {"id_path":tree_focus.id_path, 'name': 'xxxx.txt'}
     fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/rename?id_index=${id_index}&name=${name}`);
+        `http://213.178.34.212:18000/api/v1/tree/rename`, data);
 };
 
 
@@ -134,24 +122,15 @@ function rename(){
 function delet(){
     // удалеие папки
     console.log("Удалить");
-    var del_id = tree_focus.getFocus();
-    var element = document.getElementById(del_id);
     tree_focus.setFocus();
-    console.log("getFocus id=", del_id);
-
-    const data = {id:['36', '45', '46', '47']}
-    if ((element)&&(del_id!=="folder_root")) {
+    const data = {id_path:tree_focus.id_path}
+    if ((element)&&(del_id!==0)) {
         fetchDataWithFetchAPI('DELETE', 
-            `http://213.178.34.212:18000/api/v1/tree/del?id_index=${del_id}`,
+            `http://213.178.34.212:18000/api/v1/tree/del`,
             data);
-        element.remove();
-        
     } else {
         console.log("не найден для удаления id=", del_id);    
     }
-    
-
-    
 };
 
 

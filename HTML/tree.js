@@ -1,5 +1,17 @@
 var name_table = 'form-table';
 
+function checkLocalTree(key, result_true, result_false){
+    // key - ключ для получение видимый объект или нет 
+    // result_true - результат получаемый при true
+    // result_false - результат получаемый при false
+    if (globalСonditionTree[String(key)] !=1){
+            return result_true
+        }
+        else{
+            return result_false
+        }
+    
+}
 
 // Для генерации таблицы из json
 function createDivBlocks(depth, id , parent_id, text, folder) {
@@ -14,7 +26,8 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
     div.className = 'table-theme';
     if (depth>0) {
         div.id = id; // назначаем идентификатор
-        div.style.display = 'none'; // отключаем видимость
+        // получение из глобальной переменной из cookes данные видимости блоков
+        div.style.display = checkLocalTree(id ,'none','flex')
     };
     // Назачение дополительного атрибута родительского id элементы
     div.setAttribute('id', id);
@@ -24,11 +37,12 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
     // Создать элемент span
     const span = document.createElement('span');
     span.textContent = text;
-    // Добавить изображение и span в div
+    // Добавить изображениЯ и span в div
     for (let i = 0; i <= depth; i++) {
         // Создать элемент изображения
         const img = document.createElement('img');
         if ((i === depth) && (folder === true)) {
+            // для рисование определение закрытого открытого каталога
             img.src = 'png/tree-close.png';
         } else if ((i === depth) && (folder === false)) {
             img.src = 'png/tree-clear.png';
@@ -39,23 +53,24 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
         div.appendChild(img);
     };
     div.appendChild(span);
-    // Добавить div в контейнер
     document.getElementById(name_table).appendChild(div);
 };
 
 
 // Функция для перебора JSON данных
-// function iterateJSON(obj, incrementer, depth, parent, indent = '') {
 function iterateJSON(obj, depth, parent, indent = '') {
     // incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)
     // depth: дла передачи и расчета глубины вложенности
     // parent: для передачи id наследнику от родителя
     // создание корневога каталога
+
+    var element = document.getElementById(parent);
+    let last_key; // для получение последнего id и уменьщения количество проверок
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
-            // var id = incrementer();
             var id = obj[key]['#0#id'];
             var data = obj[key]['#1#folder'];
+            last_key = id
             if (data!==null) { 
                 // каталог
                 createDivBlocks(depth, id, parent, key, true);
@@ -65,6 +80,11 @@ function iterateJSON(obj, depth, parent, indent = '') {
                 createDivBlocks(depth, id, parent, key, false);
             };
         };
+        // найти родителя и изменить мконку выпадающего списка
+        if (globalСonditionTree[last_key] ===1 && parent>0){
+            var elementImg = element.querySelectorAll('img');
+            elementImg[depth-1].src = 'png/tree-open.png'
+        }
     };
 };
 
@@ -84,7 +104,6 @@ function fetchDataWithFetchAPI(method, url, data) {
             document.getElementById('form-table').innerHTML = '';
             console.log('загрузить данные в дерево');
             iterateJSON(data['root']['#1#folder'],0, data['root']['#0#id'])
-            // iterateJSON(data, 0, 0)
         } else {
             console.error('Запрос не удался. Статус:', xhr.status);
         };
@@ -92,13 +111,21 @@ function fetchDataWithFetchAPI(method, url, data) {
     // Настройка запроса: метод GET и URL
     xhr.open(method, url, true);
     // Обработчик ошибок
+    // Устанавливаем заголовок Content-Type для отправки JSON
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onerror = function () {
         console.error('Произошла ошибка запроса.');
     };
     // Отправка запроса
     if (data !== undefined){
-        xhr.send(JSON.stringify(data))
-    } else {xhr.send();}
+        console.log('отправлено= ',data)
+        xx = JSON.stringify(data)
+        console.log('отправлено=> ',xx)
+        xhr.send(xx)
+    } else {
+        console.log('отправлено запрос без данных')
+        xhr.send();
+    }
 };
 
 

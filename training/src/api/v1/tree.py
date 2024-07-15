@@ -4,67 +4,60 @@ import orjson
 
 from fastapi import APIRouter, Request
 from utils.work_tree import tree
+from models.base import ApiDel, ApiRename, ApiInsert, ApiNewLabel, ApiNewFolder
 
 router = APIRouter()
 
 
+
 @router.get("/theme")  # получение списка каталога и фалов
-# @app.get("/api/theme", response_model=Data)
-async def theme(
-        # request: Request
-):
+async def theme(request: Request):
     logging.info('/api/theme')
     return tree.get()
 
 
 @router.get("/search")
-async def search(  # request: Request,
-        name: str):
+async def search(request: Request,
+                 name: str):
     logging.info('/api/search -> name=%name')
     return tree.search(name)
 
 
 @router.post("/insert")
-async def insert(request: Request,
-        id_old: str,
-        id_parent: str):
-    logging.info('/api/insert -> id_old=%id_old id_parent=%id_parent')
-    return tree.insert(id_old, id_parent)
+async def insert(data: ApiInsert):
+    logging.info(f'data = {data}')
+    return tree.get()
+    #return tree.insert(id_old, id_parent)
 
 
 @router.post("/new_label")
-async def new_label(request: Request,
-        id_parent: str,
-        name: str):
-
-    logging.info('/api/new_label -> id_parent=%id_parent name=%name')
-    return tree.new_label(id_parent, name)
+async def new_label(data: ApiNewLabel):
+    logging.info(f'data = {data}')
+    #return tree.new_label(id_parent, name)
+    return tree.get()
 
 
 @router.post("/new_folder")
-async def new_folder(request: Request,
-        id_parent: str,
-        name: str):
-    logging.info('/api/new_folder -> id_parent=%id_parent name=%name')
-    return tree.new_folder(id_parent, name)
+async def new_folder(data: ApiNewFolder):
+    logging.info(f'data = {data}')
+    # return tree.new_folder(id_parent, name)
+    return tree.get()
 
 
 @router.post("/rename")
-async def rename(request: Request,
-        id_index: str,
-        name: str):
-    logging.info('/api/rename -> id_index=%id_index name=%name')
-    return tree.rename(id_index, name)
+async def rename(data: ApiRename):
+    logging.info(f'data = {data}')
+    # return tree.rename(id_index, name)
+    return tree.get()
 
 
 @router.delete("/del")
-# @app.get("/api/theme", response_model=Data)
-async def delete_index( request: Request,
-        id_index: str):
-    logging.info('/api/del -> id_index=%id_index')
-    json_data = await request.json()
-    data_dict = orjson.loads(orjson.dumps(json_data))
-    pprint.pprint(data_dict)
-    tree.delete(id_index)
-    pprint.pprint(tree.get())
+async def delete_index(data: ApiDel):
+    logging.debug(f'data = {data}')
+    # json_data = await request.json()
+    # data_dict = orjson.loads(orjson.dumps(json_data))
+    # pprint.pprint(data_dict)
+    # await tree.delete(id_index)
+    # pprint.pprint(tree.get())
+
     return tree.get()

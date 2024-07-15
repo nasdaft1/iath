@@ -1,43 +1,64 @@
 var context_menu_heigh;
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // высота контекстного меню 
-    var context_menu_element=document.getElementById("contextMenu");
-    var context_menu_heigh_str=window.getComputedStyle(context_menu_element).height;
-    context_menu_heigh = parseInt(context_menu_heigh_str, 10) // в число
-});
+
 
 
 class TreeFocus {
-    setFocus(element=undefined) {
+    id_path=[] //путь для выбранного элемента
+    id_path_buffer=[] // путь до копируемого элемента
+    name = null
+
+    setFocus(element=undefined, id_path=[]) {
         // выставление выделение на tree
         // Без атрибутов сбрасывается в дефолт
-        // console.log('set_id= ', this.id)
         if (element!==undefined) {
             this.id = element.id;
             this.targetDiv = document.getElementById(element.id);
             this.targetDiv.style.outline = "2px solid #007bff";
-            // console.log(this.id)
         } else {
             this.id = undefined; // дефолтное значение
         }
+        this.id_path = id_path
+        console.log('path=',this.id_path)
+        console.log('id_path_buffer=',this.id_path_buffer)
+        console.log('setFocus')
     };
 
+    
     deleteFocus() {
         // удаление выделение на tree
         if (this.id !== undefined){
             this.targetDiv = document.getElementById(this.id);
             // this.targetDiv.style.outline = "2px solid #707070";
             this.targetDiv.style.outline = "none";
+            this.name = null // очищаем данные с поле ввода
         };
     };
 
-    getFocus() {
-        // получеие id выделение на tree
-        return this.id;
-    };
+    copy_in_buffer(){
+        // копирования пути в буффер пути
+        this.id_path_buffer=this.id_path
+        console.log('id_path_buffer=',this.id_path_buffer)
+    }
+    
+    getPathId(){
+        // Получение пути выделенного файла или каталога
+        return this.id_path
+    }
+    getBufferId(){
+        // Получение пути выделенного файла или каталога в буфере
+        this.id_path=id_path
+        return this.id_path_buffer
+    }
 
+    setTreeInput(name){
+        // значение поле ввода присваивается в переменную если не пустое
+        if (name!==''){
+            this.name = name
+            console.log('name=',this.name)
+        }
+    }
 };
 
 
@@ -49,7 +70,7 @@ function close_context_menu(){
     // Закрытие констектного меню
     var element_menu = document.getElementById("contextMenu") 
     element_menu.style.display = 'none';
-    // tree_focus.deleteFocus();
+    tree_focus.deleteFocus();
 };
 
 function open_tree(targetDiv, depth, iconImg, index_icon){
@@ -62,6 +83,8 @@ function open_tree(targetDiv, depth, iconImg, index_icon){
         if (nextDepth===depth){break;}
         if (nextDepth === (depth +1)){
             nextElement.style.display = 'flex';
+            // передать в глабальную переменную состояние видимости дерева
+            globalСonditionTree[String(nextElement.id)]= 1
         };
         nextElement = nextElement.nextElementSibling;
     };
@@ -79,10 +102,13 @@ function close_tree(targetDiv, depth, iconImg, index_icon){
         var iconImgLength = iconImgNext.length -1;
         
         var iconTextNext = iconImgNext[iconImgLength].src.slice(-13)
+        
         if (iconTextNext ==='tree-open.png'){
             iconImgNext[iconImgLength].src = 'png/tree-close.png';
         };
         nextElement.style.display = 'none'; // отключаем видимость
+        // передать в глабальную переменную состояние не видимости дерева
+        delete globalСonditionTree[String(nextElement.id)]
         nextElement = nextElement.nextElementSibling;
     };
 };
@@ -112,13 +138,14 @@ function open_click(div){
     if ((targetDiv) && (folder ==='true')) {
         var iconImg = targetDiv.querySelectorAll('img');
         check_img(targetDiv, depth, iconImg, iconImg.length-1);
+        
     };
 };
 
 function close_input_element(){
     var targetDiv = document.getElementById("search_menu");
     targetDiv.style.visibility = "hidden";
-    document.getElementById("search_input").value = '';
+    document.getElementById("tree_input").value = '';
     tree_focus.deleteFocus();
 }
 
@@ -133,14 +160,10 @@ function close_input(element_id) {
 
 // Рекурсивная функция для нахождения пути до корневого элемента
 function findPathToRoot(id) {
-    // console.log('start')
     const path = [];
     let currentElement = document.getElementById(id);
-    // console.log(currentElement)
     while (currentElement) {
         path.push(parseInt(currentElement.id));
-        // console.log(path)
-        // console.log(currentElement)
         x = currentElement.getAttribute('parent_id')
         currentElement = document.getElementById(x);
     }
@@ -149,11 +172,12 @@ function findPathToRoot(id) {
 }
 
 
-function tree_focus_set(element){
-    tree_focus.setFocus(element)
+function get_path_tree_focus(element){
     const index = element.id
     const pathToRoot = findPathToRoot(index);
-    console.log(pathToRoot)
+    tree_focus.setFocus(element, pathToRoot)
+    //console.log(pathToRoot)
+    return pathToRoot
 }
 
 function check_run(func, element, parent_element, value){
@@ -169,7 +193,6 @@ function check_run(func, element, parent_element, value){
 
 document.addEventListener('contextmenu', function (event) {
     // расчет выползания контекстного меню
-    close_input_element(); // закрыть search_menu
     // Предотвращаем появление контекстного меню по умолчанию
     event.preventDefault();
     // Получить высоту окна браузера
@@ -187,8 +210,8 @@ document.addEventListener('contextmenu', function (event) {
         // Получаем координаты клика
         var menu = document.getElementById("contextMenu") 
         tree_focus.deleteFocus();
-        check_run(tree_focus_set, clickedElement, parentElement, "table-theme")
-        check_run(tree_focus_set, clickedElement, parentElement, "cell-menu")
+        check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme")
+        check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu")
         // устанавливаем координаты и отображаем
         menu.style.left = (event.clientX) + "px";
         // чтобы контекстное меню не выползало из экрана
@@ -202,14 +225,13 @@ document.addEventListener('contextmenu', function (event) {
         // закрываем контекстное меню если производится попытка открыть
         // вне области применения
         close_context_menu();
+        close_input_element();
     };
 });
 
 
 
-function cell_click(){
-    // console.log('11111111111111111')
-};
+function cell_click(){};
 
 // Функция, которая будет вызываться при клике правой кнопке
 function handleClick(event) {
@@ -230,6 +252,20 @@ function handleClick(event) {
     };
 };
 
+
+function tree_input_handle_Key(event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        console.log('Enter pressed!');
+        tree_focus.setTreeInput(event.target.value);
+        close_input_element();
+    }
+    if (event.key === 'Escape' || event.key === 'Esc') {
+        console.log('Esc pressed!');
+        close_input_element();
+    }
+}
+
+
 // Добавляем обработчик событий клик для всего документа
 document.addEventListener('click', handleClick);
 
@@ -241,4 +277,14 @@ document.addEventListener('keydown', function(event) {
         close_context_menu();
         tree_focus.deleteFocus();
     }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // высота контекстного меню 
+    var context_menu_element=document.getElementById("contextMenu");
+    var context_menu_heigh_str=window.getComputedStyle(context_menu_element).height;
+    context_menu_heigh = parseInt(context_menu_heigh_str, 10) // в число
+    const tree_input = document.getElementById('tree_input');
+    tree_input.addEventListener('keyup', tree_input_handle_Key);
 });
