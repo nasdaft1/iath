@@ -7,7 +7,9 @@ var context_menu_heigh;
 class TreeFocus {
     id_path=[] //путь для выбранного элемента
     id_path_buffer=[] // путь до копируемого элемента
-    name = null
+    //name = null
+    method = ''
+    url = ''
 
     setFocus(element=undefined, id_path=[]) {
         // выставление выделение на tree
@@ -28,13 +30,22 @@ class TreeFocus {
     
     deleteFocus() {
         // удаление выделение на tree
+        
         if (this.id !== undefined){
+            console.log('deleteFocus()')
             this.targetDiv = document.getElementById(this.id);
             // this.targetDiv.style.outline = "2px solid #707070";
             this.targetDiv.style.outline = "none";
-            this.name = null // очищаем данные с поле ввода
+            
         };
     };
+
+    /*createData(){
+        // очистка данных
+        this.name = null; // очищаем данные с поле ввода
+        this.method = '';
+        this.url = '';
+    }*/
 
     copy_in_buffer(){
         // копирования пути в буффер пути
@@ -42,7 +53,7 @@ class TreeFocus {
         console.log('id_path_buffer=',this.id_path_buffer)
     }
     
-    getPathId(){
+    /*getPathId(){
         // Получение пути выделенного файла или каталога
         return this.id_path
     }
@@ -57,6 +68,27 @@ class TreeFocus {
         if (name!==''){
             this.name = name
             console.log('name=',this.name)
+        }        
+    }*/
+
+    setEnterTreeInput(method, url){
+        this.method = method;
+        this.url = url;
+        console.log('method', this.method)
+        console.log('url',this.url)
+    }
+
+    sendDataEnter(name){
+        // if (this.method!=='' && this.url!=='' && this.name!==null){
+        if (this.method!=='' && this.url!=='' && name!==null){
+            fetchDataWithFetchAPI(this.method,
+                this.url, 
+                {"id_path":this.id_path, 'name': name});
+        } else {
+            // console.log('method', this.method)
+            // console.log('url',this.url)
+            // console.log('mname',this.name)
+            console.error("Method, URL, or name is not properly set.");
         }
     }
 };
@@ -70,7 +102,6 @@ function close_context_menu(){
     // Закрытие констектного меню
     var element_menu = document.getElementById("contextMenu") 
     element_menu.style.display = 'none';
-    tree_focus.deleteFocus();
 };
 
 function open_tree(targetDiv, depth, iconImg, index_icon){
@@ -209,7 +240,6 @@ document.addEventListener('contextmenu', function (event) {
         ) {
         // Получаем координаты клика
         var menu = document.getElementById("contextMenu") 
-        tree_focus.deleteFocus();
         check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme")
         check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu")
         // устанавливаем координаты и отображаем
@@ -245,19 +275,22 @@ function handleClick(event) {
         check_run(open_click, element, parent_element, 'table-theme');
         check_run(menu_click, element, parent_element, 'menu-cont');
         check_run(cell_click, element, parent_element, 'cell=menu');
-        if (parent_element.id==="search_menu"){
+        /*if (parent_element.id==="search_menu"){
             close_input(element.id); // закрытие input
-        }
+        }*/
         close_context_menu();
     };
 };
 
 
 function tree_input_handle_Key(event) {
+    // обработка нажатия на поле input
     if (event.key === 'Enter' || event.keyCode === 13) {
         console.log('Enter pressed!');
-        tree_focus.setTreeInput(event.target.value);
+        //tree_focus.setTreeInput(event.target.value);
+        const input_text = event.target.value
         close_input_element();
+        tree_focus.sendDataEnter(input_text);
     }
     if (event.key === 'Escape' || event.key === 'Esc') {
         console.log('Esc pressed!');

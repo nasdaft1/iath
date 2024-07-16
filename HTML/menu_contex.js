@@ -1,8 +1,3 @@
-
-
-
-
-
 function inputDiv(text_placeholder, path_img){
     // обработка поля ввода визуализаци и фокусировка
     var targetDiv = document.getElementById("search_menu");
@@ -21,8 +16,8 @@ function search(){
     console.log("Поиск");
     tree_focus.deleteFocus(); //удалить фокус выделение а дереве
     inputDiv('Текст для поиска', 'png/search.png');
-    var name='jinx';
-    fetchDataWithFetchAPI('GET', `http://213.178.34.212:18000/api/v1/tree/search?name=${name}`);
+    tree_focus.setEnterTreeInput('POST', 
+        `http://213.178.34.212:18000/api/v1/tree/search`)
 };
 
 
@@ -56,13 +51,13 @@ function roll(name_old_png, name_new_png, element_display){
 
 
 function roll_up(){
-    // свернуть все дерево
+    // +свернуть все дерево
     roll("tree-open.png","png/tree-close.png",'none');
     console.log("Свернуть");
 };
 
 function un_roll(){
-    // развернуть все дерево
+    // +развернуть все дерево
     console.log("Развернуть");
     roll("tree-close.png","png/tree-open.png","flex");
 };
@@ -71,10 +66,10 @@ function new_label(){
     console.log("Новая заметка");
     // Новая заметка
     inputDiv('Имя новой заметки', 'png/new_label.png');
-
-    const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
-    fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/new_label`, data);
+    // const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
+    tree_focus.setEnterTreeInput('POST', 
+        `http://213.178.34.212:18000/api/v1/tree/new_label`)
+    
 
 };
 
@@ -82,60 +77,47 @@ function new_folder(){
     // Новая папка
     console.log("Новая папка");
     inputDiv('Имя новой папки', 'png/new_folder.png');
-    const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
-    fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/new_folder`, data);
+    // const data = {"id_path":tree_focus.id_path, 'name': 'jax'}
+    tree_focus.setEnterTreeInput('POST', 
+        `http://213.178.34.212:18000/api/v1/tree/new_folder`)
+    
 };
 
 function copy(){
-    // Новая заметка
+    // +Новая заметка
     console.log("Копировать");
-    //exchange_buffer.setBuffer(tree_focus.getFocus());
     tree_focus.copy_in_buffer();
-    tree_focus.deleteFocus(); //удалить фокус выделение а дереве
 };
 
 function insert(){
-    // Новая папка
+    // +Вставить из буффера
     console.log("Вставить");
-    tree_focus.deleteFocus();
     const data = {"id_path_copy":tree_focus.id_path_buffer,
-                  "id_path_insert":tree_focus.id_path}
+                  "id_path_insert":tree_focus.id_path};
     fetchDataWithFetchAPI('POST', 
         `http://213.178.34.212:18000/api/v1/tree/insert`, data);
 };
 
 function rename(){
-    // Новая папка
+    // +Переименование папок и файлов
     console.log("Переименовать");
     inputDiv('Введите новое имя', 'png/rename.png');
-    var name='xxxx.txt';
-    const data = {"id_path":tree_focus.id_path, 'name': 'xxxx.txt'}
-    fetchDataWithFetchAPI('POST', 
-        `http://213.178.34.212:18000/api/v1/tree/rename`, data);
+    tree_focus.setEnterTreeInput('POST', 
+        `http://213.178.34.212:18000/api/v1/tree/rename`);
 };
-
-
-
-
 
 function delet(){
-    // удалеие папки
+    // +удалеие папки
     console.log("Удалить");
-    tree_focus.setFocus();
-    const data = {id_path:tree_focus.id_path}
-    if ((element)&&(del_id!==0)) {
-        fetchDataWithFetchAPI('DELETE', 
-            `http://213.178.34.212:18000/api/v1/tree/del`,
-            data);
-    } else {
-        console.log("не найден для удаления id=", del_id);    
-    }
+    fetchDataWithFetchAPI('DELETE',
+        `http://213.178.34.212:18000/api/v1/tree/del`,
+        {"id_path":tree_focus.id_path});
 };
 
 
-// обработка контекстного меню
+
 function menu_click(menu_cont){
+    // обработка контекстного меню
     var id_menu_cont = menu_cont.id;
     if (id_menu_cont==="search"){ search();
     } else if (id_menu_cont==="roll_up"){ roll_up();

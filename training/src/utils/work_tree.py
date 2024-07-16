@@ -162,7 +162,8 @@ class DataJson:
         buffer, rename_index, index_max = buffer_indexation(buffer, index_max, [])
         key, value = next(iter(buffer.items()))
         buffer, action = buffer_insert(self.data, insert_indexes, key, value)
-        return self.update_data(buffer, index_max, action, 0),rename_index
+        # return self.update_data(buffer, index_max, action, 0),rename_index
+        return self.update_data(buffer, index_max, action, 0), rename_index
 
     def buffer_copy(self, id_indexes: list) -> dict:
         id_indexes.append(None)
