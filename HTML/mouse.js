@@ -18,7 +18,9 @@ class TreeFocus {
             this.id = element.id;
             this.id_path_last = Number(element.id);
             this.targetDiv = document.getElementById(element.id);
-            this.targetDiv.style.outline = "3.0px solid rgb(116, 116, 116)";
+            this.targetDiv.style.outline = "3.0px solid rgb(70, 52, 236)";
+            var clear_bag = document.getElementById('form-table');
+            clear_bag.style.backgroundColor = 'var(--theme-color)'
             console.log('11');
         } else {
             this.id = undefined; // дефолтное значение
@@ -38,7 +40,7 @@ class TreeFocus {
             if (this.targetDiv !== null) {
                 this.targetDiv.style.outline = 'none';
                 // для того чтобы убрать артуфакты
-                clear_bag.style.backgroundColor = 'rgb(128, 128, 128, 1.0)'
+                clear_bag.style.backgroundColor = 'var(--theme-color1)'
                 console.log('clear')
 
             }
