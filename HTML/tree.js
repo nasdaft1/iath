@@ -37,10 +37,12 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
     // Создать элемент span
     const span = document.createElement('span');
     span.textContent = text;
+    span.className = 'table-theme-add';
     // Добавить изображениЯ и span в div
     for (let i = 0; i <= depth; i++) {
         // Создать элемент изображения
         const img = document.createElement('img');
+        img.className = 'table-theme-add';
         if ((i === depth) && (folder === true)) {
             // для рисование определение закрытого открытого каталога
             img.src = 'png/tree-close.png';
@@ -53,17 +55,33 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
         div.appendChild(img);
     };
     div.appendChild(span);
+    const divNew = document.createElement('div');
+    div.appendChild(divNew);
+    if (tree_focus.id_path_last ==id){
+        //div.style.transition ='background-color 3.3s ease 1s';
+        div.style.backgroundColor ='yellow';
+    }
+    if (tree_focus.id_path_last ==parent_id){
+        //div.style.transition ='background-color 3.3s ease 1s';
+        div.style.backgroundColor ='red';
+    }
     document.getElementById(name_table).appendChild(div);
+    /*if (tree_focus.id_path_last ==id){
+        xx = document.getElementById('id')
+        //div.style.transition ='background-color 3.3s ease';
+        //div.style.backgroundColor ='red';
+    }*/
+    
 };
 
 
 // Функция для перебора JSON данных
-function iterateJSON(obj, depth, parent, indent = '') {
+function iterateJSON(obj, depth, parent, indent = '', id_path_last=null) {
     // incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)
     // depth: дла передачи и расчета глубины вложенности
     // parent: для передачи id наследнику от родителя
     // создание корневога каталога
-
+    
     var element = document.getElementById(parent);
     let last_key; // для получение последнего id и уменьщения количество проверок
     for (let key in obj) {
@@ -71,10 +89,15 @@ function iterateJSON(obj, depth, parent, indent = '') {
             var id = obj[key]['#0#id'];
             var data = obj[key]['#1#folder'];
             last_key = id
+            if (id_path_last===parent){
+                // разворачивать дерево куда добавлен элемент
+                globalСonditionTree[id]=1
+            }
+            //console.log('id_path_last',id_path_last, parent, id, key)
             if (data!==null) { 
                 // каталог
                 createDivBlocks(depth, id, parent, key, true);
-                iterateJSON(data, depth + 1, id , indent + '  ');
+                iterateJSON(data, depth + 1, id , indent + ' ', id_path_last);
             } else {
                 // файл
                 createDivBlocks(depth, id, parent, key, false);
@@ -89,25 +112,11 @@ function iterateJSON(obj, depth, parent, indent = '') {
 };
 
 // загрузка из json
-function fetchDataWithFetchAPI(method, url, data) {
+function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
     // const incrementer = new Incrementer(); // инициализация счетчика
     // const boundIncrementMethod = incrementer.getIncrementMethod(); //функции с передачей контекста
-    // const url = 'http://213.178.34.212:18000/api/theme';
     var xhr = new XMLHttpRequest();
     // Установка обработчика события, который будет вызван при получении ответа
-    xhr.onload = function () {
-        console.log(xhr.status)
-        if (xhr.status >= 200 && xhr.status < 300) {
-            // Преобразование ответа в JSON
-            var data = JSON.parse(xhr.responseText);
-            // очистак внутри блока перед загрузкой и формированием    
-            document.getElementById('form-table').innerHTML = '';
-            console.log('загрузить данные в дерево');
-            iterateJSON(data['root']['#1#folder'],0, data['root']['#0#id'])
-        } else {
-            console.error('Запрос не удался. Статус:', xhr.status);
-        };
-    };
     // Настройка запроса: метод GET и URL
     xhr.open(method, url, true);
     // Обработчик ошибок
@@ -118,14 +127,30 @@ function fetchDataWithFetchAPI(method, url, data) {
     };
     // Отправка запроса
     if (data !== undefined){
-        console.log('отправлено= ',data)
-        xx = JSON.stringify(data)
-        console.log('отправлено=> ',xx)
-        xhr.send(xx)
+        // console.log('отправлено= ',data)
+        data_send = JSON.stringify(data) //для теста 
+        // console.log('отправлено=> ',data_send) //для теста
+        xhr.send(data_send)
     } else {
         console.log('отправлено запрос без данных')
         xhr.send();
     }
+
+    xhr.onload = function () {
+        console.log(xhr.status)
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Преобразование ответа в JSON
+            var load_data = JSON.parse(xhr.responseText);
+            // очистак внутри блока перед загрузкой и формированием    
+            document.getElementById('form-table').innerHTML = '';
+            console.log('загрузить данные в дерево');
+            iterateJSON(load_data['root']['#1#folder'],0, 
+                load_data['root']['#0#id'], '', id_path_last)
+        } else {
+            console.error('Запрос не удался. Статус:', xhr.status);
+        };
+    };
+
 };
 
 

@@ -1,6 +1,7 @@
 :root {
     --theme-color: rgb(128, 128, 128); /* Общая переменная для цвета */
     --theme-select-color: rgba(255, 255, 255, 1);
+    --theme-select-color1: rgb(116, 116, 116);
   }
 
 /* Основное поле ввода данных материала и темы */
@@ -25,11 +26,10 @@
         
     }
 
-
     .content .form-theme .table-menu {
         padding-top: 5px;
-        padding-left: 10px;
-        padding-right: 20px;
+        padding-left: 20px;
+        padding-right: 30px;
         
     }
 
@@ -56,6 +56,7 @@
         .cell-menu span{
             padding-left: 2px;
             display: grid;
+            margin-top: 0px;
             position: relative;
             height: 100%;
             align-items: center; /* Вертикальное выравнивание */
@@ -69,7 +70,6 @@
             border-radius: 5px; /* Закругленные углы трека */
             margin-top: 2px;
             background-color: var(--theme-select-color);
-
         }
 
         .cell-menu input{
@@ -90,9 +90,10 @@
         .content .form-theme .table-menu #folder_root:hover {
             background-color: var(--theme-select-color);
             border-radius: 6px;
-            transition: background-color 0.13s; /* Плавный переход */
+            /*transition: background-color 0.13s; /* Плавный переход */
         }
 
+        
 
         
 
@@ -120,36 +121,35 @@
         .content .form-theme .table-theme {
             display: flex;
             position: relative;
-            height: 28px; /*делаем чуть меньше icon чтоб не прерывался рисунок*/
-            margin-top: 2px; /*оставляем зазор для выделения при клике на элемент*/
+            height: 30px; /*делаем чуть меньше icon чтоб не прерывался рисунок*/
+            margin: 8px; /*оставляем зазор для выделения при клике на элемент*/
             border-radius: 6px; /* Закругленные углы трека */
-            border: 1px solid var(--theme-color);
             outline: none; /* Убираем outline по умолчанию */
+            transition: outline-color 0.1s; /* Переход для изменения цвета обводки */
         }
 
 
         .content .form-theme .table-theme img, span{
             position:relative;
-            margin-top: -1px;
-            height: 32px;
+            margin-top: -4px;
+            height: 38px;
         }
 
             .content .form-theme .table-theme span {
                 left: 1px;
-                top: 6px;
+                top: 9px;
+
                 overflow: hidden; /* Скрывает контент, который выходит за границы блока */
                 white-space: nowrap; /* Запрещает перенос текста */
                 text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
-                box-sizing: border-box; /* Учитываем границу и внутренние отступы в размерах блока */
-                padding-right: 10px;
+                padding-right: 20px;
                 max-width: 100%; /* Устанавливаем максимальную ширину ячеек */
-                vertical-align: middle;
             }
 
 
         .content .form-theme .table-theme:hover {
             background-color: var(--theme-select-color);
-            /*transition: background-color 0.6s ease; /* Плавный переход для outline */
+            transition: background-color 0.6s ease ; /* Плавный переход для outline */
         }
 
 

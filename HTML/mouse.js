@@ -7,24 +7,23 @@ var context_menu_heigh;
 class TreeFocus {
     id_path=[] //путь для выбранного элемента
     id_path_buffer=[] // путь до копируемого элемента
-    //name = null
     method = ''
     url = ''
+    id_path_last = null
 
     setFocus(element=undefined, id_path=[]) {
         // выставление выделение на tree
         // Без атрибутов сбрасывается в дефолт
         if (element!==undefined) {
             this.id = element.id;
+            this.id_path_last = Number(element.id);
             this.targetDiv = document.getElementById(element.id);
-            this.targetDiv.style.outline = "2px solid #007bff";
+            this.targetDiv.style.outline = "3.0px solid rgb(116, 116, 116)";
+            console.log('11');
         } else {
             this.id = undefined; // дефолтное значение
         }
         this.id_path = id_path
-        console.log('path=',this.id_path)
-        console.log('id_path_buffer=',this.id_path_buffer)
-        console.log('setFocus')
     };
 
     
@@ -32,20 +31,19 @@ class TreeFocus {
         // удаление выделение на tree
         
         if (this.id !== undefined){
-            console.log('deleteFocus()')
+            //console.log('deleteFocus()',this.id)
             this.targetDiv = document.getElementById(this.id);
-            // this.targetDiv.style.outline = "2px solid #707070";
-            this.targetDiv.style.outline = "none";
-            
+            var clear_bag = document.getElementById('form-table');
+            console.log(clear_bag)    
+            if (this.targetDiv !== null) {
+                this.targetDiv.style.outline = 'none';
+                // для того чтобы убрать артуфакты
+                clear_bag.style.backgroundColor = 'rgb(128, 128, 128, 1.0)'
+                console.log('clear')
+
+            }
         };
     };
-
-    /*createData(){
-        // очистка данных
-        this.name = null; // очищаем данные с поле ввода
-        this.method = '';
-        this.url = '';
-    }*/
 
     copy_in_buffer(){
         // копирования пути в буффер пути
@@ -53,41 +51,23 @@ class TreeFocus {
         console.log('id_path_buffer=',this.id_path_buffer)
     }
     
-    /*getPathId(){
-        // Получение пути выделенного файла или каталога
-        return this.id_path
-    }
-    getBufferId(){
-        // Получение пути выделенного файла или каталога в буфере
-        this.id_path=id_path
-        return this.id_path_buffer
-    }
-
-    setTreeInput(name){
-        // значение поле ввода присваивается в переменную если не пустое
-        if (name!==''){
-            this.name = name
-            console.log('name=',this.name)
-        }        
-    }*/
-
     setEnterTreeInput(method, url){
         this.method = method;
         this.url = url;
-        console.log('method', this.method)
-        console.log('url',this.url)
+        //console.log('method', this.method)
+        //console.log('url',this.url)
     }
 
     sendDataEnter(name){
-        // if (this.method!=='' && this.url!=='' && this.name!==null){
         if (this.method!=='' && this.url!=='' && name!==null){
+            console.log('id_path_last111=',this.id_path_last)
             fetchDataWithFetchAPI(this.method,
                 this.url, 
-                {"id_path":this.id_path, 'name': name});
+                {"id_path":this.id_path, 'name': name},
+                this.id_path_last // для раскрытия списка при добавлении
+            );
+        // нужно добавтить обработку 
         } else {
-            // console.log('method', this.method)
-            // console.log('url',this.url)
-            // console.log('mname',this.name)
             console.error("Method, URL, or name is not properly set.");
         }
     }
@@ -144,9 +124,6 @@ function close_tree(targetDiv, depth, iconImg, index_icon){
     };
 };
 
-
-
-
 function check_img(targetDiv, depth, iconImg, index_icon){
     // Определить нужное действие сворачивание или разворачивание
     // все зависит от картинки блока по которому кликнули
@@ -158,8 +135,6 @@ function check_img(targetDiv, depth, iconImg, index_icon){
         close_tree(targetDiv, depth, iconImg, index_icon);
     };
 };
-
-
 
 function open_click(div){
     // Найти нужный элемент если кликнули по наследнику
@@ -180,7 +155,6 @@ function close_input_element(){
     tree_focus.deleteFocus();
 }
 
-
 function close_input(element_id) {
     // проверка закрытие поле input по Х и очитава от введеных данных
     console.log("Закрыть поиск",element_id);
@@ -189,14 +163,15 @@ function close_input(element_id) {
     }
 }
 
-// Рекурсивная функция для нахождения пути до корневого элемента
+
 function findPathToRoot(id) {
+    // Рекурсивная функция для нахождения пути до корневого элемента
     const path = [];
     let currentElement = document.getElementById(id);
     while (currentElement) {
         path.push(parseInt(currentElement.id));
-        x = currentElement.getAttribute('parent_id')
-        currentElement = document.getElementById(x);
+        parent_id = currentElement.getAttribute('parent_id')
+        currentElement = document.getElementById(parent_id);
     }
     path.push(0);
     return path.reverse();
@@ -214,10 +189,10 @@ function get_path_tree_focus(element){
 function check_run(func, element, parent_element, value){
     // Выполнение функции c элемент или родитель который соответствует value
     if (element.className === value){
-        func(element)
+        return func(element)
     }
     else if (parent_element.className === value){
-        func(parent_element)
+        return func(parent_element)
     }
 };
 
@@ -225,6 +200,7 @@ function check_run(func, element, parent_element, value){
 document.addEventListener('contextmenu', function (event) {
     // расчет выползания контекстного меню
     // Предотвращаем появление контекстного меню по умолчанию
+    tree_focus.deleteFocus(); // удаление выделение по многочисленным кликам 
     event.preventDefault();
     // Получить высоту окна браузера
     var windowHeight = window.innerHeight;
@@ -233,30 +209,33 @@ document.addEventListener('contextmenu', function (event) {
     // Получаем родительский элемент
     var parentElement = clickedElement.parentElement;
     // Проверяем клик был на нужном нам элементе?
-    if ((clickedElement.className === "table-theme") || 
-        (parentElement.className === "table-theme") || 
-        (clickedElement.className ==="cell-menu")||
-        (parentElement.className ==="cell-menu")
-        ) {
-        // Получаем координаты клика
-        var menu = document.getElementById("contextMenu") 
-        check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme")
-        check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu")
-        // устанавливаем координаты и отображаем
-        menu.style.left = (event.clientX) + "px";
-        // чтобы контекстное меню не выползало из экрана
-        if ((context_menu_heigh +event.clientY+30)< windowHeight){
-            menu.style.top = (event.clientY -30) + "px";
+    try{
+        if ((clickedElement.className === "table-theme") || 
+            (parentElement.className === "table-theme") || 
+            (clickedElement.className ==="cell-menu")||
+            (parentElement.className ==="cell-menu")
+            ) {
+            // Получаем координаты клика
+            var menu = document.getElementById("contextMenu") 
+            check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme")
+            check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu")
+            // устанавливаем координаты и отображаем
+            menu.style.left = (event.clientX) + "px";
+            // чтобы контекстное меню не выползало из экрана
+            if ((context_menu_heigh +event.clientY+30)< windowHeight){
+                menu.style.top = (event.clientY -30) + "px";
+            } else {
+                menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
+            }
+            menu.style.display = 'block';
         } else {
-            menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
-        }
-        menu.style.display = 'block';
-    } else {
-        // закрываем контекстное меню если производится попытка открыть
-        // вне области применения
-        close_context_menu();
-        close_input_element();
-    };
+            // закрываем контекстное меню если производится попытка открыть
+            // вне области применения
+            close_context_menu();
+            close_input_element();
+        };
+    }catch (error) {};
+
 });
 
 
@@ -266,20 +245,24 @@ function cell_click(){};
 // Функция, которая будет вызываться при клике правой кнопке
 function handleClick(event) {
     // Проверяем, что клик был левой кнопкой мыши
-    if (event.button === 0) {
-        // Получаем элемента на который кликнули
-        var element = event.target;
-        // Получаем родительский элемент
-        var parent_element = element.parentElement;
-        // Выводим id в консоль
-        check_run(open_click, element, parent_element, 'table-theme');
-        check_run(menu_click, element, parent_element, 'menu-cont');
-        check_run(cell_click, element, parent_element, 'cell=menu');
-        /*if (parent_element.id==="search_menu"){
-            close_input(element.id); // закрытие input
-        }*/
-        close_context_menu();
-    };
+    try{
+        if (event.button === 0) {
+            // Получаем элемента на который кликнули
+            var element = event.target;
+            // Получаем родительский элемент
+            var parent_element = element.parentElement;
+            // Выводим id в консоль
+            check_run(open_click, element, parent_element, 'table-theme');
+            check_run(menu_click, element, parent_element, 'menu-cont');
+            check_run(cell_click, element, parent_element, 'cell=menu');
+            /*if (parent_element.id==="search_menu"){
+                close_input(element.id); // закрытие input
+            }*/
+            close_context_menu();
+            tree_focus.deleteFocus();
+
+        };
+    }catch (error) {};
 };
 
 
@@ -320,4 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
     context_menu_heigh = parseInt(context_menu_heigh_str, 10) // в число
     const tree_input = document.getElementById('tree_input');
     tree_input.addEventListener('keyup', tree_input_handle_Key);
+
+    /*const hoverElement = document.getElementById('form-table');
+    console.log('hoverElement=',hoverElement)
+    hoverElement.addEventListener('mouseout', () => {
+        console.log('moue')
+    });*/
+
 });

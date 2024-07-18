@@ -163,7 +163,8 @@ class DataJson:
         key, value = next(iter(buffer.items()))
         buffer, action = buffer_insert(self.data, insert_indexes, key, value)
         # return self.update_data(buffer, index_max, action, 0),rename_index
-        return self.update_data(buffer, index_max, action, 0), rename_index
+        print('action', action)
+        return self.update_data(buffer, index_max, action, 0)
 
     def buffer_copy(self, id_indexes: list) -> dict:
         id_indexes.append(None)
@@ -176,6 +177,7 @@ class DataJson:
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = buffer_insert(
             self.data, id_parent, name, {'#1#folder': None, '#0#id': index_max + 1})
+        print('action', action)
         return self.update_data(buffer, index_max, action, 1)
 
     def new_folder(self, id_parent: list, name: str) -> dict:
@@ -183,6 +185,7 @@ class DataJson:
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = buffer_insert(
             self.data, id_parent, name, {'#1#folder': {}, '#0#id': index_max + 1})
+        print('action',action)
         return self.update_data(buffer, index_max, action, 1)
 
     def rename(self, id_indexes: list, name: str) -> dict:
