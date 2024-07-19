@@ -140,10 +140,13 @@ function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
         console.log(xhr.status)
         if (xhr.status >= 200 && xhr.status < 300) {
             // Преобразование ответа в JSON
-            var load_data = JSON.parse(xhr.responseText);
+            var load_response = JSON.parse(xhr.responseText);
             // очистак внутри блока перед загрузкой и формированием    
+
             document.getElementById('form-table').innerHTML = '';
             console.log('загрузить данные в дерево');
+            console.log('загрузить данные в дерево');
+            load_data=load_response['data'];
             iterateJSON(load_data['root']['#1#folder'],0, 
                 load_data['root']['#0#id'], '', id_path_last)
         } else {

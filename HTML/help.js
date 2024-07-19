@@ -1,43 +1,51 @@
-// Определяем функцию, которую будем вызывать
-/*function myFunction() {
-    console.log('Функция вызвана!');
-    
-    //для вызова функции через определенныо время саму себя
-    setTimeout(myFunction, 500);
-}
 
-// Начинаем вызов функции первый раз
-myFunction();
-
-/*
-const hoverElement = document.getElementById('form-table');
-hoverElement.addEventListener('mouseover', function (event) {}
-*/
-var OldElement = ''
 var idElement = ''
 
 
 class Help {
+    id = null
+    id_old = null //проверка сотояния по таймеру предыдущее 
+    top =null //позиция по вертикали строки help
+    left = null //позиция по горизонтали строки help
+
     setDescription(element=null){
-        var menu = document.getElementById("contextMenu") 
-        if (menu.style.display=='none'){
-            var element_id = document.getElementById(element.id);
-            const rect = element_id.getBoundingClientRect();
-            const top = rect.top;
-            const right = Number(rect.right+30);
-            //console.log('elementHelp',document.getElementById('help'))
-            const elementHelp = document.getElementById('help');
-            elementHelp.style.display = 'block';
-            elementHelp.style.top = top+'px';   // Новая координата по вертикали
-            elementHelp.style.left = right + 'px';   // Новая координата по вертикали
-            
-        }
+        this.id = element.id
+        
+        //console.log('LLL', this.id, this.id_old) 
+        var element_id = document.getElementById(element.id);
+        this.id=element_id.id;
+        const rect = element_id.getBoundingClientRect();
+        this.top = rect.top;
+        this.left = Number(rect.right)+60;
+
+        const elementHelp = document.getElementById('help');
+        elementHelp.style.display = 'none';
+        this.id_old = null;
     };
 
     delDescription(){
         const elementHelp = document.getElementById('help');
         elementHelp.style.display = 'none';
+        this.id = null;
     }
+
+    setCheck(){
+        // для высвечивание строки help при длительной задержки на элементе
+        var menu = document.getElementById("contextMenu") 
+        // console.log('ddLL', this.id, this.id_old) 
+        if (this.top!== null && 
+            menu.style.display!=='block' &&
+            this.id === this.id_old &&
+            this.id !== null
+        ){
+            const elementHelp = document.getElementById('help');
+            elementHelp.style.display = 'block';
+            elementHelp.style.top = this.top+'px';   // Новая координата по вертикали
+            elementHelp.style.left = this.left + 'px';   // Новая координата по вертикали
+        }
+        this.id_old = this.id
+    }
+    
 
 }
 
@@ -48,30 +56,40 @@ function get_help(element){
         idElement = element
         HelpClass.setDescription(element);
         }
-    return null
 }
 
 document.addEventListener('mousemove', (event) => {
     const element = document.elementFromPoint(event.clientX, event.clientY);
     var childElement = event.target;
-    if (childElement.className === 'table-theme' || 
+    // console.log('ffff', childElement.className) 
+    if (
+        childElement.className === 'table-theme' ||
+        // childElement.className === 'cell-menu' || 
         childElement.className === 'table-theme-add'){
-    
-        if (OldElement !==childElement){
-            //try {
-                var parentElement = childElement.parentElement;
-                OldElement=childElement
-                check_run(get_help, childElement, parentElement, "table-theme")   
-            //} catch (error) {}
-        }
+        // console.log('изменения',childElement)
+        //try {
+            var parentElement = childElement.parentElement;
+            check_run(get_help, childElement, parentElement, "table-theme")   
+        //} catch (error) {}
     } else if (childElement.className === 'table') {
         HelpClass.delDescription();
     } else {
         HelpClass.delDescription();
     }
-    
-    
-    // var parentElement = childElement.parentElement;
-    // console.log(childElement)
-    // check_run(get_help, childElement, parentElement, "table-theme")   
 });
+
+
+// Определяем функцию, которую будем вызывать
+function myFunction() {
+    HelpClass.setCheck();
+    //для вызова функции через определенныо время саму себя
+    setTimeout(myFunction, 1600);
+}
+
+// Начинаем вызов функции первый раз
+myFunction();
+
+/*
+const hoverElement = document.getElementById('form-table');
+hoverElement.addEventListener('mouseover', function (event) {}
+*/

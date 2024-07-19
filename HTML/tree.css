@@ -1,7 +1,7 @@
 :root {
     --theme-color: rgb(128, 128, 128); /* Общая переменная для цвета */
     --theme-color1: rgb(128, 128, 127); /* Общая переменная для цвета для убирания артефакта*/
-    --theme-select-color: rgba(255, 255, 255, 1);
+    --theme-select-color: rgba(255, 255, 255, 0.9);
     --theme-select-color2: rgb(70, 52, 236);
   }
 
@@ -71,6 +71,7 @@
             border-radius: 5px; /* Закругленные углы трека */
             margin-top: 2px;
             background-color: var(--theme-select-color);
+            
         }
 
         .cell-menu input{
@@ -150,7 +151,8 @@
 
         .content .form-theme .table-theme:hover {
             background-color: var(--theme-select-color);
-            transition: background-color 0.6s ease ; /* Плавный переход для outline */
+            /*transition: background-color 0.6s ease ; /* Плавный переход для outline */
+            transition: background-color 0.1s ease 0.01s; /* Плавный переход */
         }
 
 

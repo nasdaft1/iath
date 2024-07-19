@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Any
 
 
 class ApiPath(BaseModel):
@@ -28,3 +29,11 @@ class ApiNewLabel(ApiPath, ApiName):
 class ApiInsert(BaseModel):
     id_path_copy: list[int]
     id_path_insert: list[int]
+
+
+class DataResponse(BaseModel):
+    data: dict
+    status_code: int
+    status_name: str
+    id_add: int | None
+

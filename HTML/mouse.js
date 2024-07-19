@@ -190,6 +190,7 @@ function get_path_tree_focus(element){
 
 function check_run(func, element, parent_element, value){
     // Выполнение функции c элемент или родитель который соответствует value
+    
     if (element.className === value){
         return func(element)
     }
