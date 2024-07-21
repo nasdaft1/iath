@@ -10,18 +10,22 @@ class TreeFocus {
     method = ''
     url = ''
     id_path_last = null
+    id_add = null // элемент добавленнный или измененный
 
     setFocus(element=undefined, id_path=[]) {
         // выставление выделение на tree
         // Без атрибутов сбрасывается в дефолт
         if (element!==undefined) {
             this.id = element.id;
-            this.id_path_last = Number(element.id);
+            if (this.id === 'folder_root'){
+                this.id_path_last = 0
+            } else{
+                this.id_path_last = Number(element.id);    
+            }
             this.targetDiv = document.getElementById(element.id);
             this.targetDiv.style.outline = "3.0px solid rgb(70, 52, 236)";
             var clear_bag = document.getElementById('form-table');
-            clear_bag.style.backgroundColor = 'var(--theme-color)'
-            console.log('11');
+            //clear_bag.style.backgroundColor = 'var(--theme-color)'
         } else {
             this.id = undefined; // дефолтное значение
         }
@@ -31,18 +35,15 @@ class TreeFocus {
     
     deleteFocus() {
         // удаление выделение на tree
-        
         if (this.id !== undefined){
             //console.log('deleteFocus()',this.id)
             this.targetDiv = document.getElementById(this.id);
             var clear_bag = document.getElementById('form-table');
-            console.log(clear_bag)    
+            // console.log(clear_bag)    
             if (this.targetDiv !== null) {
                 this.targetDiv.style.outline = 'none';
                 // для того чтобы убрать артуфакты
                 clear_bag.style.backgroundColor = 'var(--theme-color1)'
-                console.log('clear')
-
             }
         };
     };
@@ -62,7 +63,8 @@ class TreeFocus {
 
     sendDataEnter(name){
         if (this.method!=='' && this.url!=='' && name!==null){
-            console.log('id_path_last111=',this.id_path_last)
+            console.log('this.id_path',this.id_path,)
+            console.log('this.id_path_last',this.id_path_last)
             fetchDataWithFetchAPI(this.method,
                 this.url, 
                 {"id_path":this.id_path, 'name': name},
@@ -113,9 +115,7 @@ function close_tree(targetDiv, depth, iconImg, index_icon){
         if (nextDepth<=depth){break;};
         var iconImgNext = nextElement.querySelectorAll('img');
         var iconImgLength = iconImgNext.length -1;
-        
         var iconTextNext = iconImgNext[iconImgLength].src.slice(-13)
-        
         if (iconTextNext ==='tree-open.png'){
             iconImgNext[iconImgLength].src = 'png/tree-close.png';
         };
@@ -169,6 +169,9 @@ function close_input(element_id) {
 function findPathToRoot(id) {
     // Рекурсивная функция для нахождения пути до корневого элемента
     const path = [];
+    if (id ==='folder_root'){
+        return [0] // для обработки root каталога   
+    }
     let currentElement = document.getElementById(id);
     while (currentElement) {
         path.push(parseInt(currentElement.id));
@@ -179,18 +182,16 @@ function findPathToRoot(id) {
     return path.reverse();
 }
 
-
 function get_path_tree_focus(element){
     const index = element.id
     const pathToRoot = findPathToRoot(index);
     tree_focus.setFocus(element, pathToRoot)
-    //console.log(pathToRoot)
+    console.log('pathToRoot',pathToRoot)
     return pathToRoot
 }
 
 function check_run(func, element, parent_element, value){
     // Выполнение функции c элемент или родитель который соответствует value
-    
     if (element.className === value){
         return func(element)
     }
@@ -262,8 +263,6 @@ function handleClick(event) {
                 close_input(element.id); // закрытие input
             }*/
             close_context_menu();
-            tree_focus.deleteFocus();
-
         };
     }catch (error) {};
 };
@@ -272,14 +271,11 @@ function handleClick(event) {
 function tree_input_handle_Key(event) {
     // обработка нажатия на поле input
     if (event.key === 'Enter' || event.keyCode === 13) {
-        console.log('Enter pressed!');
-        //tree_focus.setTreeInput(event.target.value);
         const input_text = event.target.value
         close_input_element();
         tree_focus.sendDataEnter(input_text);
     }
     if (event.key === 'Escape' || event.key === 'Esc') {
-        console.log('Esc pressed!');
         close_input_element();
     }
 }
@@ -299,6 +295,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
     // высота контекстного меню 
     var context_menu_element=document.getElementById("contextMenu");
@@ -306,11 +303,4 @@ document.addEventListener('DOMContentLoaded', () => {
     context_menu_heigh = parseInt(context_menu_heigh_str, 10) // в число
     const tree_input = document.getElementById('tree_input');
     tree_input.addEventListener('keyup', tree_input_handle_Key);
-
-    /*const hoverElement = document.getElementById('form-table');
-    console.log('hoverElement=',hoverElement)
-    hoverElement.addEventListener('mouseout', () => {
-        console.log('moue')
-    });*/
-
 });

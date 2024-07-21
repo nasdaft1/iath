@@ -19,7 +19,7 @@ function setlocalStorage(name, data) {
 window.addEventListener('load', function() {
     // Получение данных из localStorage при загрузки страницы
     globalСonditionTree=getlocalStorage('ListTree')
-    console.log('Все ресурсы страницы загружены!');
+    // console.log('Все ресурсы страницы загружены!');
     //console.log(globalСonditionTree);
 });
 

@@ -147,12 +147,14 @@ class DataJson:
         print(name)
         return self.data
 
-    def update_data(self, buffer: dict, index_max: int, action: bool, increment=0):
+    def update_data(self, buffer: dict, index_max: int,
+                    action: bool, increment=0) -> [dict, int | None]:
         if action is False:
             raise IndexError('Action failed')
         self.data = buffer
-        self.data['root']['#2#max_id'] = index_max + increment
-        return self.data
+        index = index_max + increment
+        self.data['root']['#2#max_id'] = index
+        return self.data, index
 
     def copy_insert_data(self, copy_indexes: list, insert_indexes: list):
         copy_indexes.append(None)
@@ -162,9 +164,10 @@ class DataJson:
         buffer, rename_index, index_max = buffer_indexation(buffer, index_max, [])
         key, value = next(iter(buffer.items()))
         buffer, action = buffer_insert(self.data, insert_indexes, key, value)
-        # return self.update_data(buffer, index_max, action, 0),rename_index
-        print('action', action)
-        return self.update_data(buffer, index_max, action, 0)
+        data ,index = self.update_data(buffer, index_max, action, 0)
+        return data, None, rename_index
+        # print('action', action)
+        # return self.update_data(buffer, index_max, action, 0)
 
     def buffer_copy(self, id_indexes: list) -> dict:
         id_indexes.append(None)
@@ -172,7 +175,7 @@ class DataJson:
         self.data = buffer
         return self.data
 
-    def new_label(self, id_parent: list, name: str) -> dict:
+    def new_label(self, id_parent: list, name: str) -> [dict, int | None]:
         id_parent.append(None)
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = buffer_insert(
@@ -180,15 +183,15 @@ class DataJson:
         print('action', action)
         return self.update_data(buffer, index_max, action, 1)
 
-    def new_folder(self, id_parent: list, name: str) -> dict:
+    def new_folder(self, id_parent: list, name: str) -> [dict, int | None]:
         id_parent.append(None)
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = buffer_insert(
             self.data, id_parent, name, {'#1#folder': {}, '#0#id': index_max + 1})
-        print('action',action)
+        print('action', action)
         return self.update_data(buffer, index_max, action, 1)
 
-    def rename(self, id_indexes: list, name: str) -> dict:
+    def rename(self, id_indexes: list, name: str) -> [dict, int | None]:
         """
         Переименование из json
         :param id_indexes: Список индекса дерева json
@@ -197,9 +200,10 @@ class DataJson:
         """
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = rename_json(self.data, id_indexes, name)
-        return self.update_data(buffer, index_max, action)
+        data, index = self.update_data(buffer, index_max, action)
+        return data, id_indexes[-1]
 
-    def delete(self, id_indexes: list) -> dict:
+    def delete(self, id_indexes: list) -> [dict, int | None]:
         """
         Удаление из json
         :param id_indexes: Список индекса дерева json
@@ -207,7 +211,8 @@ class DataJson:
         """
         index_max = self.data.get('root').get('#2#max_id')
         buffer, action = delete_json(self.data, id_indexes)
-        return self.update_data(buffer, index_max, action)
+        data, index = self.update_data(buffer, index_max, action)
+        return data, None
 
 
 tree = DataJson()

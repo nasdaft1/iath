@@ -16,7 +16,7 @@ async def theme(request: Request) -> DataResponse:
             data=data,
             status_code=200,
             status_name='Ok',
-            id_add=30)
+            id_add=None)
 
 
 @router.get("/search")
@@ -30,12 +30,12 @@ async def search(request: Request,
 async def insert(data: ApiInsert) -> DataResponse:
     logging.info(f'data = {data}')
     print('id_path_copy=', data.id_path_copy, 'id_path_insert=', data.id_path_insert)
-    data = tree.copy_insert_data(data.id_path_copy, data.id_path_insert)
+    data, index, insert_index = tree.copy_insert_data(data.id_path_copy, data.id_path_insert)
     return DataResponse(
         data=data,
         status_code=200,
         status_name='Ok',
-        id_add=30)
+        id_add=index)
 
 
 @router.post("/new_label")
@@ -43,42 +43,42 @@ async def new_label(data: ApiNewLabel) -> DataResponse:
     logging.info(f'data = {data}')
     # return tree.new_label(id_parent, name)
     print('id_path=', data.id_path, 'name=', data.name)
-    data = tree.new_label(data.id_path, data.name)
+    data, index = tree.new_label(data.id_path, data.name)
     return DataResponse(
         data=data,
         status_code=200,
         status_name='Ok',
-        id_add=30)
+        id_add=index)
 
 @router.post("/new_folder")
 async def new_folder(data: ApiNewFolder) -> DataResponse:
     logging.info(f'data = {data}')
     print('id_path=', data.id_path, 'name=', data.name)
-    data = tree.new_folder(data.id_path, data.name)
+    data, index = tree.new_folder(data.id_path, data.name)
     return DataResponse(
         data=data,
         status_code=200,
         status_name='Ok',
-        id_add=30)
+        id_add=index)
 
 
 @router.post("/rename")
 async def rename(data: ApiRename) -> DataResponse:
     print('id_path=', data.id_path, 'name=', data.name)
-    data = tree.rename(data.id_path, data.name)
+    data, index = tree.rename(data.id_path, data.name)
     return DataResponse(
         data=data,
         status_code=200,
         status_name='Ok',
-        id_add=30)
+        id_add=index)
 
 
 @router.delete("/del")
 async def delete_index(data: ApiDel) -> DataResponse:
     print('id_path=', data.id_path)
-    data = tree.delete(data.id_path)
+    data, index = tree.delete(data.id_path)
     return DataResponse(
         data=data,
         status_code=200,
         status_name='Ok',
-        id_add=30)
+        id_add=index)

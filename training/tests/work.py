@@ -110,7 +110,8 @@ del_ew = {'root': {'#0#id': 0,
                                  'Z99task3b1.txt': {'#0#id': 52, '#1#folder': None}},
                    '#2#max_id': 52}}
 print('-' * 100)
-# pprint.pprint(delete_json(start_data_json, [0, 36, 45, 46, 47, 48]))
+#pprint.pprint(delete_json(start_data_json, [0, 36, 45, 46, 47, 48]))
+pprint.pprint(tree.delete([0, 36, 45, 46, 47, 48]))
 #
 # pprint.pprint(delete_json(start_data_json, [0, 52]))
 
@@ -120,14 +121,14 @@ print('-' * 100)
 # pprint.pprint(buffer_insert(start_data_json, [0, 52],'xxx'))
 
 # pprint.pprint(tree.new_folder([0], 'www'))
-# pprint.pprint(tree.new_folder([0], 'Z99task3b1.txt'))
+#pprint.pprint(tree.new_folder([0], 'Z99task3b1.txt'))
 # pprint.pprint(tree.new_folder([0, 36, 45, 46, 47, 48], 'Z99task3b1.txt'))
 
 
 # pprint.pprint(new_label_0_root_data_json)
 # pprint.pprint(tree.new_label([0], 'www0'))
 
-# pprint.pprint(tree.new_label([0, 21, 22, 1], '111task1b1.txt'))
+pprint.pprint(tree.new_label([0], '111task1b1.txt'))
 
 # pprint.pprint(buffer_insert(start_data_json, [0, 0], {'Z99task3b1.txt': {'#1#folder': {}, '#0#id': 53}}))
 # pprint.pprint(tree.get())
@@ -138,13 +139,13 @@ print('-' * 100)
 # pprint.pprint(buffer_copy(start_data_json, [0, 52, None]))
 # pprint.pprint(buffer_copy(start_data_json, [0, 36, 45, 46, 47, None]))
 #
-buffer_copy_22 = {'task1a1': {'#0#id': 22,
-                              '#1#folder': {'111task1a1.txt': {'#0#id': 23, '#1#folder': {}},
-                                            '222task1a1.txt': {'#0#id': 24, '#1#folder': None},
-                                            '333task1a1.txt': {'#0#id': 25, '#1#folder': None},
-                                            'task3b1': {'#0#id': 26,
-                                                        '#1#folder': {'G333task1a1.txt': {'#0#id': 27,
-                                                                                          '#1#folder': None}}}}}}
+# buffer_copy_22 = {'task1a1': {'#0#id': 22,
+#                               '#1#folder': {'111task1a1.txt': {'#0#id': 23, '#1#folder': {}},
+#                                             '222task1a1.txt': {'#0#id': 24, '#1#folder': None},
+#                                             '333task1a1.txt': {'#0#id': 25, '#1#folder': None},
+#                                             'task3b1': {'#0#id': 26,
+#                                                         '#1#folder': {'G333task1a1.txt': {'#0#id': 27,
+#                                                                                           '#1#folder': None}}}}}}
 
 # pprint.pprint(buffer_indexation(buffer_copy_22, 50, []))
 #
@@ -165,4 +166,5 @@ buffer_copy_22 = {'task1a1': {'#0#id': 22,
 #
 # key, value = next(iter(buffer_copy_22_1.items()))
 # print(key, value)
-pprint.pprint(tree.copy_insert_data([0, 36, 45, 46, 47], [0, 21, 122]))
+# tree.set(start_data_json)
+# pprint.pprint(tree.copy_insert_data([0, 36, 45, 46, 47], [0]))

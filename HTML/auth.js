@@ -6,7 +6,7 @@ function form_visible(link_reg, link_login, link_rest) {
 
 
 window.onload = function () {
-    console.log('The page has fully loaded');
+    // console.log('The page has fully loaded');
     // при запуске или обновлении
     startProgress();
     const icons = document.querySelectorAll('.icon');

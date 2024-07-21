@@ -14,13 +14,14 @@ function checkLocalTree(key, result_true, result_false){
 }
 
 // Для генерации таблицы из json
-function createDivBlocks(depth, id , parent_id, text, folder) {
+function createDivBlocks(depth, id , parent_id, text, folder, id_add) {
     // Функция для создания блоков div с классом table-theme рекурсивно
     // depth - глубина дерева
     // id - идентификатор 
     // parent_id - идентификатор родителя
     // text - имя каталога или файла
     // folder - true каталог, false фаил
+    // id_add - шв элемента добавленного 
     // Создать новый div с классом table-theme
     const div = document.createElement('div');
     div.className = 'table-theme';
@@ -58,29 +59,23 @@ function createDivBlocks(depth, id , parent_id, text, folder) {
     const divNew = document.createElement('div');
     div.appendChild(divNew);
     if (tree_focus.id_path_last ==id){
-        //div.style.transition ='background-color 3.3s ease 1s';
-        div.style.backgroundColor ='yellow';
-    }
+        div.setAttribute('data-color', 'select-element-changes')}
     if (tree_focus.id_path_last ==parent_id){
-        //div.style.transition ='background-color 3.3s ease 1s';
-        div.style.backgroundColor ='red';
-    }
+        div.setAttribute('data-color', 'select-area-changes')}
+    if (id_add ==id && id_add!==null){
+        div.setAttribute('data-color', 'select-element-add')}
     document.getElementById(name_table).appendChild(div);
-    /*if (tree_focus.id_path_last ==id){
-        xx = document.getElementById('id')
-        //div.style.transition ='background-color 3.3s ease';
-        //div.style.backgroundColor ='red';
-    }*/
-    
 };
 
 
 // Функция для перебора JSON данных
-function iterateJSON(obj, depth, parent, indent = '', id_path_last=null) {
-    // incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)
-    // depth: дла передачи и расчета глубины вложенности
-    // parent: для передачи id наследнику от родителя
-    // создание корневога каталога
+function iterateJSON(obj, depth, parent, id_path_last=null, id_add) {
+    /* incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)
+       depth: дла передачи и расчета глубины вложенности
+       parent: для передачи id наследнику от родителя
+       id_path_last: Добавленный путь c id
+       id_add: Добавленный id при определенных действиях
+       создание корневога каталога*/
     
     var element = document.getElementById(parent);
     let last_key; // для получение последнего id и уменьщения количество проверок
@@ -96,11 +91,11 @@ function iterateJSON(obj, depth, parent, indent = '', id_path_last=null) {
             //console.log('id_path_last',id_path_last, parent, id, key)
             if (data!==null) { 
                 // каталог
-                createDivBlocks(depth, id, parent, key, true);
-                iterateJSON(data, depth + 1, id , indent + ' ', id_path_last);
+                createDivBlocks(depth, id, parent, key, true, id_add);
+                iterateJSON(data, depth + 1, id , id_path_last, id_add);
             } else {
                 // файл
-                createDivBlocks(depth, id, parent, key, false);
+                createDivBlocks(depth, id, parent, key, false, id_add);
             };
         };
         // найти родителя и изменить мконку выпадающего списка
@@ -111,10 +106,30 @@ function iterateJSON(obj, depth, parent, indent = '', id_path_last=null) {
     };
 };
 
+
+function clear_check(){
+    // пройтись по элементам блока и удалить навешанный атрибут для подсветки
+    // модифицированных или измененых данных
+    // Получить элемент с id 'forma-table'
+    var formaTable = document.getElementById('form-table');
+    var divs = formaTable.getElementsByClassName('table-theme');
+
+    for (var i = 0; i < divs.length; i++) {
+        var div = divs[i];
+        //div.style.Color = 'black'
+        div.removeAttribute('data-color')
+    }
+}
+
+function run_time(){
+    setTimeout(() => {
+        // console.log('run_time')
+        clear_check();
+    }, 2200);
+}
+
 // загрузка из json
 function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
-    // const incrementer = new Incrementer(); // инициализация счетчика
-    // const boundIncrementMethod = incrementer.getIncrementMethod(); //функции с передачей контекста
     var xhr = new XMLHttpRequest();
     // Установка обработчика события, который будет вызван при получении ответа
     // Настройка запроса: метод GET и URL
@@ -132,23 +147,24 @@ function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
         // console.log('отправлено=> ',data_send) //для теста
         xhr.send(data_send)
     } else {
-        console.log('отправлено запрос без данных')
+        // console.log('отправлено запрос без данных')
         xhr.send();
     }
 
     xhr.onload = function () {
-        console.log(xhr.status)
+        // console.log(xhr.status)
         if (xhr.status >= 200 && xhr.status < 300) {
             // Преобразование ответа в JSON
             var load_response = JSON.parse(xhr.responseText);
             // очистак внутри блока перед загрузкой и формированием    
-
             document.getElementById('form-table').innerHTML = '';
-            console.log('загрузить данные в дерево');
-            console.log('загрузить данные в дерево');
+            // console.log('загрузить данные в дерево');
             load_data=load_response['data'];
             iterateJSON(load_data['root']['#1#folder'],0, 
-                load_data['root']['#0#id'], '', id_path_last)
+                load_data['root']['#0#id'], id_path_last,
+                load_response['id_add'])
+            // задержка для очистки от выделения
+            run_time();
         } else {
             console.error('Запрос не удался. Статус:', xhr.status);
         };

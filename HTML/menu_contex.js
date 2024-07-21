@@ -95,6 +95,7 @@ function insert(){
     console.log("Вставить");
     const data = {"id_path_copy":tree_focus.id_path_buffer,
                   "id_path_insert":tree_focus.id_path};
+    console.log("Вставить",data);                  
     fetchDataWithFetchAPI('POST',
         `http://213.178.34.212:18000/api/v1/tree/insert`, 
         data, tree_focus.id_path_last);

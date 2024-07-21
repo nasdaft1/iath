@@ -2,7 +2,10 @@
     --theme-color: rgb(128, 128, 128); /* Общая переменная для цвета */
     --theme-color1: rgb(128, 128, 127); /* Общая переменная для цвета для убирания артефакта*/
     --theme-select-color: rgba(255, 255, 255, 0.9);
-    --theme-select-color2: rgb(70, 52, 236);
+    --theme-select-color2: rgb(52, 208, 236);
+    --theme-area-changes: rgb(56, 209, 171);
+    --theme-element-changes: rgb(66, 216, 253);
+    --theme-element-add: rgb(247, 173, 76);
   }
 
 /* Основное поле ввода данных материала и темы */
@@ -11,6 +14,7 @@
     left: calc( 5% + 60px);
     top: 70px;
     
+
     width: calc( 90% - 60px);
     height: 90%;
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
@@ -127,8 +131,10 @@
             margin: 8px; /*оставляем зазор для выделения при клике на элемент*/
             border-radius: 6px; /* Закругленные углы трека */
             outline: none; /* Убираем outline по умолчанию */
-            transition: outline-color 0.1s; /* Переход для изменения цвета обводки */
+            opacity: 0.90; /* для убирания фризов при scroll */
+            transition: opacity 0.1s ease-in 0.1s; /* для убирания фризов при scroll */
         }
+
 
 
         .content .form-theme .table-theme img, span{
@@ -148,23 +154,57 @@
                 max-width: 100%; /* Устанавливаем максимальную ширину ячеек */
             }
 
+              
+        
+        .table-theme[data-color = 'select-area-changes'] {
+            /* для посетки области куда добавленн или где модифицированн элемент */
+            color: var(--theme-area-changes);
+            /*font-weight: bold;*/
+        }
+       
+
+        .table-theme[data-color = 'select-element-changes']{
+            /* для посетки родителя куда добавленн или где модифицированн элемент */
+            color: var(--theme-element-changes);
+            /*font-weight: bold;*/
+        }
+
+        .table-theme[data-color= 'select-element-add']{
+            /* для посетки добавленного или модифицированного элемента */
+            color: var(--theme-element-add);
+            /*font-weight: bold;*/
+        }
+
+        .table-theme[data-color = 'select-area-changes']:hover {
+            /* для посетки области куда добавленн или где модифицированн элемент */
+            color: var(--theme-area-changes);
+            /*font-weight: bold;*/
+        }
+       
+
+        .table-theme[data-color = 'select-element-changes']:hover{
+            /* для посетки родителя куда добавленн или где модифицированн элемент */
+            color: var(--theme-element-changes);
+            /*font-weight: bold;*/
+        }
+
+        .table-theme[data-color= 'select-element-add']:hover{
+            /* для посетки добавленного или модифицированного элемента */
+            color: var(--theme-element-add);
+            /*font-weight: bold;*/
+        }
+
+        
+
 
         .content .form-theme .table-theme:hover {
             background-color: var(--theme-select-color);
-            /*transition: background-color 0.6s ease ; /* Плавный переход для outline */
-            transition: background-color 0.1s ease 0.01s; /* Плавный переход */
-        }
-
-
-        
-        
-        
-        
-
-
-
-
-
+            opacity: 1; /* для убирания фризов при scroll */
+            width: 94.0%; /* для убирания фризов при scroll */
+            transition: background-color 0.1s ease-in 0.02s ;
+            
+            
+        }        
 
 
 
