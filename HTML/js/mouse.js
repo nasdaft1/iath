@@ -23,9 +23,9 @@ class TreeFocus {
                 this.id_path_last = Number(element.id);    
             }
             this.targetDiv = document.getElementById(element.id);
-            this.targetDiv.style.outline = "3.0px solid rgb(70, 52, 236)";
+            this.targetDiv.style.outline = "var(--tree-select-outline)";
             var clear_bag = document.getElementById('form-table');
-            //clear_bag.style.backgroundColor = 'var(--theme-color)'
+            //clear_bag.style.backgroundColor = 'var(--tree-background)'
         } else {
             this.id = undefined; // дефолтное значение
         }
@@ -42,8 +42,8 @@ class TreeFocus {
             // console.log(clear_bag)    
             if (this.targetDiv !== null) {
                 this.targetDiv.style.outline = 'none';
-                // для того чтобы убрать артуфакты
-                clear_bag.style.backgroundColor = 'var(--theme-color1)'
+                // для того чтобы убрать артифакты
+                clear_bag.style.backgroundColor = 'var(--tree-background1)'
             }
         };
     };

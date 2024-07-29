@@ -9,15 +9,13 @@
     width: 200px;
     height: 330px;
     border-radius: 5px;
-    border: 1px solid rgb(128, 128, 128);
-    background: white;
+    border: 1px solid var(--context-menu-border);
+    background: var(--context-menu-background);
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
     font-size: 14px; /* Измените размер шрифта на желаемый */
     padding: 10px;
 }
     .context-menu .menu-cont {
-        border: 1px solid rgb(128, 128, 128);
-        border-color: black;
         border-radius: 5px;
         border: 2px solid transparent; /* Прозрачная граница по умолчанию */
     }
@@ -36,10 +34,10 @@
     }
 
     .context-menu .menu-cont:last-child {
-        color: red;
+        color: var(--context-menu-del);
     }
 
-        .context-menu .menu-cont:hover {
-            border-color: #969696;
-            background: #969696;
-        }
+    .context-menu .menu-cont:hover {
+        border-color: #969696;
+        background: var(--context-menu-background-header);
+    }

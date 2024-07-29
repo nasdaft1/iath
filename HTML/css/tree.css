@@ -1,37 +1,29 @@
-:root {
-    --theme-color: rgb(128, 128, 128); /* Общая переменная для цвета */
-    --theme-color1: rgb(128, 128, 127); /* Общая переменная для цвета для убирания артефакта*/
-    --theme-select-color: rgba(255, 255, 255, 0.9);
-    --theme-select-color2: rgb(52, 208, 236);
-    --theme-area-changes: rgb(56, 209, 171);
-    --theme-element-changes: rgb(66, 216, 253);
-    --theme-element-add: rgb(247, 173, 76);
-  }
+
 
 /* Основное поле ввода данных материала и темы */
-.content {
+.form-1 .content{
     position: absolute;
-    left: calc( 5% + 60px);
-    top: 70px;
-    
-
-    width: calc( 90% - 60px);
-    height: 90%;
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
     opacity:1;
-
+    left: var(--sidebar-width);
+    right: 0px;
+    height: 100%;
+    display: flex;
+    border-radius: 0px 0px 20px 0px;
+    border-bottom: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
+    border-right: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
 }
 
-    .form-theme {
-        position: absolute;
+.content .form-theme {
+        left: 0px;
         height: 100%;
-        width: 25%;
-        background-color: var(--theme-color);
-        /*background-color: #ebebeb;*/
-        
+        width: 350px;
+        background-color: var(--tree-background);
+        border-bottom: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
     }
 
     .content .form-theme .table-menu {
+        
         padding-top: 5px;
         padding-left: 20px;
         padding-right: 30px;
@@ -43,19 +35,17 @@
         display: flex;
         height: 30px;
         margin-top: 5px;
-        border: 1px solid var(--theme-color);
+        border: 1px solid var(--tree-background);
     }
-    
-
+   
         .content .form-theme .table-menu {
             height: 70px;
         }
-       
+      
 
         .cell-menu img{
             height: 100%;
             vertical-align: middle;
-
         }    
 
         .cell-menu span{
@@ -70,11 +60,11 @@
 
         .content .form-theme .table-menu #search_menu{
             visibility: hidden; /*сделать блок невидемым но оставить отступы до соседних блоков*/
-            border: 1px solid var(--theme-select-color);; /* Границы ячеек */
+            border: 1px solid var(--tree-select-background);; /* Границы ячеек */
             /*pointer-events: none; /* чтобы изображение не перехватывало клики */
             border-radius: 5px; /* Закругленные углы трека */
             margin-top: 2px;
-            background-color: var(--theme-select-color);
+            background-color: var(--tree-select-background);
             
         }
 
@@ -83,46 +73,27 @@
             height: 20px;
             width: 100%;
             font-size: 16px;
-            background-color: var(--theme-select-color);
+            background-color: var(--tree-select-background);
             border: none; /* убираем бордюры */
             outline: none; /* убираем обводку при фокусе */
         }    
-
 
         .content .form-theme .table-menu #folder_root {
             border-radius: 5px;
         }
 
         .content .form-theme .table-menu #folder_root:hover {
-            background-color: var(--theme-select-color);
+            background-color: var(--tree-select-background);
             border-radius: 6px;
             /*transition: background-color 0.13s; /* Плавный переход */
         }
-
-        
-
-        
 
         .content .form-theme .table {
             padding: 10px;
             overflow: auto; /* добавляет прокрутку по мере необходимости.*/
             height: calc(100% - 100px);
+            border-right: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
         }
-
-        .content .form-theme .table::-webkit-scrollbar {
-            position: absolute;
-            width: 10px; /* Ширина скроллбара */
-        }
-
-        .content .form-theme .table::-webkit-scrollbar-thumb {
-            background: #a8a7a7; /* Цвет ползунка при наведении */
-            border-radius: 10px; /* Закругленные углы трека */
-        }
-
-        .content .form-theme .table::-webkit-scrollbar-thumb:hover {
-            background: #383838; /* Цвет ползунка при наведении */
-        }
-
 
         .content .form-theme .table-theme {
             display: flex;
@@ -135,121 +106,73 @@
             transition: opacity 0.1s ease-in 0.1s; /* для убирания фризов при scroll */
         }
 
-
-
         .content .form-theme .table-theme img, span{
             position:relative;
             margin-top: -4px;
             height: 38px;
         }
 
-            .content .form-theme .table-theme span {
-                left: 1px;
-                top: 9px;
-
-                overflow: hidden; /* Скрывает контент, который выходит за границы блока */
-                white-space: nowrap; /* Запрещает перенос текста */
-                text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
-                padding-right: 20px;
-                max-width: 100%; /* Устанавливаем максимальную ширину ячеек */
-            }
+        .content .form-theme .table-theme span {
+            left: 1px;
+            top: 9px;
+            overflow: hidden; /* Скрывает контент, который выходит за границы блока */
+            white-space: nowrap; /* Запрещает перенос текста */
+            text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
+            padding-right: 20px;
+            max-width: 100%; /* Устанавливаем максимальную ширину ячеек */
+        }
 
               
-        
+        /* для кастомизации элемента scroll*/
+        .content .form-theme .table::-webkit-scrollbar {
+            position: absolute;
+            width: 10px; /* Ширина скроллбара */
+        }
+
+        .content .form-theme .table::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb); /* Цвет ползунка при наведении */
+            border-radius: 10px; /* Закругленные углы трека */
+        }
+
+        .content .form-theme .table::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover); /* Цвет ползунка при наведении */
+        }
+
+
+        /*для подсетки дерева каталога разыми цветами при добавлении файлов или каталогов*/
         .table-theme[data-color = 'select-area-changes'] {
             /* для посетки области куда добавленн или где модифицированн элемент */
-            color: var(--theme-area-changes);
-            /*font-weight: bold;*/
+            color: var(--select-area-changes);
         }
-       
 
         .table-theme[data-color = 'select-element-changes']{
             /* для посетки родителя куда добавленн или где модифицированн элемент */
-            color: var(--theme-element-changes);
-            /*font-weight: bold;*/
+            color: var(--select-element-changes);
         }
 
         .table-theme[data-color= 'select-element-add']{
             /* для посетки добавленного или модифицированного элемента */
-            color: var(--theme-element-add);
-            /*font-weight: bold;*/
+            color: var(--select-element-add);
         }
 
         .table-theme[data-color = 'select-area-changes']:hover {
             /* для посетки области куда добавленн или где модифицированн элемент */
-            color: var(--theme-area-changes);
-            /*font-weight: bold;*/
+            color: var(--select-area-change);
         }
-       
 
         .table-theme[data-color = 'select-element-changes']:hover{
             /* для посетки родителя куда добавленн или где модифицированн элемент */
-            color: var(--theme-element-changes);
-            /*font-weight: bold;*/
+            color: var(--select-element-changes);
         }
 
         .table-theme[data-color= 'select-element-add']:hover{
             /* для посетки добавленного или модифицированного элемента */
-            color: var(--theme-element-add);
-            /*font-weight: bold;*/
+            color: var(--select-element-add);
         }
 
-        
-
-
         .content .form-theme .table-theme:hover {
-            background-color: var(--theme-select-color);
+            background-color: var(--tree-select-background);
             opacity: 1; /* для убирания фризов при scroll */
             width: 94.0%; /* для убирания фризов при scroll */
             transition: background-color 0.1s ease-in 0.02s ;
-            
-            
         }        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    .content .form-material {
-        position: absolute;
-        height: 100%;
-        left: 25%;
-        top: 0px;
-        width: 75%;
-        white-space: nowrap;
-        overflow: auto; /* добавляет прокрутку по мере необходимости.*/
-    }
-
-    .form-material table {
-        width: 100%; /* Полная ширина таблицы */
-        border-collapse: collapse; /* Удаление промежутков между ячейками */
-    }
-
-    .form-material  th {
-        /*border: 1px solid #ddd; /* Границы ячеек */
-        padding: 8px; /* Внутренние отступы */
-        text-align: left; /* Выравнивание текста по левому краю */
-        /*border: 1px solid #000;*/
-        max-width: 100px; /* Устанавливаем максимальную ширину ячеек */
-        overflow: hidden; /* Скрывает контент, выходящий за пределы */
-        text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
-        white-space: nowrap; /* Позволяет перенос на новую строку */
-    }
-
-    .form-material tr:hover {
-        background-color: #1d1b1b; /* Фон заголовков таблицы */
-        border-radius: 0px;
-        
-    }

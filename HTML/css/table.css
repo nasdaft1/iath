@@ -1,0 +1,165 @@
+/*для теста расположение блоков*/
+/* {
+    border: 1px solid rgb(180, 37, 37);
+}*/
+
+.content .form-material {
+    box-sizing: border-box;
+    padding-right: var(--table-container-header-padding-right);
+    padding-bottom: 10px;
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden; /* Скрывает контент, который выходит за границы блока */
+    background-color: var(--table-container-background);
+    border-radius: 0px 0px 20px 0px;
+    
+}
+
+.content .form-material .table-container-material{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding-right: var(--table-container-header-padding-right);
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    scroll-padding-top: 50px; /* Отступ сверху при прокрутке */
+    
+}
+
+.table-container-material table{ 
+    border-collapse: collapse; /*убираем двойные бордюры*/
+    width: 100%;
+    border-spacing: 0;
+    padding: 0px;
+    table-layout: fixed; /* Фиксированная ширина колонок */
+}
+
+.table-container-material table tbody td{
+    height: 40px;
+    word-wrap: break-word; /* Перенос текста */
+    text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
+}
+
+
+.table-container-material table thead {
+    height: var(--table-container-header-height);
+    background: var(--table-container-material-header);
+    position: sticky;
+    margin-top: 0px;
+    top: 0px; /* Fix the header to the top */
+    z-index: 2; /* Ensure header is above the table rows */
+    
+}
+
+.table-container-material table thead::after {
+    /*для рисование линии border-bottom на статической header таблицы*/
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px; /* Толщина границы */
+    background: linear-gradient(to right,var(--table-container-material-line), var(--table-container-material-line)); /* Градиентная линия */
+}
+
+html .stump{
+    /*изготовление заглушки между таблицей и внешнего блока в обход scrool*/
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 0px;
+    width: var(--table-container-stump-width);
+    height: var(--table-container-header-height);
+    background: var(--table-container-material-header);
+    border-bottom: 1px  solid var(--table-container-material-line);
+    z-index: 3;
+
+}
+
+
+.col0 {
+    width: 40px;
+    border-right: 1px solid var(--table-container-material-line);
+    border-bottom: 1px solid var(--table-container-material-line);
+}
+
+.header-col0 {
+    width: 40px;
+    border-right: 1px solid var(--table-container-material-line);
+}
+
+.col1 {
+    width: 30%;
+    border-right: 1px solid var(--table-container-material-line);
+    border-bottom: 1px solid var(--table-container-material-line);
+}
+
+.header-col1 {
+    width: 30%;
+    border-right: 1px solid var(--table-container-material-line);
+}
+
+.col2 {
+    width: 30%;
+    border-right: 1px solid var(--table-container-material-line);
+    border-bottom: 1px solid var(--table-container-material-line);
+}
+
+.header-col2 {
+    width: 30%;
+    border-right: 1px solid var(--table-container-material-line);
+}
+
+.col3 {
+    right: 0px;
+    border-bottom: 1px solid var(--table-container-material-line);
+}
+
+.header-col3 {
+    right: 0px;
+    /*border-right: 1px solid var(--table-container-material-line);*/
+}
+
+
+.col3-end {
+    right: 0px;
+    border-bottom: 1px solid var(--table-container-material-line);
+}
+
+
+.table-container-material tbody tr:hover td {
+    background-color: var(--table-container-hover);
+    opacity: 1; /* для убирания фризов при scroll */
+    transition: background-color 0.1s ease-in 0.02s ;
+}        
+
+.table-container-material tbody td[contenteditable="true"]:focus {
+    background-color: var(--table-container-focus);
+    opacity: 1; /* для убирания фризов при scroll */
+    transition: background-color 0.1s ease-in 0.02s ;
+}        
+
+
+/* для кастомизации элемента scroll*/
+.table-container-material::-webkit-scrollbar {
+    position: absolute;
+    width: var(--material-width-scroll); /* Ширина скроллбара */
+    margin: 4px 0; /* Отступы от краев элемента */
+
+}
+
+.table-container-material::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb); /* Цвет ползунка при наведении */
+    border-radius: 10px; /* Закругленные углы трека */
+    
+}
+
+.table-container-material::-webkit-scrollbar-thumb:hover {
+    background:var(--scrollbar-thumb-hover); /* Цвет ползунка при наведении */
+}
+
+.table-container-material::-webkit-scrollbar-track{
+    
+    margin-top:var(--scrollbar-header-height); ; /* Отступы от верха элемента */
+    
+}
