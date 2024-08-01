@@ -12,7 +12,6 @@
     overflow: hidden; /* Скрывает контент, который выходит за границы блока */
     background-color: var(--table-container-background);
     border-radius: 0px 0px 20px 0px;
-    
 }
 
 .content .form-material .table-container-material{
@@ -23,7 +22,6 @@
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
     scroll-padding-top: 50px; /* Отступ сверху при прокрутке */
-    
 }
 
 .table-container-material table{ 
@@ -48,7 +46,6 @@
     margin-top: 0px;
     top: 0px; /* Fix the header to the top */
     z-index: 2; /* Ensure header is above the table rows */
-    
 }
 
 .table-container-material table thead::after {
@@ -73,7 +70,6 @@ html .stump{
     background: var(--table-container-material-header);
     border-bottom: 1px  solid var(--table-container-material-line);
     z-index: 3;
-
 }
 
 
@@ -145,7 +141,6 @@ html .stump{
     position: absolute;
     width: var(--material-width-scroll); /* Ширина скроллбара */
     margin: 4px 0; /* Отступы от краев элемента */
-
 }
 
 .table-container-material::-webkit-scrollbar-thumb {
@@ -159,7 +154,5 @@ html .stump{
 }
 
 .table-container-material::-webkit-scrollbar-track{
-    
     margin-top:var(--scrollbar-header-height); ; /* Отступы от верха элемента */
-    
 }

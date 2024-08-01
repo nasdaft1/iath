@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/context-menu.css">
     <link rel="stylesheet" href="css/help.css">
     <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/play.css">
 </head>
 <body>
     <!-- для передачи данных на сервер и обратно -->
@@ -23,6 +24,7 @@
     <script src="js/menu_contex.js"></script>
     <script src="js/local.js"></script>
     <script src="js/help.js"></script>
+    <script src="js/play.js"></script>
 
     <div class="form-general" id="form-general"> 
         <div class="help" id="help"> </div>
@@ -73,58 +75,58 @@
 
                 <div class="block" id="block-0">
                     <div class="icon-sidebar" data-description="Наименование" id="sidebar">
-                        <img src="png\sidebar.png">
+                        <img src="png\sidebar\sidebar.png">
                     </div>
                 </div>
 
                 <div class="block" id="block-1">
                     <div class="icon" data-description="Материалы" id="material">
-                        <img src="png\material.png">
+                        <img src="png\sidebar\material.png">
                     </div>
                     <div class="icon" data-description="Учить" id="teach">
-                        <img src="png\teach.png">
+                        <img src="png\sidebar\teach.png">
                     </div>
                     <div class="icon" data-description="Аналитика" id="analysis">
-                        <img src="png\analysis.png">
+                        <img src="png\sidebar\analysis.png">
                     </div>
                 </div>
 
                 <div class="block" id="block-2">
                     <hr>
                     <div class="icon" data-description="Вопрос текстом ответ аудио" id="txt_audio">
-                        <img src="png\tx_au.png">
+                        <img src="png\sidebar\tx_au.png">
                     </div>
                     <div class="icon" data-description="Вопрос audio ответ аудио" id="audio_audio">
-                        <img src="png\au_au.png">
+                        <img src="png\sidebar\au_au.png">
                     </div>
                     <div class="icon" data-description="Вопрос audio ответ текстом" id="audio_txt">
-                        <img src="png\au_tx.png">
+                        <img src="png\sidebar\au_tx.png">
                     </div>
                 </div>
 
                 <div class="block" id="block-3">
                     <hr>
                     <div class="icon" data-description="Вопрос на английском ответ русском" id="foreign_native">
-                        <img src="png\al_na.png">
+                        <img src="png\sidebar\al_na.png">
                     </div>
                     <div class="icon" data-description="Вопрос на английском ответ английском" id="foreign_foreign">
-                        <img src="png\al_al.png">
+                        <img src="png\sidebar\al_al.png">
                     </div>
                     <div class="icon" data-description="Вопрос на руском ответ английском" id="native_foreign">
-                        <img src="png\na_al.png">
+                        <img src="png\sidebar\na_al.png">
                     </div>
                 </div>
 
                 <div class="block" id="block-4">
                     <hr>
                     <div class="icon" data-description="Редактирование" id="edit">
-                        <img src="png\edit.png">
+                        <img src="png\sidebar\edit.png">
                     </div>
                     <div class="icon" data-description="Приоритет" id="priority">
-                        <img src="png\priority.png">
+                        <img src="png\sidebar\priority.png">
                     </div>
                     <div class="icon" data-description="Загрузка файлов" id="load">
-                        <img src="png\load.png">
+                        <img src="png\sidebar\load.png">
                     </div>
                 </div>
             </div>
@@ -176,40 +178,40 @@
                 <!--меню выпадающее при нажати е правой кнопки мыши по контенту-->
                 <div class="context-menu" id="contextMenu">
                     <div class="menu-cont" id="search">
-                        <img src="png\search.png">
+                        <img src="png\menu-contex\search.png">
                         <span>Поиск</span>
                     </div>
                     <div class="menu-cont" id="roll_up">
-                        <img src="png\roll_up.png">
+                        <img src="png\menu-contex\roll_up.png">
                         <span>Свернуть все</span>
                     </div>
                     <div class="menu-cont" id="un_roll">
-                        <img src="png\un_roll.png">
+                        <img src="png\menu-contex\un_roll.png">
                         <span>Развернуть все</span>
                     </div>
                     <hr> 
                     <div class="menu-cont" id="new_label">
-                        <img src="png\new_label.png">
+                        <img src="png\menu-contex\new_label.png">
                         <span>Новый документ</span>
                     </div>
                     <div class="menu-cont" id="new_folder">
-                        <img src="png\new_folder.png">
+                        <img src="png\menu-contex\new_folder.png">
                         <span>Новая папка</span>
                     </div>
                     <div class="menu-cont" id="copy">
-                        <img src="png\copy.png">
+                        <img src="png\menu-contex\copy.png">
                         <span>Копировать</span>
                     </div>
                     <div class="menu-cont" id="insert">
-                        <img src="png\insert.png">
+                        <img src="png\menu-contex\insert.png">
                         <span>Вставить</span>
                     </div>
                     <div class="menu-cont" id="rename">
-                        <img src="png\rename.png">
+                        <img src="png\menu-contex\rename.png">
                         <span>Переименовать</span>
                     </div>
                     <div class="menu-cont" id="delete">
-                        <img src="png\delete.png">
+                        <img src="png\menu-contex\delete.png">
                         <span>Удалить</span>
                     </div>
                 </div>
@@ -231,11 +233,29 @@
                 </div>
                 <div class="form-material" id="form-material">
                     <div class="stump" id="stump"></div>
+                    <audio id="audioPlayer" controls></audio>
                     <div class="table-container-material" id="table-container-material">
                         <table class="table-material">
                             <thead>
                                 <tr>
-                                    <th class="header-col0">1</th>
+                                    <th class="header-col0">
+
+                                        <div class="arc-container" id="downloadButton">
+                                            <div class="arc" id="progress-circle"></div>
+                                                <div class="arc-2"></div>
+                                                <div class="play_stop">
+                                                    <div id="play_stop">
+                                                        <div class="triangle-left"></div>
+                                                        <div class="progress_stop" id="rectangle1"></div>
+                                                        <div class="progress_stop" id="rectangle2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+
+
+                                    </th>
                                     <th class="header-col1">Текст</th>
                                     <th class="header-col2">Вопрос</th>
                                     <th class="header-col3">Ответ</th>

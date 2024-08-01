@@ -92,7 +92,7 @@ function open_tree(targetDiv, depth, iconImg, index_icon){
     // Если элемент найден, обработать все следующие элементы
     var nextElement = targetDiv.nextElementSibling;
     // Проходить по всем следующим элементам и делать их видимыми
-    iconImg[index_icon].src = 'png/tree-open.png'; // Укажите новый URL иконки 
+    iconImg[index_icon].src = 'png/tree/tree-open.png'; // Укажите новый URL иконки 
     while (nextElement) {
         var nextDepth=Number(nextElement.getAttribute('depth'));
         if (nextDepth===depth){break;}
@@ -109,7 +109,7 @@ function close_tree(targetDiv, depth, iconImg, index_icon){
     // Для сворачивания участка дерева 
     var nextElement = targetDiv.nextElementSibling;
     // Проходить по всем следующим элементам и делать их видимыми
-    iconImg[index_icon].src = 'png/tree-close.png'; // Укажите новый URL иконки 
+    iconImg[index_icon].src = 'png/tree/tree-close.png'; // Укажите новый URL иконки 
     while (nextElement) {
         var nextDepth=Number(nextElement.getAttribute('depth'));
         if (nextDepth<=depth){break;};
@@ -117,7 +117,7 @@ function close_tree(targetDiv, depth, iconImg, index_icon){
         var iconImgLength = iconImgNext.length -1;
         var iconTextNext = iconImgNext[iconImgLength].src.slice(-13)
         if (iconTextNext ==='tree-open.png'){
-            iconImgNext[iconImgLength].src = 'png/tree-close.png';
+            iconImgNext[iconImgLength].src = 'png/tree/tree-close.png';
         };
         nextElement.style.display = 'none'; // отключаем видимость
         // передать в глабальную переменную состояние не видимости дерева

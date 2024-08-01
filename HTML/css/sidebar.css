@@ -9,9 +9,10 @@
     will-change: transform;
     transition: width 0.3s ease-in-out;
     overflow: hidden; /*обрезание за границы блока*/
-    border-right: 1px solid rgb(19, 0, 0); /*для того чтобы убрать при сворачивании артифакты*/
+    /*border-right: 1px solid rgb(19, 0, 0); /*для того чтобы убрать при сворачивании артифакты*/
+    border-right: 1px solid var(--scrollbar-header); /*для того чтобы убрать при сворачивании артифакты*/
     outline: none; /* Убираем outline по умолчанию */
-    border-radius: 0px 0px 0px 20px;
+    border-radius: 0px 0px 0px 20px; /*закругление от внешнего фона*/
     border-left: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
     border-bottom: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
     z-index: 3; /*размещаем по верх остальных блоков на form*/
@@ -26,8 +27,10 @@
 }
 
 .sidebar .block {
+padding-top: 2px;
 display: flex;
 flex-direction: column;
+
 }
 
 .sidebar hr {
@@ -40,16 +43,22 @@ flex-direction: column;
     padding: 10px; /*отступы от края иконок*/
     cursor: pointer;
     position: relative;
+    margin-bottom: 5px; /*растояние между блоками*/
+    
 }
 
 .sidebar .icon img {
         width: 42px;
         height: 42px;
+        /*mix-blend-mode: multiply; /* Множение */
+        filter: brightness(0.1); /* Делает изображение темнее */
     }
 
     .sidebar .icon-sidebar img {
         width: 42px;
         height: 42px;
+        /*mix-blend-mode: multiply; /* Множение */
+        filter: brightness(0.1); /* Делает изображение темнее */
     }
 
     .sidebar .icon::after {
@@ -64,6 +73,7 @@ flex-direction: column;
         padding: 5px 10px;
         border-radius: 3px;
         pointer-events: none;
+        
     }
 
     .sidebar .text {
@@ -72,13 +82,17 @@ flex-direction: column;
     }
 
     .sidebar:hover .icon::after {
-        opacity: 1;
+        opacity: 0.9;
     }
 
     .sidebar .icon:hover {
         background-color: var(--sidebar-hover-color);
+        transition: background-color 0.2s ease-in 0.02s ;
+        opacity: 1;
+        height: 101%;
     }
 
     .sidebar:hover .icon.selected {
         background-color: var(--sidebar-select-color);
+        transition: background-color 0.2s ease-in 0.02s ;
     }

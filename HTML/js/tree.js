@@ -36,9 +36,9 @@ function createDivBlocks(depth, id , parent_id, text, folder, id_add) {
     div.setAttribute('depth', depth);
     div.setAttribute('folder', folder);
     // Создать элемент span
-    const span = document.createElement('span');
-    span.textContent = text;
-    span.className = 'table-theme-add';
+    const div_text = document.createElement('div');
+    div_text.textContent = text;
+    div_text.className = 'table-theme-text';
     // Добавить изображениЯ и span в div
     for (let i = 0; i <= depth; i++) {
         // Создать элемент изображения
@@ -46,16 +46,16 @@ function createDivBlocks(depth, id , parent_id, text, folder, id_add) {
         img.className = 'table-theme-add';
         if ((i === depth) && (folder === true)) {
             // для рисование определение закрытого открытого каталога
-            img.src = 'png/tree-close.png';
+            img.src = 'png/tree/tree-close.png';
         } else if ((i === depth) && (folder === false)) {
-            img.src = 'png/tree-clear.png';
+            img.src = 'png/tree/tree-clear.png';
         } else {
-            img.src = 'png/tree-line.png';
+            img.src = 'png/tree/tree-line.png';
         };
         img.alt = 'Icon';
         div.appendChild(img);
     };
-    div.appendChild(span);
+    div.appendChild(div_text);
     const divNew = document.createElement('div');
     div.appendChild(divNew);
     if (tree_focus.id_path_last ==id){
@@ -101,7 +101,7 @@ function iterateJSON(obj, depth, parent, id_path_last=null, id_add) {
         // найти родителя и изменить мконку выпадающего списка
         if (globalСonditionTree[last_key] ===1 && parent>0){
             var elementImg = element.querySelectorAll('img');
-            elementImg[depth-1].src = 'png/tree-open.png'
+            elementImg[depth-1].src = 'png/tree/tree-open.png'
         }
     };
 };

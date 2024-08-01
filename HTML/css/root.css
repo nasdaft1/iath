@@ -11,6 +11,7 @@
   --tree-select-background: rgba(255, 255, 255, 1.0);
   --tree-select-background2: rgb(52, 208, 236);
   --tree-select-outline: 3.0px solid rgb(70, 52, 236);
+  --tree-width: 400px;
   
   --header-height: 70px; /* Общая переменная для цвета */
   --header-background: var(--scrollbar-header);/*фон заголовка*/
@@ -31,7 +32,8 @@
   --sidebar-background: var(--scrollbar-header); /* Общая переменная для цвета */
   --sidebar-width: 60px; /*минимальная ширина*/
   --sidebar-hover-width: 600px; /*максимальная ширина*/
-  --sidebar-color: white;
+  --sidebar-color: rgb(0, 0, 0);
+  --sidebar-color2: black;
   
   /*цвета для визуализации добавления данных в дереве*/
   --select-area-changes: rgb(56, 209, 171); /*цвет добавленного элемента*/
