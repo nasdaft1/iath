@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();        // Останавливаем воспроизведение
             audio.currentTime = 0; // Сбрасываем позицию к началу
             progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg);';
-            console.log(progressFill.style.background);
+            console.log(1,progressFill.style.background);
         }
     })
 })

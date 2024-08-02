@@ -182,22 +182,67 @@ function findPathToRoot(id) {
     return path.reverse();
 }
 
-function get_path_tree_focus(element){
+function get_path_tree_focus(element, event){
     const index = element.id
+    // Получить высоту окна браузера
+    const windowHeight = window.innerHeight;
+    const menu = document.getElementById("contextMenu") 
     const pathToRoot = findPathToRoot(index);
     tree_focus.setFocus(element, pathToRoot)
+    menu.style.left = (event.clientX) + "px";
+    // чтобы контекстное меню не выползало из экрана
+    if ((context_menu_heigh +event.clientY+30)< windowHeight){
+        menu.style.top = (event.clientY -30) + "px";
+    } else {
+        menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
+    }
+    document.getElementById("block_menu_cont").style.display='block'
+    document.getElementById("block_menu_material").style.display='none'
+    menu.style.display = 'block';
     console.log('pathToRoot',pathToRoot)
     return pathToRoot
 }
 
-function check_run(func, element, parent_element, value){
+
+function get_path_material_focus(element, event){
+    const index = element.id
+    // Получить высоту окна браузера
+    const windowHeight = window.innerHeight;
+    const menu = document.getElementById("contextMenu") 
+    //const pathToRoot = findPathToRoot(index);
+    //tree_focus.setFocus(element, pathToRoot)
+    menu.style.left = (event.clientX) + "px";
+    // чтобы контекстное меню не выползало из экрана
+    if ((context_menu_heigh +event.clientY+30)< windowHeight){
+        menu.style.top = (event.clientY -30) + "px";
+    } else {
+        menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
+    }
+    document.getElementById("block_menu_cont").style.display='none'
+    document.getElementById("block_menu_material").style.display='block'
+    menu.style.display = 'block';
+    console.log('get_path_material_focus');
+    //console.log('pathToRoot',pathToRoot)
+    return 1 //pathToRoot
+}
+
+
+
+
+function check_run(func, element, parent_element, value, event){
+    // func - функция вызываемая 
+    // element - элемент на который основной
+    // parent_element - элемент родитель
+    // value - значение элемента для сравнения
+    // event -событие передаваемое в функцию если есть
     // Выполнение функции c элемент или родитель который соответствует value
     if (element.className === value){
-        return func(element)
+        return func(element, event)
     }
     else if (parent_element.className === value){
-        return func(parent_element)
+        return func(parent_element, event)
     }
+    else {return null}
 };
 
 
@@ -206,39 +251,26 @@ document.addEventListener('contextmenu', function (event) {
     // Предотвращаем появление контекстного меню по умолчанию
     tree_focus.deleteFocus(); // удаление выделение по многочисленным кликам 
     event.preventDefault();
-    // Получить высоту окна браузера
-    var windowHeight = window.innerHeight;
     // Получаем элемент, на который кликнули
     var clickedElement = event.target;
     // Получаем родительский элемент
     var parentElement = clickedElement.parentElement;
     // Проверяем клик был на нужном нам элементе?
-    try{
-        if ((clickedElement.className === "table-theme") || 
-            (parentElement.className === "table-theme") || 
-            (clickedElement.className ==="cell-menu")||
-            (parentElement.className ==="cell-menu")
-            ) {
-            // Получаем координаты клика
-            var menu = document.getElementById("contextMenu") 
-            check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme")
-            check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu")
-            // устанавливаем координаты и отображаем
-            menu.style.left = (event.clientX) + "px";
-            // чтобы контекстное меню не выползало из экрана
-            if ((context_menu_heigh +event.clientY+30)< windowHeight){
-                menu.style.top = (event.clientY -30) + "px";
-            } else {
-                menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
-            }
-            menu.style.display = 'block';
-        } else {
+
+    console.log('c',clickedElement.className);
+    console.log('p',parentElement.className);
+    //try{
+
+        if (check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme", event)||
+            check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu", event)||
+            check_run(get_path_material_focus, clickedElement, parentElement, "row-material", event)
+        ) {} else {
             // закрываем контекстное меню если производится попытка открыть
             // вне области применения
             close_context_menu();
             close_input_element();
         };
-    }catch (error) {};
+    //}catch (error) {};
 
 });
 

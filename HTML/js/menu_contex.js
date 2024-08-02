@@ -15,7 +15,7 @@ function search(){
     // поиск
     console.log("Поиск");
     tree_focus.deleteFocus(); //удалить фокус выделение а дереве
-    inputDiv('Текст для поиска', 'png/search.png');
+    inputDiv('Текст для поиска', 'png/menu-contex/search.png');
     tree_focus.setEnterTreeInput('POST', 
         `http://213.178.34.212:18000/api/v1/tree/search`)
 };
@@ -53,7 +53,7 @@ function roll(name_old_png, name_new_png, element_display){
 function roll_up(){
     // +свернуть все дерево
     tree_focus.deleteFocus();
-    roll("tree-open.png","png/tree-close.png",'none');
+    roll("tree-open.png","png/tree/tree-close.png",'none');
     console.log("Свернуть");
 };
 
@@ -61,13 +61,13 @@ function un_roll(){
     // +развернуть все дерево
     tree_focus.deleteFocus();
     console.log("Развернуть");
-    roll("tree-close.png","png/tree-open.png","flex");
+    roll("tree-close.png","png/tree/tree-open.png","flex");
 };
 
 function new_label(){
     console.log("Новая заметка");
     // Новая заметка
-    inputDiv('Имя новой заметки', 'png/new_label.png');
+    inputDiv('Имя новой заметки', 'png/menu-contex/new_label.png');
     tree_focus.setEnterTreeInput('POST', 
         `http://213.178.34.212:18000/api/v1/tree/new_label`)
     
@@ -77,7 +77,7 @@ function new_label(){
 function new_folder(){
     // Новая папка
     console.log("Новая папка");
-    inputDiv('Имя новой папки', 'png/new_folder.png');
+    inputDiv('Имя новой папки', 'png/menu-contex/new_folder.png');
     tree_focus.setEnterTreeInput('POST', 
         `http://213.178.34.212:18000/api/v1/tree/new_folder`)
     
@@ -104,7 +104,7 @@ function insert(){
 function rename(){
     // +Переименование папок и файлов
     console.log("Переименовать");
-    inputDiv('Введите новое имя', 'png/rename.png');
+    inputDiv('Введите новое имя', 'png/menu-contex/rename.png');
     tree_focus.setEnterTreeInput('POST', 
         `http://213.178.34.212:18000/api/v1/tree/rename`);
 };

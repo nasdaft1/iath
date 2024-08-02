@@ -37,3 +37,12 @@ class DataResponse(BaseModel):
     status_name: str
     id_add: int | None
 
+
+class DataMaterialResponse(BaseModel):
+    data: list
+    status_code: int
+    status_name: str
+    id_max: int | None
+
+
+

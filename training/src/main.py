@@ -9,7 +9,7 @@ from fastapi import FastAPI  # , Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
-from api.v1 import tree
+from api.v1 import tree, audio, material
 
 # from pydantic import BaseModel
 
@@ -21,6 +21,8 @@ app = FastAPI(
 )
 
 app.include_router(tree.router, prefix='/api/v1/tree')
+app.include_router(audio.router, prefix='/api/v1')
+app.include_router(material.router, prefix='/api/v1/material')
 
 add_pagination(app)
 

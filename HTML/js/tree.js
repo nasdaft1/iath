@@ -128,8 +128,22 @@ function run_time(){
     }, 2200);
 }
 
-// загрузка из json
-function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
+
+function DataTree(load_response, options ={}){
+    const id_path_last = options.id_path_last || null;
+    document.getElementById('form-table').innerHTML = '';
+    load_data=load_response['data'];
+    iterateJSON(load_data['root']['#1#folder'],0, 
+        load_data['root']['#0#id'], id_path_last,
+        load_response['id_add'])
+    // задержка для очистки от выделения
+    run_time();
+}
+
+
+
+
+function DataLoadSendApi(method, url, data, fun_data_load, options = {}){
     var xhr = new XMLHttpRequest();
     // Установка обработчика события, который будет вызван при получении ответа
     // Настройка запроса: метод GET и URL
@@ -140,36 +154,29 @@ function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
     xhr.onerror = function () {
         console.error('Произошла ошибка запроса.');
     };
-    // Отправка запроса
-    if (data !== undefined){
-        // console.log('отправлено= ',data)
-        data_send = JSON.stringify(data) //для теста 
-        // console.log('отправлено=> ',data_send) //для теста
-        xhr.send(data_send)
+    
+    if (data !== undefined){     
+        xhr.send(JSON.stringify(data))
     } else {
         // console.log('отправлено запрос без данных')
         xhr.send();
     }
 
     xhr.onload = function () {
-        // console.log(xhr.status)
         if (xhr.status >= 200 && xhr.status < 300) {
-            // Преобразование ответа в JSON
-            var load_response = JSON.parse(xhr.responseText);
-            // очистак внутри блока перед загрузкой и формированием    
-            document.getElementById('form-table').innerHTML = '';
-            // console.log('загрузить данные в дерево');
-            load_data=load_response['data'];
-            iterateJSON(load_data['root']['#1#folder'],0, 
-                load_data['root']['#0#id'], id_path_last,
-                load_response['id_add'])
-            // задержка для очистки от выделения
-            run_time();
+        // Преобразование ответа в JSON
+        var load_response = JSON.parse(xhr.responseText);
+        fun_data_load(load_response, options)
         } else {
-            console.error('Запрос не удался. Статус:', xhr.status);
+        console.error('Запрос не удался. Статус:', xhr.status);
         };
-    };
+    }
+}
 
+
+// загрузка из json
+function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
+    DataLoadSendApi(method, url, data, DataTree, {id_path_last: id_path_last})
 };
 
 

@@ -15,12 +15,17 @@
     font-size: 14px; /* Измените размер шрифта на желаемый */
     padding: 10px;
 }
-    .context-menu .menu-cont {
+    /*.menu-cont {
+        position: relative;
         border-radius: 5px;
-        border: 2px solid transparent; /* Прозрачная граница по умолчанию */
-    }
+        /*border: 2px solid transparent; /* Прозрачная граница по умолчанию */
+    /*    padding-left: 5px ;
+        /*border: 2px solid transparent; /* Прозрачная граница по умолчанию */
+        
+    /*}*/
 
-    .context-menu .menu-cont img {
+    
+    .menu-cont img {
         position: relative;
         height: 25px;
         left: 8px;
@@ -33,11 +38,37 @@
         left: 8px;
     }
 
-    .context-menu .menu-cont:last-child {
+    #delete {
         color: var(--context-menu-del);
     }
 
-    .context-menu .menu-cont:hover {
-        border-color: #969696;
+    .menu-cont:hover {
         background: var(--context-menu-background-header);
+        border-radius: 5px;
     }
+
+/*Для меню при кликанье правой кнопкой мыши на таблицу*/
+    
+    .menu-material img {
+        position: relative;
+        height: 25px;
+        left: 8px;
+        top: 2px;
+    }
+
+    #delete_row, #delete_buffer {
+        color: var(--context-menu-del);
+    }
+
+    .menu-material:hover {
+        background: var(--context-menu-background-header);
+        border-radius: 5px;
+    }
+
+    .context-menu .menu-material span {
+        position: relative;
+        top: -6px;
+        left: 8px;
+    }
+
+ 
