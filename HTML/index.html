@@ -21,10 +21,12 @@
     <script src="js/tree.js"></script>
     <script src="js/mouse.js"></script>
     <script src="js/javascript.js"></script>
-    <script src="js/menu_contex.js"></script>
+    <script src="js/menu_contex_tree.js"></script>
     <script src="js/local.js"></script>
     <script src="js/help.js"></script>
     <script src="js/play.js"></script>
+    <script src="js/material.js"></script>
+    <script src="js/menu_contex_material.js"></script>
 
     <div class="form-general" id="form-general"> 
         <div class="help" id="help"> </div>
@@ -269,103 +271,34 @@
                     </div>
                     <div class="table" id="form-table" ></div>
                 </div>
+
+                <!--Иконка для плеера-->
+                <div class="arc-container" id="downloadButton">
+                    <div class="arc" id="progress-circle"></div>
+                        <div class="arc-2"></div>
+                        <div class="play_stop">
+                            <div id="play_stop">
+                                <div class="triangle-left"></div>
+                                <div class="progress_stop" id="rectangle1"></div>
+                                <div class="progress_stop" id="rectangle2"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 <div class="form-material" id="form-material">
                     <div class="stump" id="stump"></div>
                     <audio id="audioPlayer" controls></audio>
                     <div class="table-container-material" id="table-container-material">
                         <table class="table-material">
                             <thead>
-                                <tr>
-                                    <th class="header-col0">
-
-                                        <div class="arc-container" id="downloadButton">
-                                            <div class="arc" id="progress-circle"></div>
-                                                <div class="arc-2"></div>
-                                                <div class="play_stop">
-                                                    <div id="play_stop">
-                                                        <div class="triangle-left"></div>
-                                                        <div class="progress_stop" id="rectangle1"></div>
-                                                        <div class="progress_stop" id="rectangle2"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                        </div>
-
-
-                                        
-                                </th>
+                                <tr> <th class="header-col0"> </th>
                                     <th class="header-col1">Текст</th>
                                     <th class="header-col2">Вопрос</th>
-                                    <th class="header-col3">Ответ</th>
+                                    <th class="header-col3-end">Ответ</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr id='1' class="row-material"><td class="col0" contenteditable="true">Row 1, Cell 1</td><td class="col1" contenteditable="true" >Row start, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true"><div><img src="png\menu-contex\new_folder.png">rrr</div>Row 1, Cell 4</td></tr>
-                                <tr id='2' class="row-material"><td class="col0" contenteditable="true" >Row 2, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1111111</br>11111111111rewee</h1>eeee<p>eeee</p>eeeeeeeeeeeeeeeeeeeeeeeeeee111111111111111111111111111111111111111111111111111111111, Cell 4</td></tr>
-                                <tr id='3' class="row-material"><td class="col0" contenteditable="true" >Row 3, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='4'><td class="col0" contenteditable="true" >Row 4, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='5'><td class="col0" contenteditable="true" >Row 5, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='6'><td class="col0" contenteditable="true" >Row 6, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='7'><td class="col0" contenteditable="true" >Row 7, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='8'><td class="col0" contenteditable="true" >Row 8, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='9'><td class="col0" contenteditable="true" >Row 9, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='10'><td class="col0" contenteditable="true" >Row 10, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='11'><td class="col0" contenteditable="true" >Row 11, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='12'><td class="col0" contenteditable="true" >Row 12, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='13'><td class="col0" contenteditable="true" >Row 13, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='14'><td class="col0" contenteditable="true" >Row 14, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='15'><td class="col0" contenteditable="true" >Row 15, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='16'><td class="col0" contenteditable="true" >Row 16, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='17'><td class="col0" contenteditable="true" >Row 17, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='18'><td class="col0" contenteditable="true" >Row 18, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='19'><td class="col0" contenteditable="true" >Row 19, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='20'><td class="col0" contenteditable="true" >Row 20, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='21'><td class="col0" contenteditable="true" >Row 21, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='22'><td class="col0" contenteditable="true" >Row 22, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='23'><td class="col0" contenteditable="true" >Row 23, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='24'><td class="col0" contenteditable="true" >Row 24, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='25'><td class="col0" contenteditable="true" >Row 25, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='26'><td class="col0" contenteditable="true" >Row 26, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='27'><td class="col0" contenteditable="true" >Row 27, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='28'><td class="col0" contenteditable="true" >Row 28, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='29'><td class="col0" contenteditable="true" >Row 29, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr id='30'><td class="col0" contenteditable="true" >Row 30, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 31, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 32, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 33, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 34, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 35, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 36, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 37, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 38, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 39, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 40, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 41, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 42, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 42, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 43, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 44, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 45, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 46, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 47, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 48, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 49, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 50, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 51, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 52, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 53, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 54, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 55, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 1, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 56, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 6, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 57, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 7, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 58, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 8, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 59, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 9, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                                <tr><td class="col0" contenteditable="true" >Row 60, Cell 1</td><td class="col1" contenteditable="true" >Row 1, Cell 2</td><td class="col2" contenteditable="true" >Row 10, Cell 3</td><td class="col3-end" contenteditable="true">Row 1, Cell 4</td></tr>
-                            </tbody>
-                            <!---->
+                            <tbody id ="table-container-material-body"></tbody>
                         </table>
-                        
                     </div>
                 </div>
             </div>

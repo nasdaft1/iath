@@ -1,10 +1,14 @@
-
+/**
+ * Функция для визуализации блоков в sidebar
+ * @param {string} block_2 - block||none включение выключения визуализации блока
+ * @param {string} block_3 - block||none включение выключения визуализации блока
+ * @param {string} block_4 - block||none включение выключения визуализации блока
+ */
 function block_visible(block_2, block_3, block_4) {
     document.getElementById('block-2').style.display = block_2; // block_2 - teach
     document.getElementById('form-question').style.display = block_2;
     document.getElementById('block-3').style.display = block_3; // block_3 - 
     document.getElementById('block-4').style.display = block_4; // block_4 - material
-
 }
 
 

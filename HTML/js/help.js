@@ -1,17 +1,21 @@
 
-var idElement = ''
+var idElement = '' //для определение старого состояния блока help
 
-
+/**
+ * Класс, устанавливающий и убирающий блок help
+ */
 class Help {
-    id = null
+    id = null // id элемента связанный с блоком help
     id_old = null //проверка сотояния по таймеру предыдущее 
     top =null //позиция по вертикали строки help
     left = null //позиция по горизонтали строки help
 
+    /**
+     * Установка подсказки help на дереве
+     * @param {Object} element - объект на каторый пповесится help
+     */
     setDescription(element=null){
         this.id = element.id
-        
-        //console.log('LLL', this.id, this.id_old) 
         var element_id = document.getElementById(element.id);
         this.id=element_id.id;
         const rect = element_id.getBoundingClientRect();
@@ -23,14 +27,19 @@ class Help {
         this.id_old = null;
     };
 
+    /**
+     * Удаление подсказки help на дереве
+     */
     delDescription(){
         const elementHelp = document.getElementById('help');
         elementHelp.style.display = 'none';
         this.id = null;
     }
 
+    /**
+     * Для высвечивание строки help при длительной задержки на элементе
+     */
     setCheck(){
-        // для высвечивание строки help при длительной задержки на элементе
         var menu = document.getElementById("contextMenu") 
         // console.log('ddLL', this.id, this.id_old) 
         if (this.top!== null && 
@@ -45,12 +54,15 @@ class Help {
         }
         this.id_old = this.id
     }
-    
 
 }
 
 const HelpClass = new Help();
 
+/**
+ * Функция определя открыт help на данном элементе или на другом
+ * @param {Object}  element - глубина дерева
+ */
 function get_help(element){
     if (idElement!==element){
         idElement = element
@@ -58,19 +70,18 @@ function get_help(element){
         }
 }
 
+// Остлеживать наведение на элементы дерева для вывода подсказки help
 document.addEventListener('mousemove', (event) => {
     const element = document.elementFromPoint(event.clientX, event.clientY);
     var childElement = event.target;
-    // console.log('ffff', childElement.className) 
     if (
-        childElement.className === 'table-theme' ||
-        // childElement.className === 'cell-menu' || 
-        childElement.className === 'table-theme-add'){
-        // console.log('изменения',childElement)
-        //try {
+        childElement.className === 'table-theme-add' ||
+        childElement.className === 'table-theme-text'){
+        try {
             var parentElement = childElement.parentElement;
+            
             check_run(get_help, childElement, parentElement, "table-theme")   
-        //} catch (error) {}
+        } catch (error) {console.log(error)}
     } else if (childElement.className === 'table') {
         HelpClass.delDescription();
     } else {
@@ -78,8 +89,10 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-
-// Определяем функцию, которую будем вызывать
+/**
+ * Определяем функцию, которую будем вызывать через определенное время
+ * раз за разом
+ */
 function myFunction() {
     HelpClass.setCheck();
     //для вызова функции через определенныо время саму себя

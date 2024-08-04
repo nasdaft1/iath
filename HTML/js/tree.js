@@ -1,27 +1,37 @@
 var name_table = 'form-table';
 
+
+/**
+ * получение из глобальной переменной из cookes данные видимости блоков 
+ * проверяет по id что выбрано в контексном меню при кликанье 
+ * на таблицу с материалами
+ * @param {String} key - ключ для получение видимый объект или нет 
+ * @param {String} result_true - результат получаемый при true
+ * @param {String} result_false - результат получаемый при false
+ * @returns {String} Результат result_true || result_false 
+ * в зависимости от даннх в хранилище
+ */
 function checkLocalTree(key, result_true, result_false){
-    // key - ключ для получение видимый объект или нет 
-    // result_true - результат получаемый при true
-    // result_false - результат получаемый при false
     if (globalСonditionTree[String(key)] !=1){
             return result_true
         }
         else{
             return result_false
         }
-    
 }
 
-// Для генерации таблицы из json
+
+/**
+ * Для генерации таблицы из json
+ * Функция для создания блоков div с классом table-theme рекурсивно
+ * @param {Number}  depth - глубина дерева
+ * @param {String}  id - идентификатор 
+ * @param {String}  parent_id - идентификатор родителя
+ * @param {String}  text - имя каталога или файла
+ * @param {boolean} folder - true каталог, false фаил
+ * @param {Number}  id_add - id элемента добавленного 
+ */
 function createDivBlocks(depth, id , parent_id, text, folder, id_add) {
-    // Функция для создания блоков div с классом table-theme рекурсивно
-    // depth - глубина дерева
-    // id - идентификатор 
-    // parent_id - идентификатор родителя
-    // text - имя каталога или файла
-    // folder - true каталог, false фаил
-    // id_add - шв элемента добавленного 
     // Создать новый div с классом table-theme
     const div = document.createElement('div');
     div.className = 'table-theme';
@@ -67,16 +77,17 @@ function createDivBlocks(depth, id , parent_id, text, folder, id_add) {
     document.getElementById(name_table).appendChild(div);
 };
 
-
-// Функция для перебора JSON данных
-function iterateJSON(obj, depth, parent, id_path_last=null, id_add) {
-    /* incrementer: передача ссылкаи на клас содержащий метод итерации (счетчика)
-       depth: дла передачи и расчета глубины вложенности
-       parent: для передачи id наследнику от родителя
-       id_path_last: Добавленный путь c id
-       id_add: Добавленный id при определенных действиях
-       создание корневога каталога*/
-    
+/**
+ * Функция для перебора JSON данных
+ * Функция для создания блоков div с классом table-theme рекурсивно 
+ * создание корневога каталога
+ * @param {Object} obj - передача ссылкаи на клас содержащий метод итерации (счетчика)
+ * @param {Number} depth - дла передачи и расчета глубины вложенности
+ * @param {String} parent - для передачи id наследнику от родителя
+ * @param {Array|null} id_path_last - Добавленный путь c id
+ * @param {Number|null} id_add - Добавленный id при определенных действиях
+ */
+function iterateJSON(obj, depth, parent, id_path_last=null, id_add=null) {
     var element = document.getElementById(parent);
     let last_key; // для получение последнего id и уменьщения количество проверок
     for (let key in obj) {
@@ -88,7 +99,6 @@ function iterateJSON(obj, depth, parent, id_path_last=null, id_add) {
                 // разворачивать дерево куда добавлен элемент
                 globalСonditionTree[id]=1
             }
-            //console.log('id_path_last',id_path_last, parent, id, key)
             if (data!==null) { 
                 // каталог
                 createDivBlocks(depth, id, parent, key, true, id_add);
@@ -106,29 +116,37 @@ function iterateJSON(obj, depth, parent, id_path_last=null, id_add) {
     };
 };
 
-
+/**
+ * Функция для прохода по элементам блока и удалить навешанный атрибут
+ * для подсветки модифицированных или измененых данных
+ */
 function clear_check(){
-    // пройтись по элементам блока и удалить навешанный атрибут для подсветки
-    // модифицированных или измененых данных
     // Получить элемент с id 'forma-table'
     var formaTable = document.getElementById('form-table');
     var divs = formaTable.getElementsByClassName('table-theme');
-
     for (var i = 0; i < divs.length; i++) {
         var div = divs[i];
-        //div.style.Color = 'black'
         div.removeAttribute('data-color')
     }
 }
 
+/**
+ * Функция задержки дя удаления посвеченных элементов
+ */
 function run_time(){
     setTimeout(() => {
-        // console.log('run_time')
         clear_check();
     }, 2200);
 }
 
 
+/**
+ * Установка обработчика события, который будет вызван при получении ответа
+ * @param {String} method - Настройка запроса: метод GET и URL
+ * @param {String} url - URL запроса передаваемого на сервер
+ * @param {Function} fun_data_load - функция передаваемая для обработки получаемых дянных
+ * @param {Object} options = {} - для передачи атрибутов в fun_data_load
+ */
 function DataTree(load_response, options ={}){
     const id_path_last = options.id_path_last || null;
     document.getElementById('form-table').innerHTML = '';
@@ -142,11 +160,15 @@ function DataTree(load_response, options ={}){
 
 
 
-
+/**
+ * Установка обработчика события, который будет вызван при получении ответа
+ * @param {String} method - Настройка запроса: метод GET и URL
+ * @param {String} url - URL запроса передаваемого на сервер
+ * @param {Function} fun_data_load - функция передаваемая для обработки получаемых дянных
+ * @param {Object} options = {} - для передачи атрибутов в fun_data_load
+ */
 function DataLoadSendApi(method, url, data, fun_data_load, options = {}){
     var xhr = new XMLHttpRequest();
-    // Установка обработчика события, который будет вызван при получении ответа
-    // Настройка запроса: метод GET и URL
     xhr.open(method, url, true);
     // Обработчик ошибок
     // Устанавливаем заголовок Content-Type для отправки JSON
@@ -158,8 +180,7 @@ function DataLoadSendApi(method, url, data, fun_data_load, options = {}){
     if (data !== undefined){     
         xhr.send(JSON.stringify(data))
     } else {
-        // console.log('отправлено запрос без данных')
-        xhr.send();
+         xhr.send();
     }
 
     xhr.onload = function () {
@@ -173,14 +194,18 @@ function DataLoadSendApi(method, url, data, fun_data_load, options = {}){
     }
 }
 
-
-// загрузка из json
+/**
+ * загрузка из json для дерева
+ * @param {String} method - Настройка запроса: метод GET и URL
+ * @param {String} url - URL запроса передаваемого на сервер
+ * @param {Object} fun_data_load - передаваемые данные на сервер по дереву
+ * @param {Array|null} id_path_last - передаваемые данные на сервер по дереву со списком 
+ */
 function fetchDataWithFetchAPI(method, url, data, id_path_last=null) {
     DataLoadSendApi(method, url, data, DataTree, {id_path_last: id_path_last})
 };
 
-
+// Вызов функции для загрузки данных при загрузки сайта 
 document.addEventListener('DOMContentLoaded', () => {
-    // Вызов функции для загрузки данных
     fetchDataWithFetchAPI('GET', 'http://213.178.34.212:18000/api/v1/tree/theme');
 });

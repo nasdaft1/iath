@@ -1,3 +1,9 @@
+/**
+ * Функция для вызуализации различных форм для востановления регистрации или сброса пароля
+ * @param {string} link_reg - block||none визуализация блока регистрации.
+ * @param {string} link_login - block||none визуализация блока входа .
+ * @param {string} link_rest - block||none визуализация блока востановления пароля.
+ */
 function form_visible(link_reg, link_login, link_rest) {
     document.getElementById('form-reg').style.display = link_reg;
     document.getElementById('form-login').style.display = link_login;
@@ -6,7 +12,6 @@ function form_visible(link_reg, link_login, link_rest) {
 
 
 window.onload = function () {
-    // console.log('The page has fully loaded');
     // при запуске или обновлении
     startProgress();
     const icons = document.querySelectorAll('.icon');
@@ -69,5 +74,4 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Prevent form from submitting
         }
     });
-
 });

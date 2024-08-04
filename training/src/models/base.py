@@ -42,7 +42,9 @@ class DataMaterialResponse(BaseModel):
     data: list
     status_code: int
     status_name: str
-    id_max: int | None
 
 
 
+class DataMaterialLoad(BaseModel):
+    data: list
+    id: int | str | None

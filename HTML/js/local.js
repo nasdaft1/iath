@@ -2,30 +2,39 @@
 globalСonditionTree = {}
 
 
-// Функция для получения списка
+/**
+ * Функция для получения списка из localStorage
+ * @param {String} name  название ключа хранения
+ * @returns {number|null}  полученные данные из хранилища
+ */
 function getlocalStorage(name) {
     let myListString = localStorage.getItem(name);
     return myListString ? JSON.parse(myListString) : {};
 }
 
-// Функция для добавления элемента в список
+
+/**
+ * Функция для добавления элемента в список localStorage
+ * @param {string} name - название ключа хранения
+ * @param {Object} data - Данные передавемые на хранение
+ */
 function setlocalStorage(name, data) {
     let myListString = JSON.stringify(data);
     localStorage.setItem(name, myListString);
 }
 
 
-
+/**
+ * Получение данных из localStorage при загрузки страницы
+ */
 window.addEventListener('load', function() {
-    // Получение данных из localStorage при загрузки страницы
     globalСonditionTree=getlocalStorage('ListTree')
-    // console.log('Все ресурсы страницы загружены!');
-    //console.log(globalСonditionTree);
 });
 
-
+/**
+ * Oбытие вызывается, когда пользователь пытается закрыть страницу, 
+ * обновить её или перейти на другую страницу.
+ */
 window.addEventListener('beforeunload', function (event) {
-    // обытие вызывается, когда пользователь пытается закрыть страницу, 
-    // обновить её или перейти на другую страницу.
     setlocalStorage('ListTree', globalСonditionTree)
 });

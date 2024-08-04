@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     var audio = document.getElementById('audioPlayer');
-
-    //var progressFill = document.getElementById('audioPlayer');
     var progressFill = document.getElementById("progress-circle");
     var play_stop = document.getElementById("play_stop");
     
@@ -9,14 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
         //play_stop.style.left='-100%';
         var percentage = (audio.currentTime / audio.duration) * 100;
         var degrees = (percentage / 100) * 360;
-        console.log(degrees)
         progressFill.style.background = `conic-gradient(from 0deg, transparent 0deg, #34db34 0deg ${degrees}deg, transparent ${degrees}deg)`;
     });
 
     audio.addEventListener('ended', function () {
         play_stop.style.left='0%';
         console.log('degrees-ended')
-        progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 359deg, transparent 359deg)';
+        progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
     });
 
 
@@ -45,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.log('stop_audio');
             play_stop.style.left='0%';
-            var progressFill = document.getElementById("progress-circle");
+            //const progressFill_1 = document.getElementById("progress-circle");
             audio.pause();        // Останавливаем воспроизведение
             audio.currentTime = 0; // Сбрасываем позицию к началу
-            progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg);';
-            console.log(1,progressFill.style.background);
+            progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+            setTimeout(() => {//Для корректной отработки возвращение ползунка в исходное состояние при прерывании воспроизведения
+                progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+            }, 100)
         }
     })
 })

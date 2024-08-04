@@ -1,5 +1,10 @@
+/**
+ * Запуск визуализации поле ввода в дереве
+ * обработка поля ввода визуализаци и фокусировка
+ * @param {string} text_placeholder - текст в поле ввода.
+ * @param {string} path_img - путь к дял иконки рядом с полем ввода.
+ */
 function inputDiv(text_placeholder, path_img){
-    // обработка поля ввода визуализаци и фокусировка
     var targetDiv = document.getElementById("search_menu");
     var targetImg = document.getElementById("img_input");
     var targetInput= document.getElementById("tree_input");
@@ -10,7 +15,9 @@ function inputDiv(text_placeholder, path_img){
     document.getElementById("tree_input").focus();
 }
 
-
+/**
+ * Поиск данных и отправка запроса на сервер
+ */
 function search(){
     // поиск
     console.log("Поиск");
@@ -20,7 +27,12 @@ function search(){
         `http://213.178.34.212:18000/api/v1/tree/search`)
 };
 
-
+/**
+ * Функция сворачивает разворачивает дерево
+ * @param {string} name_old_png - путь у иконок который ищем.
+ * @param {string} name_new_png - путь у иконок на который меняем.
+ * @param {string} element_display - видимость блока flex, none.
+ */
 function roll(name_old_png, name_new_png, element_display){
     // для сворачивания и разворачивания дерева с каталогами 
     var formTables = document.querySelectorAll(".table-theme");
@@ -49,7 +61,9 @@ function roll(name_old_png, name_new_png, element_display){
     });
 }
 
-
+/**
+ * Сворачивание всего дерева 
+ */
 function roll_up(){
     // +свернуть все дерево
     tree_focus.deleteFocus();
@@ -57,6 +71,9 @@ function roll_up(){
     console.log("Свернуть");
 };
 
+/**
+ * Разворачивание всего дерева 
+ */
 function un_roll(){
     // +развернуть все дерево
     tree_focus.deleteFocus();
@@ -64,6 +81,9 @@ function un_roll(){
     roll("tree-close.png","png/tree/tree-open.png","flex");
 };
 
+/**
+ * Создание нового файла в дереве, формирование и отправка запроса на сервер
+ */
 function new_label(){
     console.log("Новая заметка");
     // Новая заметка
@@ -74,6 +94,9 @@ function new_label(){
 
 };
 
+/**
+ * Создание новой папки в дереве, формирование и отправка запроса на сервер
+ */
 function new_folder(){
     // Новая папка
     console.log("Новая папка");
@@ -83,6 +106,9 @@ function new_folder(){
     
 };
 
+/**
+ * Копирование файла или папки в буфер в дереве
+ */
 function copy(){
     // +Новая заметка
     console.log("Копировать");
@@ -90,6 +116,9 @@ function copy(){
     tree_focus.deleteFocus();
 };
 
+/**
+ * Вставить из буфера в дерево, формирование и отправка запроса на сервер
+ */
 function insert(){
     // +Вставить из буффера
     console.log("Вставить");
@@ -101,6 +130,9 @@ function insert(){
         data, tree_focus.id_path_last);
 };
 
+/**
+ * Переименование папок и файлов в дереве, формирование и отправка запроса на сервер
+ */
 function rename(){
     // +Переименование папок и файлов
     console.log("Переименовать");
@@ -109,8 +141,11 @@ function rename(){
         `http://213.178.34.212:18000/api/v1/tree/rename`);
 };
 
+
+/**
+ * Удаление папки в дереве или файла формирование и отправка запроса на сервер
+ */
 function delet(){
-    // +удалеие папки
     console.log("Удалить");
     fetchDataWithFetchAPI('DELETE',
         `http://213.178.34.212:18000/api/v1/tree/del`,
@@ -118,7 +153,11 @@ function delet(){
 };
 
 
-
+/**
+ * проверяет по id что выбрано в контексном менб при кликанье 
+ * на таблицу с материалами
+ * @param {Object} menu_cont - Y
+ */
 function menu_click(menu_cont){
     // обработка контекстного меню
     var id_menu_cont = menu_cont.id;
