@@ -1,14 +1,37 @@
-:root {
-    --play_width: 60px;
-    --play_border_left: calc(var(--play_width)/2.8);
-    --play_border: calc(var(--play_width)/4);
-    
 
+#audio_play_new{
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  display: flex;
+  table-layout: fixed; /* Фиксированная ширина колонок */
 }
+
+#audio_play_new .arc-container{
+  align-self: center;
+  margin: var(--player_width-margin);
+  flex-shrink: 0;
+}
+
+#audio_play_text{
+  /*background: rgb(9, 255, 0);*/
+  width: auto;
+  width: calc(100% - var(--table-tab-player));
+  flex-grow: 1; /* Этот блок будет занимать оставшееся пространство */
+  table-layout: fixed; /* Фиксированная ширина колонок */
+  align-self: center;
+}
+
+#audio_play_text_write_new:focus{
+  border: none;
+  outline: none; /* Убираем обводку при фокусе, если необходимо */
+}
+
 .arc-container {
     position: relative;
     width: var(--play_width);
     height: var(--play_width);
+    table-layout: fixed; /* Фиксированная ширина колонок */
   }
 
   #progress-circle {
@@ -17,18 +40,17 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    background: conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg);
+    background: conic-gradient(from 0deg, transparent 0deg, var(--play_background) 0deg 360deg, transparent 360deg);
     clip-path: circle(50% at 50% 50%);
   }
-
-
 
   #audioPlayer{
     display: none; /*отключил отображение плеера*/
   }
 
-
-  
+/*  #audio_play{
+    /*display: none; /*отключил отображение плеера собственного*/
+  /*}*/
 
   #progress-circle::before {
     content: '';
@@ -40,10 +62,8 @@
     height: 80%;
     background-color: var(--tree-and-header-table);
     border-radius: 50%;
-    outline: #34db34;
+    outline: var(--play_background);
   }
-
-
 
   .arc-container .arc-2 {
     position: absolute;
@@ -54,7 +74,6 @@
     top: 15%;
     bottom: 15%;
     right: 15%;
-    /*background-color: rgb(177, 34, 34);*/
     border-radius: 50%;
     border: 2px solid var(--scrollbar-header);
   }
@@ -80,7 +99,6 @@
     height: 100%;
     display: flex;
     transition: left 0.5s ease; /* Анимация смещения */
-   
   }
   
 
@@ -100,16 +118,15 @@
   #play_stop .progress_stop{
     position: absolute;
     margin-left: 100%;
-    top: 20%;
-    width: 12%;
-    height: 60%;
+    top: 30%;
+    width: 40%;
+    height: 40%;
     background-color: var(--scrollbar-header);
-}
-
-#rectangle1 {
     left: 30%;
 }
 
+/*
 #rectangle2 {
     left: 58%;
 }
+*/

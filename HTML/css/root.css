@@ -23,7 +23,7 @@
   /*меню по правому клику мышки*/
   --context-menu-background: white;
   --context-menu-background-header: var(--tree-and-header-table);
-  --context-menu-del:red;
+  --context-menu-del:red; /*подсветк удаляющих элементов*/
   --context-menu-border: var(--scrollbar-header);
   
   /*Настройка выдвигающегося sidebar*/
@@ -33,7 +33,7 @@
   --sidebar-width: 60px; /*минимальная ширина*/
   --sidebar-hover-width: 600px; /*максимальная ширина*/
   --sidebar-color: rgb(0, 0, 0);
-  --sidebar-color2: black;
+  --sidebar-color2: rgb(0, 0, 0);
   
   /*цвета для визуализации добавления данных в дереве*/
   --select-area-changes: rgb(56, 209, 171); /*цвет добавленного элемента*/
@@ -65,6 +65,16 @@
   --help-left: 500px;
   --help-width: 340px;
   
+  /*Настройки для аудио плеера*/
+  --play_width: 40px;
+  --play_border_left: calc(var(--play_width)/2.8);
+  --play_border: calc(var(--play_width)/4);
+  --play_background: rgb(45, 255, 45);
+
   /*таблица с материаламы*/
   --table-material-hover: var(--scrollbar-header);
+  --table-row-height:60px;
+  --player_width-margin:5px;
+  --table-tab-player: calc(var(--play_width) + var(--player_width-margin)*2)
+
 }

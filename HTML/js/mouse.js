@@ -411,7 +411,6 @@ document.addEventListener('contextmenu', function (event) {
 
 });
 
-
 /**+
  * Функция, которая будет вызываться при клике правой кнопке на весь сайт
  * Проверяем, что клик был левой кнопкой мыши
@@ -425,6 +424,7 @@ function handleClick(event) {
             // Получаем родительский элемент
             var parent_element = element.parentElement;
             // Выводим id в консоль
+            chech_click_material(element);//проверка клиса на таблицу материалы
             check_run(open_click, element, parent_element, 'table-theme');
             check_run(menu_click, element, parent_element, 'menu-cont');
             check_run(material_click, element, parent_element, 'menu-material');

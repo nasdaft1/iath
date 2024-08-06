@@ -76,3 +76,57 @@ function fetchDataMaterialAPI(method, url) {
     const data = materialJsonReadTable();
     DataLoadSendApi(method, url, data, DataMaterial);
 }
+
+
+/**
+ * Функция проверки и удаление если имеется аудио плеер в таблицы материалы
+ */
+function delete_aydio_player(element) {
+    var player = document.getElementById("audio_play_new");
+    if (player){
+        // чтение текста введенного в поле с плеером
+        var text = document.getElementById("audio_play_text_write_new")
+        var parent_element= player.parentElement;
+        //var parent_element_text= text.textContent;
+        console.log('player ',player)
+        console.log('text ',text)
+        console.log('parent_element ',parent_element)
+        parent_element.removeChild(player);
+        parent_element.textContent=text.textContent;
+    }
+}
+
+
+
+/**
+ * Отправка запроса по изменению данных на сайте. загрузка из json
+ * @param {Object} element - тип запроса отправляемого на сервер
+ */
+function chech_click_material(element) {
+    
+    var parent_element= element.parentElement;
+    var parent_element_class= parent_element.className;
+    if (parent_element_class==='row-material')
+        {
+        delete_aydio_player(); // удаление предыдущего расположение плеера
+        var elevent_class = element.className;
+        var row = document.getElementById(parent_element.id);
+        var cell = row.querySelector(`.${elevent_class}`);
+        var play = document.getElementById('audio_play');
+        console.log(`${row.id} ${elevent_class}`)
+
+        cloned_play = play.cloneNode(true); //клонирование невидемого объекта плеера   
+        cloned_play.id = 'audio_play_new'; //смена Id относительно у клона
+        var play_text = cloned_play.querySelector(".audio_play_text_write");
+        play_text.id = 'audio_play_text_write_new'; //смена Id относительно у клона
+        play_text.textContent= cell.textContent;
+        cell.textContent =''//убираем текст 
+        cell.appendChild(cloned_play); //вставяем плеeр 
+        //переместить фокус ввода 
+        //!!! незабывать отключать у родителя редактирование текста блока или корректно работать не будет
+        var text_new = document.getElementById("audio_play_text_write_new").focus();
+        
+        player_addEvent('audio_play_new');
+        player_create();
+    }
+}

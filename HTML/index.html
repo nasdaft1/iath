@@ -272,18 +272,22 @@
                     <div class="table" id="form-table" ></div>
                 </div>
 
-                <!--Иконка для плеера-->
-                <div class="arc-container" id="downloadButton">
-                    <div class="arc" id="progress-circle"></div>
+                <!--Иконка для плеера
+                <div id="audio_play">
+                    <div class="arc-container" id="downloadButton" contenteditable="false">
+                        <div class="arc" id="progress-circle"></div>
                         <div class="arc-2"></div>
                         <div class="play_stop">
                             <div id="play_stop">
                                 <div class="triangle-left"></div>
-                                <div class="progress_stop" id="rectangle1"></div>
-                                <div class="progress_stop" id="rectangle2"></div>
+                                <div class="progress_stop"></div>
                             </div>
                         </div>
                     </div>
+                    <div class="audio_play_text" contenteditable="false">
+                        <div class="audio_play_text_write" id="audio_play_text_write" contenteditable="true"></div>
+                    </div>
+                </div>-->
 
                 <div class="form-material" id="form-material">
                     <div class="stump" id="stump"></div>
@@ -291,7 +295,8 @@
                     <div class="table-container-material" id="table-container-material">
                         <table class="table-material">
                             <thead>
-                                <tr> <th class="header-col0"> </th>
+                                <tr> 
+                                    <th class="header-col0"> </th>
                                     <th class="header-col1">Текст</th>
                                     <th class="header-col2">Вопрос</th>
                                     <th class="header-col3-end">Ответ</th>
