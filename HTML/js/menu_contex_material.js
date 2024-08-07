@@ -132,6 +132,8 @@ function row_delete(id_row){
  */
 function material_click(menu_cont){
     var id_menu_cont = menu_cont.id;
+    // убираем если плеер был в таблице, что бы не производилось его копирование 
+    player_material.clear_player();
     const id_row = material_focus.getSelectRow();
     if (id_menu_cont==="search_material"){ search_material();
         } else if (id_menu_cont==="copy_material"){ row_copy(id_row);

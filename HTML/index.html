@@ -272,24 +272,26 @@
                     <div class="table" id="form-table" ></div>
                 </div>
 
-                <!--Иконка для плеера
-                <div id="audio_play">
-                    <div class="arc-container" id="downloadButton" contenteditable="false">
-                        <div class="arc" id="progress-circle"></div>
-                        <div class="arc-2"></div>
-                        <div class="play_stop">
-                            <div id="play_stop">
-                                <div class="triangle-left"></div>
-                                <div class="progress_stop"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="audio_play_text" contenteditable="false">
-                        <div class="audio_play_text_write" id="audio_play_text_write" contenteditable="true"></div>
-                    </div>
-                </div>-->
+
 
                 <div class="form-material" id="form-material">
+                    <!--Иконка для плеера-->
+                    <div id="audio_play" class="audio_play" my-attribute="my-player" style="display: none;">
+                        <div class="arc-container" id="downloadButton" my-attribute="my-player" contenteditable="false">
+                            <div class="arc" id="progress-circle" my-attribute="my-player"></div>
+                            <div class="arc-2" my-attribute="my-player"></div>
+                            <div class="play_stop" my-attribute="my-player">
+                                <div id="play_stop" my-attribute="my-player">
+                                    <div class="triangle-left" my-attribute="my-player"></div>
+                                    <div class="progress_stop" my-attribute="my-player"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="audio_play_text" my-attribute="my-player" contenteditable="false">
+                            <div class="audio_play_text_write" id="audio_play_text_write" my-attribute="my-player" contenteditable="true"></div>
+                        </div>
+                    </div>
+
                     <div class="stump" id="stump"></div>
                     <audio id="audioPlayer" controls></audio>
                     <div class="table-container-material" id="table-container-material">
