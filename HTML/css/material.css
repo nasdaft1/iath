@@ -38,6 +38,10 @@
     text-overflow: ellipsis; /* Добавляет троеточие в конце обрезанного текста */
 }
 
+/*не отображаем элемент если есть атрибут удаления*/
+.table-container-material table tbody .row-material[delete]{
+    display: none;
+}
 
 .table-container-material table thead {
     height: var(--table-container-header-height);
@@ -58,6 +62,11 @@
     height: 1px; /* Толщина границы */
     background: linear-gradient(to right,var(--table-container-material-line), var(--table-container-material-line)); /* Градиентная линия */
 }
+
+
+
+
+
 
 html .stump{
     /*изготовление заглушки между таблицей и внешнего блока в обход scrool*/
@@ -125,6 +134,16 @@ html .stump{
     border-bottom: 1px solid var(--table-container-material-line);
     display: flex;
 }
+
+/*подсветка текста и его размер в случае если он подвергся изменению*/
+.table-container-material table tbody .row-material [change="true"]{
+    color:  var(--table-change);
+    font-weight: 600;
+}
+
+/*[change="false"]{
+    color:  red;
+}*/
 
 
 .table-container-material tbody tr:hover td {

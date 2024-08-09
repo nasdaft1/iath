@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/tree.css">
     <link rel="stylesheet" href="css/context-menu.css">
     <link rel="stylesheet" href="css/help.css">
-    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/material.css">
     <link rel="stylesheet" href="css/play.css">
 </head>
 <body>
@@ -187,6 +187,10 @@
                             <span>Поиск</span>
                         </div>
                         <hr> 
+                        <div class="menu-material" id="new_material">
+                            <img src="png\menu-contex\new_material.png">
+                            <span>Новую стоку в конец</span>
+                        </div>
                         <div class="menu-material" id="copy_material">
                             <img src="png\menu-contex\copy.png">
                             <span>Копировать строку</span>
@@ -277,7 +281,8 @@
                 <div class="form-material" id="form-material">
                     <!--Иконка для плеера-->
                     <div id="audio_play" class="audio_play" my-attribute="my-player" style="display: none;">
-                        <div class="arc-container" id="downloadButton" my-attribute="my-player" contenteditable="false">
+                        <img src="png\not-play.png" id="not-play" my-attribute="my-player">
+                        <div class="arc-container" id="download-play" my-attribute="my-player" contenteditable="false">
                             <div class="arc" id="progress-circle" my-attribute="my-player"></div>
                             <div class="arc-2" my-attribute="my-player"></div>
                             <div class="play_stop" my-attribute="my-player">

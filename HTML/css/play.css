@@ -19,6 +19,11 @@
   flex-grow: 1; /* Этот блок будет занимать оставшееся пространство */
   table-layout: fixed; /* Фиксированная ширина колонок */
   align-self: center;
+
+}
+
+#audio_play_text_write{
+  color: var(--table-no-change);
 }
 
 #audio_play_text_write:focus{
@@ -45,6 +50,14 @@
 
   #audioPlayer{
     display: none; /*отключил отображение плеера*/
+  }
+
+  #audio_play #not-play{
+    width: var(--play_width);
+    height: var(--play_width);
+    table-layout: fixed; /* Фиксированная ширина колонок */
+    align-self: center;
+    margin: var(--player_width-margin);
   }
 
   #progress-circle::before {

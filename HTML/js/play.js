@@ -9,6 +9,21 @@ class Player{
     }
 
     /**
+     * Для визуального удаления возможности проигрывая файла, так как 
+     * он после правки не соответствует действительности
+     */
+    changes_player(){
+        if (this.change === 'true'){
+            document.getElementById("not-play").style.display ='flex';
+            document.getElementById("download-play").style.display ='none';
+        } else {
+            document.getElementById("not-play").style.display ='none';
+            document.getElementById("download-play").style.display ='flex';
+        }
+    }
+
+
+    /**
      * остановка аудио воспроизведения
      */
     player_Event_stop(){
@@ -23,12 +38,26 @@ class Player{
     }
 
     /**
+     * Назначеие атрибутов для текстав в блоке плеера в зависимости от совпадений
+     * @param {String} color - цвет текста в плеере
+     * @param {String} fontWeight - ширина букв
+     * @param {String} change - 'false'-текст остался неизменным
+     */
+    play_contextext(color,fontWeight,change){
+        this.audio_play_text_write.style.color = color;
+        this.audio_play_text_write.style.fontWeight = fontWeight;
+        this.change = change
+    }
+
+
+    /**
      * Функция по навешиванию обработчика событий на нужный нам объект и связывает его с плеером
      */
     player_addEvent(){
         this.audio = document.getElementById('audioPlayer');
         this.progressFill = document.getElementById("progress-circle");
         this.play_stop = document.getElementById("play_stop");
+        this.audio_play_text_write = document.getElementById("audio_play_text_write");
         
         this.audio.addEventListener('timeupdate', () => {
             var percentage = (this.audio.currentTime / this.audio.duration) * 100;
@@ -41,7 +70,17 @@ class Player{
             this.progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
         });
         
-        document.getElementById('downloadButton').addEventListener('click', async () => {
+        // обработа замены текста в контенте блока плеера
+        this.audio_play_text_write.addEventListener('input', (event) => {
+            if (this.cell_textContent != event.target.innerText) {
+                this.play_contextext("var(--table-change)","bold","true")
+            } else {
+                this.play_contextext("var(--table-no-change)","normal","false")
+            }
+            this.changes_player();
+        });
+        
+        document.getElementById('download-play').addEventListener('click', async () => {
             if (this.play_stop.style.left!=='-100%' ){
                 try {
                     this.play_stop.style.left='-100%';
@@ -70,6 +109,7 @@ class Player{
     create_player(){
         var player = document.getElementById("audio_play");
         if (player){
+            this.changes_player();
             player.style.display='flex';
             var text_new = document.getElementById("audio_play_text_write")
             text_new.textContent = this.cell_textContent; 
@@ -97,6 +137,13 @@ class Player{
             if (parent_element.id !=='form-material'){
                 parent_element.textContent=text.textContent;
             }
+            if (this.cell_textContent != text.textContent){
+                //если изначальный текст не соответствует перед закрытием 
+                parent_element.setAttribute("change", 'true');
+                // возвращаем в исходную формы после редактирования плееер
+                this.play_contextext("var(--table-no-change)","normal","false")
+            }
+            
         }
     }
 
@@ -111,12 +158,24 @@ class Player{
         var row = document.getElementById(parent_element.id);
         var cell = row.querySelector(`.${elevent_class}`);
         var element_new = `${elevent_class} ${row.id}`
-        console.log(elevent_class)
+
         if (this.element_old !== element_new && elevent_class !=='col0'){
             this.delete_aydio_player();
+
             this.element_old = element_new;
             this.cell_textContent=cell.textContent;
             cell.textContent ='';//убираем текст 
+            this.change = cell.getAttribute('change'); //узнаем атрибут для последощего ограниечения вызова плеера
+            
+            this.id_audio = cell.getAttribute('id_audio');//получение данные для ссылки на аудио файл
+            console.log(this.id_audio)
+            if (this.id_audio === "null") {
+                this.change = "true";
+            } else {
+                this.audioURL = `http://213.178.34.212:18000/api/v1/download-audio?id_audio=${this.id_audio}`;
+
+            }
+            
             cell.appendChild(this.player);
             this.create_player();
         }
@@ -126,7 +185,6 @@ class Player{
     * Функция удаляет плеер и очищает буфер с расположением ячейки в таблице. 
     */
     clear_player(){
-        console.log(111111);
         player_material.delete_aydio_player();
         player_material.element_old='';
     }

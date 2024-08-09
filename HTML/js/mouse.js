@@ -1,64 +1,5 @@
 var context_menu_heigh;
 
-/**+
- * Класс для обработки объектов и хранения связанных с таблицей материалы
- */
-class MaterialFocus{
-    id_select = null // элемента выбранного в дереве для открытия в материалах
-    id_row = null  // id радя в таблице выделенной
-    row_buffer = null // буфер строки 
-
-    /**+
-     * Передача на хранения и обработки выбранного файла открытого в материалах
-     */
-    setSelect(id){
-        if (typeof this.id_select !== 'undefined' && this.id_select !== null){
-            const targetDiv = document.getElementById(this.id_select);
-            targetDiv.classList.remove('selected');
-        } else {
-        }
-        this.id_select =id;
-    }
-    
-    /**+
-     * Внесение id ряда таблицы материалов
-     */
-    setSelectRow(id){
-        this.id_row=id
-    }
-
-    /**+
-     * Получение id строки материалов
-     * @returns {String} - id радя в таблице выделенной
-     */
-    getSelectRow(){
-        return this.id_row
-    }
-
-    /**+
-     * Запись в буфер строки с данными
-     * @returns {Object|null} - строка находящаяся в буфере | null если пустой
-     */
-    setBufferRow(row_data){
-        this.row_buffer=row_data
-    }
-
-    /**+
-     * Чтение из буфера строки с данными
-     * @returns {Object|null} - строка находящаяся в буфере | null если пустой
-     */
-    getBufferRow(){
-        return this.row_buffer
-    }
-
-    /**+
-     * Очистка из буфера строки с данными
-     */
-    clearBufferRow(){
-        this.row_buffer=null
-    }
-
-}
 
 /**+
  * Класс для выставление выделение на дереве
@@ -151,9 +92,6 @@ class TreeFocus {
 };
 
 
-// Пример использования
-const tree_focus = new TreeFocus();
-const material_focus = new MaterialFocus();
 
 /**+
  * Функция закрытия констектного меню
@@ -336,33 +274,6 @@ function get_path_tree_focus(element, event){
     return pathToRoot
 }
 
-/**
- * Рекурсивная функция для нахождения пути до корневого элемента
- * @param {String} element - ключ от какого длеать список id[] до главного родителя
- * @param {String} event - ключ от какого длеать список id[] до главного родителя
- * @returns {Number} Список ключей от передоваемого до главного родителя
- */
-function get_path_material_focus(element, event){
-    // обработка если было кликнуто правой кнопкой мыши на таблицу материалов
-    // index- id элемента по которому кликнули
-    const index = element.id
-    // Получить высоту окна браузера
-    const windowHeight = window.innerHeight;
-    const menu = document.getElementById("contextMenu") 
-    menu.style.left = (event.clientX) + "px";
-    // чтобы контекстное меню не выползало из экрана
-    if ((context_menu_heigh +event.clientY+30)< windowHeight){
-        menu.style.top = (event.clientY -30) + "px";
-    } else {
-        menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
-    }
-    document.getElementById("block_menu_cont").style.display='none'
-    document.getElementById("block_menu_material").style.display='block'
-    menu.style.display = 'block';
-    console.log('get_path_material_focus', index);
-    material_focus.setSelectRow(index)
-    return 2 //pathToRoot
-}
 
 
 
@@ -397,10 +308,10 @@ document.addEventListener('contextmenu', function (event) {
     var parentElement = clickedElement.parentElement;
     // Проверяем клик был на нужном нам элементе?
     try{
-
         if (check_run(get_path_tree_focus, clickedElement, parentElement, "table-theme", event)||
             check_run(get_path_tree_focus, clickedElement, parentElement, "cell-menu", event)||
-            check_run(get_path_material_focus, clickedElement, parentElement, "row-material", event)
+            check_run(get_path_material_focus, clickedElement, parentElement, "row-material", event) ||
+            check_run(get_path_material_focus, clickedElement, parentElement, "table-container-material", event)
         ) {} else {
             // закрываем контекстное меню если производится попытка открыть
             // вне области применения

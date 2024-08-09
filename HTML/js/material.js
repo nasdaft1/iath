@@ -4,22 +4,34 @@
  */
 function materialJsonWriteTable(data) {
     if (data != null) {
+        if (data.length === 0){
+            console.log('Данных в таблице нет')
+
+            data= [[{id_audio:'null', text_content:'1'},
+                    {id_audio:'null', text_content:'2'},
+                    {id_audio:'null', text_content:'3'}
+            ]]
+        }
+
         const container = document.getElementById('table-container-material-body');
         container.innerHTML = '';
         for (let row = 0; row < data.length; row++){
             const tr_block = document.createElement('tr');
             tr_block.className = "row-material";
-            tr_block.id = `row-${data[row][0]}`;
+            tr_block.id = `row-${row}`;
             const td_block = document.createElement('td');
             td_block.className = "col0";
             tr_block.appendChild(td_block);
-            for (let column = 1; column < data[row].length; column++){
+            for (let column = 0; column < data[row].length; column++){
                 const td_block = document.createElement('td');
-                td_block.contenteditable = "true";
-                td_block.className = `col${column}`;
+                td_block.contenteditable = "true";//?? проверить актуальность
+                td_block.className = `col${column+1}`;
                 // добавляет чтобы редактировать таблицы
-                td_block.setAttribute("contenteditable", "true");
-                td_block.textContent = data[row][column];
+                //td_block.setAttribute("contenteditable", "true");
+                var cell = data[row][column]
+                td_block.textContent = cell['text_content'];
+                td_block.setAttribute("id_audio", cell['id_audio']);
+                td_block.setAttribute("change", 'false');
                 //ячейки добавим с строку
                 tr_block.appendChild(td_block);
             }
@@ -29,6 +41,8 @@ function materialJsonWriteTable(data) {
         container.setAttribute('id_max', data.length);
     }
 }
+
+
 
 /**
  * Чтение данных из таблицы в масив данных материалов и формирование данных
@@ -40,21 +54,37 @@ function materialJsonWriteTable(data) {
 function materialJsonReadTable() {
     data_send={}
     data=[]
+    var dict_cell= {}
     const container = document.getElementById('table-container-material-body');
     const rows = container.getElementsByTagName('tr');
     for (let i = 0; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
         row_data=[]
-        for (let j = 0; j < cells.length; j++) {
-            //записать в масиив текст расположенный в ячейке
-            row_data.push(cells[j].innerText)
+        // если есть атрибут удаления 
+        var delete_row= rows[i].getAttribute('delete');
+        for (let j = 1; j < cells.length; j++) {
+            dict_cell= {}
+            dict_cell['text_content'] = cells[j].innerText //записать текста расположенный в ячейке
+            dict_cell['id_audio'] = cells[j].getAttribute('id_audio') //uuid файла в относящегося к таксту
+            //ставим маркер на весь ряд состояния рада на удаление
+            dict_cell['removal'] = delete_row != null ? parseInt(delete_row) : null;
+            dict_cell['change'] = cells[j].getAttribute('change') === 'true';
+            row_data.push(dict_cell)
         }
-        data.push(row_data)
+        try{
+            data.push(row_data)
+        } catch (error){
+            console.error('Неверный id у row');
+        }
+
+        
     }
     data_send['data']=data;
     // id выделенного элемента в дереве
+
     data_send['id']=tree_focus.id || null;
     return data_send
+    
 }
 
 /**
@@ -105,7 +135,7 @@ const player_material = new Player();
 document.addEventListener('DOMContentLoaded', () => {
     player_material.player_addEvent()
     // для теста передаем фиксированную ссылку на аудиофайл
-    player_material.audioURL = 'http://213.178.34.212:18000/api/v1/download-audio'
+    player_material.audioURL = 'http://213.178.34.212:18000/api/v1/download-audio?id_audio=null'
 })
 
 
@@ -116,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function chech_click_material(element) {
     var parent_element= element.parentElement;
-
     if (parent_element.className==='row-material'){
         player_material.move_player(element, parent_element);
     } else {

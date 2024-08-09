@@ -75,6 +75,8 @@
   --table-material-hover: var(--scrollbar-header);
   --table-row-height:60px;
   --player_width-margin:5px;
-  --table-tab-player: calc(var(--play_width) + var(--player_width-margin)*2)
+  --table-tab-player: calc(var(--play_width) + var(--player_width-margin)*2);
+  --table-change:rgb(38, 86, 160); /*цвет где был изменен контент*/
+  --table-no-change: black;
 
 }

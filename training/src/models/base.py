@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any
+from typing import Any, Optional
 
 
 class ApiPath(BaseModel):
@@ -38,13 +38,22 @@ class DataResponse(BaseModel):
     id_add: int | None
 
 
+class DataCell(BaseModel):
+    id_audio: str | None
+    text_content: str
+
+
+class DataCellLoad(DataCell):
+    change: bool
+    removal: Any  # если ячейку надо удалить
+
+
 class DataMaterialResponse(BaseModel):
-    data: list
+    data: list[list[DataCell]]
     status_code: int
     status_name: str
 
 
-
 class DataMaterialLoad(BaseModel):
-    data: list
+    data: list[list[DataCellLoad]] | None
     id: int | str | None

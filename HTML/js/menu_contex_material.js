@@ -1,16 +1,106 @@
+/**+
+ * Класс для обработки объектов и хранения связанных с таблицей материалы
+ */
+class MaterialFocus{
+    id_select = null // элемента выбранного в дереве для открытия в материалах
+    id_row = null  // id радя в таблице выделенной
+    row_buffer = null // буфер строки 
+
+    /**+
+     * Передача на хранения и обработки выбранного файла открытого в материалах
+     */
+    setSelect(id){
+        if (typeof this.id_select !== 'undefined' && this.id_select !== null){
+            const targetDiv = document.getElementById(this.id_select);
+            targetDiv.classList.remove('selected');
+        } else {
+        }
+        this.id_select =id;
+    }
+    
+    /**+
+     * Внесение id ряда таблицы материалов
+     */
+    setSelectRow(id){
+        this.id_row=id
+    }
+
+    /**+
+     * Получение id строки материалов
+     * @returns {String} - id радя в таблице выделенной
+     */
+    getSelectRow(){
+        return this.id_row
+    }
+
+    /**+
+     * Запись в буфер строки с данными
+     * @returns {Object|null} - строка находящаяся в буфере | null если пустой
+     */
+    setBufferRow(row_data){
+        this.row_buffer=row_data
+    }
+
+    /**+
+     * Чтение из буфера строки с данными
+     * @returns {Object|null} - строка находящаяся в буфере | null если пустой
+     */
+    getBufferRow(){
+        return this.row_buffer
+    }
+
+    /**+
+     * Очистка из буфера строки с данными
+     */
+    clearBufferRow(){
+        this.row_buffer=null
+    }
+
+    clearNewRow(){
+        console.log(1);
+        const container = document.getElementById('table-container-material-body');
+        const id_max = parseInt(container.getAttribute('id_max'));
+        const tr_block = document.createElement('tr');
+        tr_block.className = "row-material";
+        tr_block.id = `row-${id_max}`;
+        const td_block = document.createElement('td');
+        td_block.className = "col0";
+        tr_block.appendChild(td_block);
+        for (let column = 0; column < 3; column++){
+            const td_block = document.createElement('td');
+            
+            
+            td_block.className = `col${column+1}`;
+            td_block.setAttribute("id_audio", 'null');
+            td_block.setAttribute("change", 'true');
+            td_block.textContent = 'text_content';
+            tr_block.appendChild(td_block);
+            
+        }
+        console.log(tr_block)
+        container.appendChild(tr_block);
+        container.setAttribute('id_max', id_max + 1);
+        
+    }
+}
+
+// Пример использования
+const tree_focus = new TreeFocus();
+const material_focus = new MaterialFocus();
+
+
 /**
  * Функция для добавления элемента в список
  * @param {string} id_row - id номер ряда.
  * @returns {string|null} вырезанный ряд из таблицы
  */
-function delete_remove(id_row){
-    // для удаление из таблицы строки по id 
-    // return: удаленная стока 
+function delete_remove(id_row) {
     var row = document.getElementById(id_row);
-    if (row) {
-        return row.parentNode.removeChild(row);
-    }
-    return null;
+    if (!row) return null;
+    var row_parent = parseInt(row.parentNode.getAttribute('delete_max') || 0) + 1;
+    row.setAttribute('delete', row_parent);
+    row.parentNode.setAttribute('delete_max', row_parent);
+    return 1;
 }
 
 /**
@@ -53,9 +143,9 @@ function row_add(id_row, index_add=0){
     }
     var table = document.getElementById('table-container-material-body');
     var id_max =  parseInt(table.getAttribute('id_max'))
-    id_max+=1;
+    // id_max+=1;
     //назначем новый уникальный id в атрибутах таблицы 
-    table.setAttribute('id_max', id_max);
+    table.setAttribute('id_max', id_max+1);
     //назначем новый уникальный id
     clonedRow.id=`row-${id_max}`;
     // поиск индекса куда вставим строку
@@ -72,12 +162,21 @@ function search_material(){
 }
 
 /**
+ * Вставить строку в конец таблицы
+ */
+function row_add_end(){
+    console.log('вставить строку в конец таблицы');
+    material_focus.clearNewRow();
+}
+
+/**
  * Копирование данных строки таблицы в буффер
  * @param {string} id_row - id номер ряда.
  */
 function row_copy(id_row){
     console.log('копировать строку');
     var row = document.getElementById(id_row);
+    console.log(row);
     material_focus.setBufferRow(row);
 }
 
@@ -126,6 +225,40 @@ function row_delete(id_row){
     delete_remove(id_row)
 }
 
+
+/**
+ * Рекурсивная функция для нахождения пути до корневого элемента
+ * @param {String} element - ключ от какого длеать список id[] до главного родителя
+ * @param {String} event - ключ от какого длеать список id[] до главного родителя
+ * @returns {Number} Список ключей от передоваемого до главного родителя
+ */
+function get_path_material_focus(element, event){
+    // обработка если было кликнуто правой кнопкой мыши на таблицу материалов
+    // index- id элемента по которому кликнули
+    const index = element.id
+    // Получить высоту окна браузера
+    const windowHeight = window.innerHeight;
+    const menu = document.getElementById("contextMenu") 
+    menu.style.left = (event.clientX) + "px";
+    // чтобы контекстное меню не выползало из экрана
+    if ((context_menu_heigh +event.clientY+30)< windowHeight){
+        menu.style.top = (event.clientY -30) + "px";
+    } else {
+        menu.style.top = (event.clientY -50-context_menu_heigh) + "px";
+    }
+    document.getElementById("block_menu_cont").style.display='none'
+    document.getElementById("block_menu_material").style.display='block'
+    menu.style.display = 'block';
+    console.log('get_path_material_focus', index);
+    material_focus.setSelectRow(index)
+    return 2 //pathToRoot
+}
+
+
+function get_path_material_focus_2(){
+    console.log(get_path_material_focus_2)
+}
+
 /**
  * Oбработка контекстного меню
  * @param {Object} menu_cont - Первое число.
@@ -134,8 +267,11 @@ function material_click(menu_cont){
     var id_menu_cont = menu_cont.id;
     // убираем если плеер был в таблице, что бы не производилось его копирование 
     player_material.clear_player();
+
     const id_row = material_focus.getSelectRow();
+    console.log(id_row)
     if (id_menu_cont==="search_material"){ search_material();
+        } else if (id_menu_cont==="new_material"){ row_add_end();
         } else if (id_menu_cont==="copy_material"){ row_copy(id_row);
         } else if (id_menu_cont==="add_up_row"){ row_add_up(id_row);
         } else if (id_menu_cont==="add_down_row"){ row_add_down(id_row);
