@@ -51,14 +51,14 @@ flex-direction: column;
         width: 42px;
         height: 42px;
         /*mix-blend-mode: multiply; /* Множение */
-        filter: brightness(0.1); /* Делает изображение темнее */
+        filter: var(--filter-img); /* Делает изображение темнее */
     }
 
     .sidebar .icon-sidebar img {
         width: 42px;
         height: 42px;
         /*mix-blend-mode: multiply; /* Множение */
-        filter: brightness(0.1); /* Делает изображение темнее */
+        filter: var(--filter-img); /* Делает изображение темнее */
     }
 
     .sidebar .icon::after {

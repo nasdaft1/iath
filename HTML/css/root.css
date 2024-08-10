@@ -1,4 +1,7 @@
 :root {
+  --color-text: black; /*основной цвет текста в сайте*/
+  --filter-img: brightness(20%);/*для того чтобы делать изображение темнее или светлее*/
+
   --scrollbar-header:rgb(168, 168, 168);
   --tree-and-header-table:rgb(218, 218, 218);
   --select: rgb(131, 130, 130);
@@ -25,6 +28,7 @@
   --context-menu-background-header: var(--tree-and-header-table);
   --context-menu-del:red; /*подсветк удаляющих элементов*/
   --context-menu-border: var(--scrollbar-header);
+  --context-menu-not-activ: var(--scrollbar-header);
   
   /*Настройка выдвигающегося sidebar*/
   --sidebar-hover-color: rgb(128, 128, 128); /* Общая переменная для цвета search*/

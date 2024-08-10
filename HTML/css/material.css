@@ -30,6 +30,7 @@
     border-spacing: 0;
     padding: 0px;
     table-layout: fixed; /* Фиксированная ширина колонок */
+    
 }
 
 .table-container-material table tbody td{
@@ -141,10 +142,18 @@ html .stump{
     font-weight: 600;
 }
 
-/*[change="false"]{
-    color:  red;
-}*/
-
+/*блок отображается если в таблице отсутвуют данные*/
+#no-data-table{
+    position: relative;
+    width: 100%;
+    height: 70%; /* Установите высоту по своему усмотрению */
+    display: flex;
+    color:  var(--scrollbar-header);
+    font-family: Calibri;
+    font-size: 70px;
+    align-items: center;
+    justify-content: center;
+}
 
 .table-container-material tbody tr:hover td {
     background-color: var(--table-container-hover);

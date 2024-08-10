@@ -182,37 +182,41 @@
                     <!--меню выпадающее при нажати е правой кнопки мыши по материалу-->
                     
                     <div id="block_menu_material">
-                        <div class="menu-material" id="search_material">
-                            <img src="png\menu-contex\search.png">
+                        <div class="menu-material" id="search_material" place="all">
+                            <img class="menu-img" src="png\menu-contex\search.png">
                             <span>Поиск</span>
                         </div>
                         <hr> 
-                        <div class="menu-material" id="new_material">
-                            <img src="png\menu-contex\new_material.png">
+                        <div class="menu-material" id="new_material" place="all">
+                            <img class="menu-img" src="png\menu-contex\new_material.png">
                             <span>Новую стоку в конец</span>
                         </div>
-                        <div class="menu-material" id="copy_material">
-                            <img src="png\menu-contex\copy.png">
+                        <div class="menu-material" id="add_buffer_material" place="buffer">
+                            <img class="menu-img" src="png\menu-contex\add_buffer.png">
+                            <span>Вставить из буфера</span>
+                        </div>
+                        <div class="menu-material" id="copy_material" place="in">
+                            <img class="menu-img" src="png\menu-contex\copy.png">
                             <span>Копировать строку</span>
                         </div>
-                        <div class="menu-material" id="add_up_row">
-                            <img src="png\menu-contex\add_up_row.png">
+                        <div class="menu-material" id="add_up_row" place="in">
+                            <img class="menu-img" src="png\menu-contex\add_up_row.png">
                             <span>Вставить строку выше</span>
                         </div>
-                        <div class="menu-material" id="add_down_row">
-                            <img src="png\menu-contex\add_down_row.png">
+                        <div class="menu-material" id="add_down_row" place="in">
+                            <img class="menu-img" src="png\menu-contex\add_down_row.png">
                             <span>Вставить строку ниже</span>
                         </div>
-                        <div class="menu-material" id="cut_row">
-                            <img src="png\menu-contex\cut_row.png">
+                        <div class="menu-material" id="cut_row" place="in">
+                            <img class="menu-img" src="png\menu-contex\cut_row.png">
                             <span>Вырезать строку</span>
                         </div>
                         <hr> 
-                        <div class="menu-material" id="delete_buffer">
+                        <div class="menu-material" id="delete_buffer" place="buffer">
                             <img src="png\menu-contex\delete_buffer.png">
                             <span>Очистить буфер</span>
                         </div>
-                        <div class="menu-material" id="delete_row">
+                        <div class="menu-material" id="delete_row" place="in">
                             <img src="png\menu-contex\delete_row.png">
                             <span>Удалить строку</span>
                         </div>
@@ -220,32 +224,32 @@
 
                     <div id="block_menu_cont">
                         <div class="menu-cont" id="search">
-                            <img src="png\menu-contex\search.png">
+                            <img class="menu-img" src="png\menu-contex\search.png">
                             <span>Поиск</span>
                         </div>
-                        <div class="menu-cont" id="roll_up">
-                            <img src="png\menu-contex\roll_up.png">
+                        <div class="menu-cont" id="roll_up" >
+                            <img class="menu-img" src="png\menu-contex\roll_up.png">
                             <span>Свернуть все</span>
                         </div>
                         <div class="menu-cont" id="un_roll">
-                            <img src="png\menu-contex\un_roll.png">
+                            <img class="menu-img" src="png\menu-contex\un_roll.png">
                             <span>Развернуть все</span>
                         </div>
                         <hr> 
                         <div class="menu-cont" id="new_label">
-                            <img src="png\menu-contex\new_label.png">
+                            <img class="menu-img" src="png\menu-contex\new_label.png">
                             <span>Новый документ</span>
                         </div>
                         <div class="menu-cont" id="new_folder">
-                            <img src="png\menu-contex\new_folder.png">
+                            <img class="menu-img" src="png\menu-contex\new_folder.png">
                             <span>Новая папка</span>
                         </div>
                         <div class="menu-cont" id="copy">
-                            <img src="png\menu-contex\copy.png">
+                            <img class="menu-img" src="png\menu-contex\copy.png">
                             <span>Копировать</span>
                         </div>
                         <div class="menu-cont" id="insert">
-                            <img src="png\menu-contex\insert.png">
+                            <img class="menu-img" src="png\menu-contex\insert.png">
                             <span>Вставить</span>
                         </div>
                         <div class="menu-cont" id="rename">
@@ -263,13 +267,13 @@
                 <div class="form-theme" id="form-theme">
                     <div class="table-menu">
                         <div class="cell-menu" id="search_menu">
-                            <img src="png/search.png" id="img_input" alt="Icon">
+                            <img class="menu-img" src="png/search.png" id="img_input" alt="Icon">
                             <!-- <input type="search" name="search"/>-->
                             <input type="text" id="tree_input" >
-                            <img src="png/close_input.png" id="close_input" alt="Icon">
+                            <img class="menu-img" src="png/close_input.png" id="close_input" alt="Icon">
                         </div>
                         <div class="cell-menu" id="folder_root">
-                            <img src="png/folder_root.png" alt="Icon">
+                            <img class="menu-img" src="png/folder_root.png" alt="Icon">
                             <span>Root</span>
                         </div>
                     </div>
@@ -308,9 +312,11 @@
                                     <th class="header-col2">Вопрос</th>
                                     <th class="header-col3-end">Ответ</th>
                                 </tr>
+                                
                             </thead>
                             <tbody id ="table-container-material-body"></tbody>
                         </table>
+                        <div id ="no-data-table">НЕТ ДАННЫХ</div>
                     </div>
                 </div>
             </div>

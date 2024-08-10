@@ -90,6 +90,18 @@ const material_focus = new MaterialFocus();
 
 
 /**
+ * проверяет по высоте отрисоваемой части таблицы с данными есть там данные или нет
+ */
+function check_no_data_table(){
+    const element = document.getElementById('table-container-material-body');
+    if (element.getBoundingClientRect().height === 0 ){
+        document.getElementById("no-data-table").style.display ="flex"
+    } else {
+        document.getElementById("no-data-table").style.display ="none"
+    }
+}
+
+/**
  * Функция для добавления элемента в список
  * @param {string} id_row - id номер ряда.
  * @returns {string|null} вырезанный ряд из таблицы
@@ -100,6 +112,7 @@ function delete_remove(id_row) {
     var row_parent = parseInt(row.parentNode.getAttribute('delete_max') || 0) + 1;
     row.setAttribute('delete', row_parent);
     row.parentNode.setAttribute('delete_max', row_parent);
+    check_no_data_table() // проверка удалили мы последние данные
     return 1;
 }
 
@@ -167,6 +180,7 @@ function search_material(){
 function row_add_end(){
     console.log('вставить строку в конец таблицы');
     material_focus.clearNewRow();
+    check_no_data_table() // проверка удалили мы последние данные
 }
 
 /**
@@ -216,6 +230,8 @@ function material_buffer_clear(){
 }
 
 
+
+
 /**
  * Удаление строки с данными в таблицы материалов 
  * @param {string} id_row - id номер ряда.
@@ -223,8 +239,60 @@ function material_buffer_clear(){
 function row_delete(id_row){
     console.log('удаление строки');
     delete_remove(id_row)
+    check_no_data_table()
 }
 
+/**
+ * изменение визуализации некоторых элементов контекстного меню
+ * в зависимости от области применения 
+ * @param {Object} element - элемент который меняем визуализацию
+ * @param {String} color - цвет контента в элементе
+ * @param {String} cursor - тип курсора на элементе
+ */
+function visible_element(element,color, cursor){
+    element.style.color = color;  // отмечается не активный элемент
+    element.style.cursor = cursor; // отмечается не активный элемент
+}
+
+/**
+ * Отключение визуализации некоторых элементов контекстного меню
+ * в зависимости от области применения 
+ * @param {Object} id_row - id области куда кликнули
+ */
+function visible_element_menu_material(id_row){
+    console.log('id_row', id_row)
+    // Находим родительский элемент
+    let parent = document.getElementById('block_menu_material');
+    // Выбираем все элементы с атрибутом place="in"
+    let elements = parent.querySelectorAll('[place="in"]');
+    // Проходимся по каждому элементу и изменяем цвет текста
+    elements.forEach(function(element) {
+        if (id_row ==='table-container-material'){
+            visible_element(element,'var(--context-menu-not-activ)','none')
+            //element.style.color = 'var(--context-menu-not-activ)';  // отмечается не активный элемент
+            //element.style.cursor = 'none'; // отмечается не активный элемент
+        } else {
+            visible_element(element,'var(--color-text)','default');
+            //element.style.color = 'black';  // отмечается активный элемент
+            //element.style.cursor = 'default'; // отмечается не активный элемент
+        }
+    });
+
+    let elements_buffer = parent.querySelectorAll('[place="buffer"]');
+    // Проходимся по каждому элементу и изменяем цвет текста
+    elements_buffer.forEach(function(element_buffer) {
+        if (material_focus.getBufferRow() ===null){
+            visible_element(element_buffer,'var(--context-menu-not-activ)','none')
+            //element_buffer.style.color = 'var(--context-menu-not-activ)';  // отмечается не активный элемент
+            //element_buffer.style.cursor = 'none'; // отмечается не активный элемент
+        } else {
+            visible_element(element_buffer,'var(--color-text)','default');
+            //element_buffer.style.color = 'black';  // отмечается активный элемент
+            //element_buffer.style.cursor = 'default'; // отмечается не активный элемент
+        }
+    });
+
+}
 
 /**
  * Рекурсивная функция для нахождения пути до корневого элемента
@@ -233,9 +301,12 @@ function row_delete(id_row){
  * @returns {Number} Список ключей от передоваемого до главного родителя
  */
 function get_path_material_focus(element, event){
+    
     // обработка если было кликнуто правой кнопкой мыши на таблицу материалов
     // index- id элемента по которому кликнули
     const index = element.id
+    // визуалилировать некоторые элементы меню
+    visible_element_menu_material(index)
     // Получить высоту окна браузера
     const windowHeight = window.innerHeight;
     const menu = document.getElementById("contextMenu") 
@@ -255,10 +326,6 @@ function get_path_material_focus(element, event){
 }
 
 
-function get_path_material_focus_2(){
-    console.log(get_path_material_focus_2)
-}
-
 /**
  * Oбработка контекстного меню
  * @param {Object} menu_cont - Первое число.
@@ -267,8 +334,8 @@ function material_click(menu_cont){
     var id_menu_cont = menu_cont.id;
     // убираем если плеер был в таблице, что бы не производилось его копирование 
     player_material.clear_player();
-
     const id_row = material_focus.getSelectRow();
+    visible_element_menu_material(id_row)
     console.log(id_row)
     if (id_menu_cont==="search_material"){ search_material();
         } else if (id_menu_cont==="new_material"){ row_add_end();

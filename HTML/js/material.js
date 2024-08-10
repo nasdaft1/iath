@@ -4,15 +4,10 @@
  */
 function materialJsonWriteTable(data) {
     if (data != null) {
-        if (data.length === 0){
-            console.log('Данных в таблице нет')
-
-            data= [[{id_audio:'null', text_content:'1'},
-                    {id_audio:'null', text_content:'2'},
-                    {id_audio:'null', text_content:'3'}
-            ]]
+        if (data.length != 0){
+            // убираем надпись "нет данных" в пустой таблицы 
+            document.getElementById("no-data-table").style.display ="none"
         }
-
         const container = document.getElementById('table-container-material-body');
         container.innerHTML = '';
         for (let row = 0; row < data.length; row++){

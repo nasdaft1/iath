@@ -6,8 +6,8 @@
     margin-top: 40px; /*относительно других*/
     display: none;
     z-index: 2; /*размещаем по верх остальных блоков на */
-    width: 200px;
-    height: 330px;
+    width: 240px;
+    height: 390px;
     border-radius: 5px;
     border: 1px solid var(--context-menu-border);
     background: var(--context-menu-background);
@@ -15,27 +15,22 @@
     font-size: 14px; /* Измените размер шрифта на желаемый */
     padding: 10px;
 }
-    /*.menu-cont {
-        position: relative;
-        border-radius: 5px;
-        /*border: 2px solid transparent; /* Прозрачная граница по умолчанию */
-    /*    padding-left: 5px ;
-        /*border: 2px solid transparent; /* Прозрачная граница по умолчанию */
-        
-    /*}*/
-
     
     .menu-cont img {
         position: relative;
-        height: 25px;
-        left: 8px;
-        top: 2px;
+        height: 32px;
+        align-self: center;
+    }
+    .menu-cont{
+        display: flex;
     }
 
-    .context-menu .menu-cont span {
+    #block_menu_cont .menu-cont span {
         position: relative;
-        top: -6px;
-        left: 8px;
+        align-self: center;
+        height: 100%;
+        width: 100%;
+        margin-left: 8px;
     }
 
     #delete {
@@ -48,27 +43,48 @@
     }
 
 /*Для меню при кликанье правой кнопкой мыши на таблицу*/
+    .menu-material{
+        cursor: default; /*копирования пунктов меню*/
+        display: flex;
+        
+    }
     
-    .menu-material img {
-        position: relative;
-        height: 25px;
-        left: 8px;
-        top: 2px;
+    /*некоторые иконки сделаем контраснее*/
+    .menu-img {
+        /*filter: var(--filter-img); /* Делает изображение темнее */    
+        filter: 0.10; /* Делает изображение темнее */    
+        filter:var(--filter-img);
     }
 
-    #delete_row, #delete_buffer {
+    .menu-material img {
+        position: relative;
+        height: 32px;
+        align-self: center;
+    }
+
+
+    #delete_row span  {
         color: var(--context-menu-del);
     }
+
+    #delete_buffer span  {
+        color: var(--context-menu-del);
+    }
+
 
     .menu-material:hover {
         background: var(--context-menu-background-header);
         border-radius: 5px;
+        
     }
 
     .context-menu .menu-material span {
+        align-self: center;
         position: relative;
-        top: -6px;
-        left: 8px;
+        margin-left: 8px;
+        height: 100%;
+        width: 100%;
+        
     }
 
  
