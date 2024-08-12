@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 YaBrowser/24.7.0.0 Safari/537.36" version="24.7.6">
+  <diagram id="BnYJdByp1HTlvIzjbUJN" name="Страница — 1">
+    <mxGraphModel dx="2125" dy="529" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CGw5HRLfVFU-bnypwjIq-2" value="NGINX" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-710" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-1" value="AUTH&lt;br&gt;Авторизация" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-500" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-2" value="Static&lt;br&gt;статические файлы для проекта" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-710" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-3" value="SSL&lt;div&gt;сертификат&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-710" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-4" value="САЙТ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-880" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-5" value="Сookie&lt;br&gt;хранение ключей" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-880" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-6" value="LocalStorage&lt;br&gt;хранилище дерева" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-880" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-10" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/jpeg,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;" vertex="1" parent="1">
+          <mxGeometry x="-1090" y="130" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-11" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/png,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;rotation=-180;" vertex="1" parent="1">
+          <mxGeometry x="-1050" y="350" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="EXopNZcOxKrq70x3i1dg-10" target="EXopNZcOxKrq70x3i1dg-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-950" y="360" as="sourcePoint" />
+            <mxPoint x="-900" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-13" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="EXopNZcOxKrq70x3i1dg-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-960" y="390" as="sourcePoint" />
+            <mxPoint x="-900" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-14" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="EXopNZcOxKrq70x3i1dg-4" target="EXopNZcOxKrq70x3i1dg-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-950" y="360" as="sourcePoint" />
+            <mxPoint x="-900" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-15" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="EXopNZcOxKrq70x3i1dg-4" target="EXopNZcOxKrq70x3i1dg-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-950" y="360" as="sourcePoint" />
+            <mxPoint x="-900" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-16" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="CGw5HRLfVFU-bnypwjIq-2">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-760" y="390" as="sourcePoint" />
+            <mxPoint x="-880" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-17" value="Object Storage&lt;div&gt;хранилище данных&lt;br&gt;аудиофайлов&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-500" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-18" value="SpeechKit&lt;div&gt;анализ и генерация аудиофайлов&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-350" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-19" value="mongodb" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="-495" y="480" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-20" value="postgresql" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="-345" y="480" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-21" value="Vosk.js&lt;br&gt;для распознавание речи" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1000" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-23" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.499;entryY=-0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="EXopNZcOxKrq70x3i1dg-3" target="CGw5HRLfVFU-bnypwjIq-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-720" y="360" as="sourcePoint" />
+            <mxPoint x="-670" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-24" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="CGw5HRLfVFU-bnypwjIq-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-650" y="460" as="sourcePoint" />
+            <mxPoint x="-600" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EXopNZcOxKrq70x3i1dg-25" value="AUTH&lt;br&gt;Авторизация" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-495" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

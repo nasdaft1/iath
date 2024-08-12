@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById(select_id).style.display = 'none';
             }
         });
+        console.log('закрытие sidebar');
     });
 
 
