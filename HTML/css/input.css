@@ -1,0 +1,78 @@
+
+/* Контейнер для формы */
+.form-question {
+    position: absolute;
+    background-color: #fff;
+    top: calc(40% - 100px);
+    left: calc(50% - 20%);
+    height: 440px;
+    width: 40%;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1; /*размещаем по верх остальных блоков на form*/
+}
+
+.form-question h1 {
+    text-align: center;
+    height: 70px;
+    
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    font-size: 50px; /* Измените размер шрифта на желаемый */
+}
+
+#osc {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#osc #oscilloscope{
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    z-index: 1;
+
+}
+
+#osc .menu-img{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 160px;
+    width: 160px;
+    z-index: 2;
+}
+
+
+
+.form-question #textInput {
+    box-sizing: border-box;
+    margin-bottom: 5px;
+     
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    font-size: 30px; /* Измените размер шрифта на желаемый */
+    width: 100%;
+}
+
+/* Стили для placeholder */
+#textInput::placeholder {
+    font-size: 20px; /* Измените размер шрифта на желаемый */
+    text-align: center; /* Горизонтальное центрирование текста */
+    line-height: 50px; /* Вертикальное центрирование текста */
+}
+
+.form-question label {
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    font-size: 20px; /* Измените размер шрифта на желаемый */
+}
+
+.form-question progress {
+    width: 100%;
+    height: 20px;
+}

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expandable Sidebar</title>
     <link rel="stylesheet" href="css/root.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/auth.css">
     <link rel="stylesheet" href="css/tree.css">
     <link rel="stylesheet" href="css/context-menu.css">
     <link rel="stylesheet" href="css/help.css">
     <link rel="stylesheet" href="css/material.css">
+    <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/play.css">
 </head>
 <body>
@@ -26,6 +27,7 @@
     <script src="js/help.js"></script>
     <script src="js/play.js"></script>
     <script src="js/material.js"></script>
+    <script src="js/input.js"></script>
     <script src="js/menu_contex_material.js"></script>
 
     <div class="form-general" id="form-general"> 
@@ -42,7 +44,7 @@
                 <div class="navbar-menu">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="#"> 
                                 <img src="png\config.png">
                                 <span> Настройки </span>
                             </a>
@@ -80,7 +82,7 @@
                         <img src="png\sidebar\sidebar.png">
                     </div>
                 </div>
-
+                <!---->
                 <div class="block" id="block-1">
                     <div class="icon" data-description="Материалы" id="material">
                         <img src="png\sidebar\material.png">
@@ -92,7 +94,7 @@
                         <img src="png\sidebar\analysis.png">
                     </div>
                 </div>
-
+                <!---->
                 <div class="block" id="block-2">
                     <hr>
                     <div class="icon" data-description="Вопрос текстом ответ аудио" id="txt_audio">
@@ -105,7 +107,7 @@
                         <img src="png\sidebar\au_tx.png">
                     </div>
                 </div>
-
+                <!---->
                 <div class="block" id="block-3">
                     <hr>
                     <div class="icon" data-description="Вопрос на английском ответ русском" id="foreign_native">
@@ -118,7 +120,7 @@
                         <img src="png\sidebar\na_al.png">
                     </div>
                 </div>
-
+                <!--редактирование материала-->
                 <div class="block" id="block-4">
                     <hr>
                     <div class="icon" data-description="Редактирование" id="edit">
@@ -138,13 +140,23 @@
                 <div class="form-question" id="form-question">
                     <h1>I want coffee</h1>
                     <form id="textForm">
-                        <label for="textInput">Введите перевод:</label>
-
-                        <input type="text" id="textInput" name="textInput" required>
+                        <!-- Для визуализации голосового ввода--> 
+                        <div id="osc">
+                            <canvas id="oscilloscope" width="160" height="160"></canvas>
+                            <img class="menu-img" src="png\microphone-t.png">
+                        </div>
+                        <label>Введите перевод:</label>
+                        <input 
+                                type="text" 
+                                id="textInput"
+                                name="username" 
+                                autocomplete="off" 
+                                placeholder="При любой раскладке клавиатуры текст будет, вводится на русском.">
                         <progress id="progressBar" value="0" max="100"></progress>
                     </form>
                 </div>
 
+                <!--Форма логирования входа в аккаунт-->
                 <div class="form-login" id="form-login">
                     <img src="png\close.png" id="close-login">
                     <h1>Login</h1>
@@ -156,7 +168,7 @@
                         <h1 id="link-reg-2">Registration</h1>
                     </form>
                 </div>
-
+                <!--Форма вспоминания пароля-->
                 <div class="form-restore" id="form-restore">
                     <img src="png\close.png" id="close-restore">
                     <h1>Restore password</h1>
@@ -165,7 +177,7 @@
                         <button id="enter-restore" type="submit">Send by email</button>
                     </form>
                 </div>
-
+                <!--Форма регистрации аккаунта-->
                 <div class="form-reg" id="form-reg">
                     <img src="png\close.png" id="close-reg">
                     <h1>Registration</h1>
@@ -221,7 +233,7 @@
                             <span>Удалить строку</span>
                         </div>
                     </div>
-
+                    <!--Контекстное меню выпадающее на темах-->
                     <div id="block_menu_cont">
                         <div class="menu-cont" id="search">
                             <img class="menu-img" src="png\menu-contex\search.png">
@@ -264,8 +276,10 @@
                     </div>
                 </div>
 
+                <!--Заголовок с темамами-->
                 <div class="form-theme" id="form-theme">
                     <div class="table-menu">
+                        <!--Поле ввода в темах в зависимости от выбранного в контекстном меню-->
                         <div class="cell-menu" id="search_menu">
                             <img class="menu-img" src="png/search.png" id="img_input" alt="Icon">
                             <!-- <input type="search" name="search"/>-->
@@ -277,14 +291,15 @@
                             <span>Root</span>
                         </div>
                     </div>
+                    <!--основная часть таблицы с темами контент генерится js-->
                     <div class="table" id="form-table" ></div>
                 </div>
 
 
-
+                <!--Кастомный плеер для воспроведения звука в материалах-->
                 <div class="form-material" id="form-material">
-                    <!--Иконка для плеера-->
                     <div id="audio_play" class="audio_play" my-attribute="my-player" style="display: none;">
+                        <!--Отображается если стоит запрет на воспроизведение или отсутствие аудио файла-->
                         <img src="png\not-play.png" id="not-play" my-attribute="my-player">
                         <div class="arc-container" id="download-play" my-attribute="my-player" contenteditable="false">
                             <div class="arc" id="progress-circle" my-attribute="my-player"></div>
@@ -297,13 +312,16 @@
                             </div>
                         </div>
                         <div class="audio_play_text" my-attribute="my-player" contenteditable="false">
+                            <!--Поле для воода в плеер текста-->
                             <div class="audio_play_text_write" id="audio_play_text_write" my-attribute="my-player" contenteditable="true"></div>
                         </div>
                     </div>
-
+                    <!--заглужка для лучшей визаализации с права в шапке таблицы-->
                     <div class="stump" id="stump"></div>
+                    <!--невидимый аудиоплеер для воспроизводства аудио-->
                     <audio id="audioPlayer" controls></audio>
                     <div class="table-container-material" id="table-container-material">
+                        <!--шапка в таблицы с материалами-->
                         <table class="table-material">
                             <thead>
                                 <tr> 
@@ -312,10 +330,11 @@
                                     <th class="header-col2">Вопрос</th>
                                     <th class="header-col3-end">Ответ</th>
                                 </tr>
-                                
                             </thead>
+                            <!--основная часть таблицы с материалами контент генерится js-->
                             <tbody id ="table-container-material-body"></tbody>
                         </table>
+                        <!--отобращается надпись если нет контента в таблицы с материалами-->
                         <div id ="no-data-table">НЕТ ДАННЫХ</div>
                     </div>
                 </div>

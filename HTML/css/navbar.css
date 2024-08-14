@@ -45,6 +45,7 @@ html body .form-general .header {
     border-right: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
 }
 
+/*верхнее меню и лого*/
 html body .form-general .navbar {
     position: absolute;
     top: 0px;
@@ -123,49 +124,6 @@ html body .form-1 {
     display: flex;
 }
 
-
-/* Контейнер для формы */
-.form-question {
-    position: absolute;
-    background-color: #fff;
-    top: calc(50% - 100px);
-    left: calc(50% - 20%);
-    height: 320px;
-    width: 40%;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1; /*размещаем по верх остальных блоков на form*/
-}
-
-.form-question h1 {
-    text-align: center;
-    height: 70px;
-    margin-bottom: 120px;
-    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
-    font-size: 50px; /* Измените размер шрифта на желаемый */
-}
-
-.form-question input {
-    box-sizing: border-box;
-    margin-bottom: 5px;
-    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
-    font-size: 30px; /* Измените размер шрифта на желаемый */
-    width: 100%;
-}
-
-.form-question label {
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
-    font-size: 20px; /* Измените размер шрифта на желаемый */
-}
-
-.form-question progress {
-    width: 100%;
-    height: 20px;
-}
 
 
 /*верхнее меню настройкми оплатой и входом*/

@@ -57,3 +57,12 @@ class DataMaterialResponse(BaseModel):
 class DataMaterialLoad(BaseModel):
     data: list[list[DataCellLoad]] | None
     id: int | str | None
+
+
+class DataTrainingResponse(BaseModel):
+    audiotext # аудио текст
+    text_in_writing # текст для вопроса
+    question # вопрос текст
+    answer_in_writing # ответ текст
+
+    id: int | str | None
