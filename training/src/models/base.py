@@ -59,10 +59,13 @@ class DataMaterialLoad(BaseModel):
     id: int | str | None
 
 
-class DataTrainingResponse(BaseModel):
-    audiotext # аудио текст
-    text_in_writing # текст для вопроса
-    question # вопрос текст
-    answer_in_writing # ответ текст
+class DataTraining(BaseModel):
+    id_question: str  # id вопроса
+    type_lang: str  # тип вопроса и ответа
+    id_file: str  # id файла
 
-    id: int | str | None
+
+class DataTrainingResponse(DataTraining):
+    text: str | None  # текст
+    question: str  # вопрос
+    id_audio: str | None  # id файла аудио

@@ -1,22 +1,31 @@
 import logging
-import pprint
+from typing import Any, Generator, BinaryIO
 
-from fastapi import APIRouter, Request
+from models.base import DataTraining, DataTrainingResponse
+from core.config import BASE_DIR_SRC
 
-from models.base import DataMaterialResponse, DataMaterialLoad
-from utils.material_json import make_json
+from fastapi import APIRouter, File, UploadFile
+from fastapi.responses import JSONResponse, StreamingResponse
 
 router = APIRouter()
 
 
-@router.post("/read")  # получение списка каталога и фалов
-# async def read_material(data_table: DataMaterialLoad) -> DataMaterialResponse:
-async def read_material(data_table: DataMaterialLoad) -> DataMaterialResponse:
-    logging.info(data_table)
-    pprint.pprint(data_table)
+# Открытие файла и загрузка его в переменную
 
-    logging.info('/read')
-    return DataMaterialResponse(
-        data=make_json(),
-        status_code=200,
-        status_name='Ok')
+
+@router.get("/question-answer")  # получение списка каталога и фалов
+async def text_text(data: DataTraining) -> DataTrainingResponse:
+    logging.debug(data)
+    file_path = BASE_DIR_SRC + '\\EF4e_Elementary_SB_1.10.mp3'  # укажите путь к вашему аудиофайлу
+    logging.warning(file_path)
+    return DataTrainingResponse(
+        id_question='',
+        type_lang='',
+        id_file='',
+        text='',
+        id_text='',
+        question=''
+    )
+
+
+

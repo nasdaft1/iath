@@ -15,7 +15,7 @@ window.onload = function () {
     // при запуске или обновлении
     startProgress();
     const icons = document.querySelectorAll('.icon');
-    block_visible('none', 'none', 'none')
+  
     /* делаем все icon не видемыми в sidebar*/
     icons.forEach(icon => {
         const icon_id = icon.getAttribute('id');
