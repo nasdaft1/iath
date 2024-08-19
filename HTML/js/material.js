@@ -127,10 +127,15 @@ function delete_aydio_player(element) {
 
 const player_material = new Player();
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    player_material.player_addEvent()
+    player_material.player_addEvent();
+    player_material.player_input_addEvent();
     // для теста передаем фиксированную ссылку на аудиофайл
     player_material.audioURL = 'http://213.178.34.212:18000/api/v1/download-audio?id_audio=null'
+    // настройка событий на плеере формы вопрос
+    player_material.question_player_addEvent();
 })
 
 

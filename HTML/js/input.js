@@ -1,3 +1,100 @@
+/**
+ * Функция для определения видимости объекта по id 
+ * @param {*} id идентификатор объекта по id
+ * @returns true если блок отрисован на сайте false - нет
+ */
+function isVisibleById(id) {
+    const element = document.getElementById(id);
+    return !!(element && element.offsetWidth > 0 && element.offsetHeight > 0);
+}
+
+/**
+ * Изменение формы в зависимости от поученных данных с сайта
+ * @param {*} data словарь с данными для модификации
+ */
+function change_form_question(data){
+    if (data){
+        const microphone = document.getElementById("microphone");
+        const input_answer = document.getElementById("input_answer");
+        const text_answer = document.getElementById("text_answer");
+        const language_answer = document.getElementById("language_answer");
+        const question_player = document.getElementById('question-player');
+        const question_text = document.getElementById('question-text')
+
+        const id_tree = data['id_tree']
+        const id_material = data['id_material']
+        const language_input = data['language_input']
+        const text = data['text'] || null
+        const question_task = data['question']
+        const id_audio = data['id_audio'] || null
+        const answer_text = data['answer_text'] || null
+        console.log('data', data);
+
+        document.getElementById('question-task').textContent = question_task;
+
+        if (id_audio==null){
+            question_player.style.display = 'none';
+        }
+        else {
+            question_player.style.display = 'flex';
+
+        }
+
+        if (text===null){
+            question_text.style.display = 'none';
+        } else {
+            question_text.textContent = text;
+            question_text.style.display = 'flex';
+        }
+
+
+
+        if (answer_text===null){
+            microphone.style.display = 'none';
+            input_answer.style.display = 'flex';
+            language_answer.textContent = language_input;
+            text_answer.focus();
+        } else {
+            microphone.style.display = 'block';
+            input_answer.style.display = 'none';
+        }
+    }
+}
+
+
+/**
+ * Функция для определения видимости объекта по id 
+ * @param {String} Url адрес на который передать данные
+ * @param {Object} audioBlob=null буфер файа для передачи на сервер
+ * @returns true если блок отрисован на сайте false - нет
+ */
+function upload(Url, audioBlob = null) {
+    console.log('audioBlob',audioBlob)
+    const formData = new FormData();
+    const jsonData = {
+        key1: "value1",
+        key2: "value2"
+    };
+    if (audioBlob !== null){
+        formData.append('audio', audioBlob, 'recording.wav');
+    }
+    formData.append('data', JSON.stringify(jsonData));
+    fetch(Url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        this.change_form_question(data);
+        console.log('Успешно загружено:', data);
+        //console.log('language_input', data['language_input']);
+    })
+    .catch(error => {
+        console.error('Ошибка загрузки:', error);
+    });
+}
+
+
 class InputAudio{
 
     constructor() {
@@ -6,7 +103,7 @@ class InputAudio{
         this.recordingTimeout = null;
         this.isRecording = false;
 
-        this.uploadUrl = 'http://213.178.34.212:18000/api/v1/training'; // Замените на ваш URL
+        this.Url = 'http://213.178.34.212:18000/api/v1/training/answer-audio'; // Замените на ваш URL
 
         this.audioContext = null;
         this.analyser = null;
@@ -20,6 +117,7 @@ class InputAudio{
      * Инициализация настроик для обработки аудио, прикремпление обработки события
      */
     initMedia() {
+        
         navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             this.recorder = new MediaRecorder(stream);
@@ -33,7 +131,7 @@ class InputAudio{
                 const audio = new Audio(audioUrl);
                 audio.play();
                 // Отправка аудиофайла на сервер
-                this.uploadAudio(audioBlob);
+                upload(this.Url, audioBlob);
             };
 
             document.addEventListener('keydown', this.startRecording.bind(this));
@@ -45,6 +143,7 @@ class InputAudio{
         .catch(error => {
             console.error("Ошибка доступа к микрофону:", error);
         });
+        
     }
 
     /**
@@ -53,13 +152,15 @@ class InputAudio{
      */
     startRecording(event) {
         if (event.code === 'Space' && !this.isRecording) {
-            this.isRecording = true;
-            this.audioChunks = [];
-            this.recorder.start();
+            if (isVisibleById('microphone')){
+                this.isRecording = true;
+                this.audioChunks = [];
+                this.recorder.start();
 
-            this.recordingTimeout = setTimeout(() => {
-                this.stopRecording();
-            }, 15000); // Максимальное время записи - 15 секунд
+                this.recordingTimeout = setTimeout(() => {
+                    this.stopRecording();
+                }, 10000); // Максимальное время записи - 15 секунд
+            }
         }
     }
 
@@ -71,7 +172,9 @@ class InputAudio{
             this.isRecording = false;
             clearTimeout(this.recordingTimeout);
             this.recorder.stop();
+            console.log('recorder.stop');
         }
+
     }
     /**
      * Подключение к источнику аудиопотака и настройка буфера и обработчика сигнала
@@ -128,26 +231,6 @@ class InputAudio{
             }
         }
     }
-
-
-
-    uploadAudio(audioBlob) {
-        const formData = new FormData();
-        formData.append('file', audioBlob, 'recording.wav');
-
-        /*fetch(uploadUrl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Успешно загружено:', data);
-        })
-        .catch(error => {
-            console.error('Ошибка загрузки:', error);
-        });*/
-    }
-
 }
 
 
@@ -163,9 +246,19 @@ class InputKey{
     lang={"ru": "йцукенгшщзхъфывапролджэячсмитьбю",
           "en":"qwertyuiop[]asdfghjkl;'zxcvbnm,."    }
 
+    constructor() {
+        document.addEventListener('DOMContentLoaded', () => {
+            this.Url = 'http://213.178.34.212:18000/api/v1/training/answer-text'; // Замените на ваш URL
+            this.keyboardLayout('ru','en')
+            this.InitEventInputKey();
+        })
+    }
 
     /**
-     * Для конвертирования данных в нужные нам 
+     * Для конвертирования данных в нужные нам вариант раскладки клавиатуры 
+     * @param {String} input - вводимый текст 
+     * @param {String} fromLayout - строка с раскладкой исходной клавиатуры
+     * @param {String} toLayout - строка с раскладкой клавиатуры для ввода
      */
     convertLayout(input, fromLayout, toLayout) {
         //if fromLayout - сделать проверку на fromLayout, toLayout not null
@@ -186,27 +279,36 @@ class InputKey{
      * @param {String} key_other - на какую раскладку переключаем
      */
     keyboardLayout(key_main, key_other){
-        this.key_main = lang[key_main]
-        this.key_other = lang[key_other]
+        this.key_main = this.lang[key_main]
+        this.key_other = this.lang[key_other]
     }
 
     /**
      * Для прикрепление обработки события на вводе данных 
      */
-    getEventInputKey(key_main, key_other){
-        document.getElementById('input-field').addEventListener('input', function (e) {
-            let inputText = e.target.value;
-            //let convertedText = convertLayout(inputText, enKeys, ruKeys); // Переключаем с английской на русскую
-            let convertedText = convertLayout(inputText, key_main, key_other ); // Переключаем с русскую на английской
-            e.target.value = convertedText;
+    InitEventInputKey(){
+        const inputElement = document.getElementById('text_answer');
+        inputElement.addEventListener('input', (e) => {
+            let inputText = e.target.textContent;
+            let convertedText = this.convertLayout(inputText, this.key_main, this.key_other ); // Переключаем с русскую на английской
+            e.target.textContent = convertedText;
+        });
+        // Добавляем обработчик события нажатия клавиши
+        inputElement.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                console.log('Нажата клавиша Enter');
+                upload(this.Url)
+                // Здесь можно добавить код, который должен выполняться при нажатии Enter
+            }
         });
     }
 }
+
 
 const input_audio = new InputAudio();
 const input_key = new InputKey();
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    
 })

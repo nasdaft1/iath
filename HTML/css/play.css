@@ -5,11 +5,12 @@
   z-index: 30;
   display: flex;
   table-layout: fixed; /* Фиксированная ширина колонок */
+  align-self: center;
 }
 
 #audio_play .arc-container{
   align-self: center;
-  margin: var(--player_width-margin);
+  margin: var(--player_width_margin);
   flex-shrink: 0;
 }
 
@@ -57,7 +58,7 @@
     height: var(--play_width);
     table-layout: fixed; /* Фиксированная ширина колонок */
     align-self: center;
-    margin: var(--player_width-margin);
+    margin: var(--player_width_margin);
   }
 
   #progress-circle::before {
@@ -88,7 +89,7 @@
 
 
 
-  .play_stop{
+  .play_stop_block{
     position: absolute;
     top: 15%;
     left: 15%;
@@ -99,7 +100,7 @@
     border-radius: 50%;
   }
 
-  #play_stop{
+  #play-stop{
     position: absolute;
     top: 0;
     left: 0%;
@@ -110,7 +111,7 @@
   }
   
 
-  #play_stop .triangle-left {
+  #play-stop .triangle-left {
     margin: 0px;
     padding: 0px;
     position: absolute;
@@ -123,18 +124,13 @@
     
   }
 
-  #play_stop .progress_stop{
+  #play-stop .progress_stop{
     position: absolute;
     margin-left: 100%;
     top: 30%;
     width: 40%;
     height: 40%;
     background-color: var(--scrollbar-header);
-    left: 30%;
-}
+    left: 31%;
+  }
 
-/*
-#rectangle2 {
-    left: 58%;
-}
-*/

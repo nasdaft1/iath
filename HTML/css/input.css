@@ -1,5 +1,8 @@
 
 /* Контейнер для формы */
+
+
+
 .form-question {
     position: absolute;
     background-color: #fff;
@@ -11,25 +14,72 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1; /*размещаем по верх остальных блоков на form*/
+    /*box-sizing: border-box; /* Учитываем padding в ширине */
+    /*display: flex;*/
 }
+
+#form-question-block-up{
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40%;
+    padding: 0px;
+    background-color: red;
+    /*transition: left 0.5s ease; /* Анимация смещения */
+}
+
+.question-player-block{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 
 .form-question h1 {
+    position: relative;
     text-align: center;
-    height: 70px;
-    
+    height: auto;
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
     font-size: 50px; /* Измените размер шрифта на желаемый */
+    box-sizing: border-box;
 }
 
-#osc {
+#form-question-block-center{
+    top: 40%;
+    left: 0px;
+    width: 100%;
+    height: 20%;
+    padding: 0px;
+    background-color: rgb(183, 0, 255);
+    transition: left 0.5s ease; /* Анимация смещения */
+}
+
+#question-task{
+    position: relative;
+    top: 20px;
+    border: 0px;
+    text-align: center;
+}
+
+#form-question-block-down{
+    top: 60%;
+    left: 0px;
+    width: 100%;
+    height: 40%;
+    background-color: rgb(0, 255, 64);
+    transition: left 0.5s ease; /* Анимация смещения */
+}
+
+#microphone {
     position: relative;
     height: 200px;
-    width: 200px;
+     width: 200px;
     margin-left: auto;
     margin-right: auto;
+    display: block;
 }
 
-#osc #oscilloscope{
+#microphone #oscilloscope{
     position: absolute;
     height: 200px;
     width: 200px;
@@ -37,7 +87,7 @@
 
 }
 
-#osc .menu-img{
+#microphone .menu-img{
     position: absolute;
     top: 20px;
     left: 20px;
@@ -50,11 +100,12 @@
 
 .form-question #textInput {
     box-sizing: border-box;
-    margin-bottom: 5px;
-     
+    position: relative;
+    top: 30px;
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
     font-size: 30px; /* Измените размер шрифта на желаемый */
     width: 100%;
+    display: none;
 }
 
 /* Стили для placeholder */
@@ -64,15 +115,157 @@
     line-height: 50px; /* Вертикальное центрирование текста */
 }
 
-.form-question label {
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+
+
+#input_answer{
+    display: flex;
     font-size: 20px; /* Измените размер шрифта на желаемый */
+    height: 60px;
+    align-items: center;
+    border: 1px solid var(--select);
+    border-radius: 5px;
 }
+
+#input_answer #line1{
+    height: 100%;
+    border-left: 1px solid var(--select);
+
+}
+
+#input_answer #language_answer{
+    align-items: center;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#input_answer #text_answer{
+    width: calc(100% - 80px);
+    height: auto;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#text_answer[contenteditable="true"] {
+    background: transparent;  /* Убирает выделение текста */
+    outline: none;
+}
+
+
 
 .form-question progress {
     width: 100%;
     height: 20px;
+    display: none;
+    
 }
+
+
+/*для плеера на форме вопрос-------------------------------------------*/
+  
+#question-player{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: calc(50% - var(--play_width_question)/2);
+    z-index: 30;
+    display: flex;
+    /*table-layout: fixed; /* Фиксированная ширина колонок */
+  }
+
+  #question-player #question-play{
+    align-self: center;
+    margin: var(--player_width_margin_question);
+    flex-shrink: 0;
+  }
+
+  #question-player {
+      position: relative;
+      width: var(--play_width_question);
+      height: var(--play_width_question);
+      table-layout: fixed; /* Фиксированная ширина колонок */
+  }
+
+  #question-progress-circle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--play_background_question) 0deg 360deg, transparent 360deg);
+    clip-path: circle(50% at 50% 50%);
+  }
+
+  #question-progress-circle::before {
+    content: '';
+    position: absolute;
+    padding: 0px;
+    top: var(--play_line_question);
+    left: var(--play_line_question);
+    width: calc(100% - var(--play_line_question)*2);
+    height: calc(100% - var(--play_line_question)*2);
+    background-color: var(--table-container-background);
+    border-radius: 50%;
+    outline: var(--play_background_question);
+  }
+
+  #question-player .question-play-arc-2 {
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    top: 5%;
+    left: 5%;
+    top: 5%;
+    bottom: 5%;
+    right: 5%;
+    border-radius: 50%;
+    border: 2px solid var(--scrollbar-header);
+  }
+
+
+
+  .question-play-stop-block{
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    top: 15%;
+    bottom: 15%;
+    right: 15%;
+    overflow: hidden; /* Обрезает все содержимое, выходящее за пределы блока */
+    border-radius: 50%;
+  }
+
+  #question-play-stop{
+    position: absolute;
+    top: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: left 0.5s ease; /* Анимация смещения */
+  }
+
+
+  #question-play-stop .question-play-triangle-left {
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 15%;
+    left: 33%;
+    border-radius: 0%;
+    box-sizing: border-box;
+    border: var(--play_border_question) solid transparent; 
+    border-left: var(--play_border_left_question) solid var(--scrollbar-header);
+    
+  }
+
+  #question-play-stop .question-play-progress-stop{
+    position: absolute;
+    margin-left: 100%;
+    top: 30%;
+    width: 40%;
+    height: 40%;
+    background-color: var(--scrollbar-header);
+    left: 31%;
+  }

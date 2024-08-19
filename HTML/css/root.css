@@ -74,11 +74,20 @@
   --play_border_left: calc(var(--play_width)/2.8);
   --play_border: calc(var(--play_width)/4);
   --play_background: rgb(45, 255, 45);
+  
+
+  /*Настройки для аудио плеера на форме вопроса*/
+  --play_width_question: 160px;
+  --play_border_left_question: calc(var(--play_width_question)/2.8);
+  --play_border_question: calc(var(--play_width_question)/4);
+  --play_line_question: 4px;
+  --play_background_question: rgb(45, 255, 45);
+  --player_width_margin_question:5px;
 
   /*таблица с материаламы*/
   --table-material-hover: var(--scrollbar-header);
   --table-row-height:60px;
-  --player_width-margin:5px;
+  --player_width_margin:5px;
   --table-tab-player: calc(var(--play_width) + var(--player_width-margin)*2);
   --table-change:rgb(38, 86, 160); /*цвет где был изменен контент*/
   --table-no-change: black;

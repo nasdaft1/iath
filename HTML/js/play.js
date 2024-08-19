@@ -51,13 +51,32 @@ class Player{
 
 
     /**
+     * Функция по навешиванию обработчика событий на нужный нам объект c изменением данных поля 
+     */
+    player_input_addEvent(){
+        this.audio_play_text_write = document.getElementById("audio_play_text_write");
+        // обработа замены текста в контенте блока плеера
+        this.audio_play_text_write.addEventListener('input', (event) => {
+            if (this.cell_textContent != event.target.innerText) {
+                this.play_contextext("var(--table-change)","bold","true")
+            } else {
+                this.play_contextext("var(--table-no-change)","normal","false")
+            }
+            console.log('this.change',this.change)
+            this.changes_player();
+        });
+
+    }
+
+
+    /**
      * Функция по навешиванию обработчика событий на нужный нам объект и связывает его с плеером
      */
     player_addEvent(){
         this.audio = document.getElementById('audioPlayer');
         this.progressFill = document.getElementById("progress-circle");
-        this.play_stop = document.getElementById("play_stop");
-        this.audio_play_text_write = document.getElementById("audio_play_text_write");
+        this.play_stop = document.getElementById("play-stop");
+        
         
         this.audio.addEventListener('timeupdate', () => {
             var percentage = (this.audio.currentTime / this.audio.duration) * 100;
@@ -69,17 +88,6 @@ class Player{
             this.play_stop.style.left='0%';
             this.progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
         });
-        
-        // обработа замены текста в контенте блока плеера
-        this.audio_play_text_write.addEventListener('input', (event) => {
-            if (this.cell_textContent != event.target.innerText) {
-                this.play_contextext("var(--table-change)","bold","true")
-            } else {
-                this.play_contextext("var(--table-no-change)","normal","false")
-            }
-            this.changes_player();
-        });
-        
         document.getElementById('download-play').addEventListener('click', async () => {
             if (this.play_stop.style.left!=='-100%' ){
                 try {
@@ -101,6 +109,55 @@ class Player{
             }
         })
     }
+
+    /**
+     * Функция по навешиванию обработчика событий на нужный нам объект и связывает его с плеером
+     */
+    question_player_addEvent(){
+        const audio = document.getElementById('audio-play-question');
+        const progressFill = document.getElementById("question-progress-circle");
+        const play_stop = document.getElementById("question-play-stop");
+        
+        
+        audio.addEventListener('timeupdate', () => {
+            var percentage = (audio.currentTime / audio.duration) * 100;
+            var degrees = (percentage / 100) * 360;
+            progressFill.style.background = `conic-gradient(from 0deg, transparent 0deg, #34db34 0deg ${degrees}deg, transparent ${degrees}deg)`;
+        });
+        // () => используем вместо function () чтобы работали переменные через this
+        audio.addEventListener('ended', () => {
+            play_stop.style.left='0%';
+            progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+        });
+        document.getElementById('question-play').addEventListener('click', async () => {
+            if (play_stop.style.left!=='-100%' ){
+                try {
+                    play_stop.style.left='-100%';
+                    //console.log('start_audio');
+                    const response = await fetch(this.audioURL);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const blob = await response.blob();
+                    audio.src = window.URL.createObjectURL(blob);;
+                    audio.play();
+                    
+                } catch (error) {
+                    console.error('There has been a problem with your fetch operation:', error);
+                } 
+            } else {
+                play_stop.style.left='0%';
+                audio.pause();        // Останавливаем воспроизведение
+                audio.currentTime = 0; // Сбрасываем позицию к началу
+                progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+                setTimeout(() => {//Для корректной отработки возвращение ползунка в исходное состояние при прерывании воспроизведения
+                    progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+                }, 100)
+            }
+        })
+    }
+
+
 
     /**
     * Функция проверяет созан ли прлеек есл создан делает его видимым и переносит
@@ -129,7 +186,6 @@ class Player{
             // чтение текста введенного в поле с плеером
             var text = document.getElementById("audio_play_text_write")
             var parent_element= player.parentElement;
-            //var parent_element_text= text.textContent;
             parent_element.removeChild(player);
             // для остановки плеера при перетаскивании 
             var audio = document.getElementById('audioPlayer');
@@ -146,6 +202,7 @@ class Player{
             
         }
     }
+
 
     /**
     * Функция находит куда необходимо смонтировать плеер. 

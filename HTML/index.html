@@ -138,23 +138,53 @@
             <div class="content" id="content">
                 <!-- Основное содержание страницы--> 
                 <div class="form-question" id="form-question">
-                    <h1>I want coffee</h1>
-                    <form id="textForm">
+                    <audio id="audio-play-question" controls style="display: none;"></audio>
+                    <div id="form-question-block-up">
+                        <div id="question-player-block">
+                            <div id="question-player">
+                                <!--Отображается если стоит запрет на воспроизведение или отсутствие аудио файла-->
+                                <div id="question-play">
+                                    <div class="question-play-arc" id="question-progress-circle"></div>
+                                    <div class="question-play-arc-2"></div>
+                                    <div class="question-play-stop-block">
+                                        <div id="question-play-stop">
+                                            <div class="question-play-triangle-left"></div>
+                                            <div class="question-play-progress-stop"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1 id="question-text">I want coffee</h1>
+                        </div>
+                    </div>
+                    <div id="form-question-block-center">
+                        <h3 id="question-task">Введите перевод1:</h3>
+                        <h3 id="question-task1">Введите перевод2:</h3>
+                    </div>
+                    <div id="form-question-block-down">
                         <!-- Для визуализации голосового ввода--> 
-                        <div id="osc">
+                        <div id="microphone" class="microphone">
                             <canvas id="oscilloscope" width="160" height="160"></canvas>
                             <img class="menu-img" src="png\microphone-t.png">
                         </div>
-                        <label>Введите перевод:</label>
-                        <input 
-                                type="text" 
-                                id="textInput"
-                                name="username" 
-                                autocomplete="off" 
-                                placeholder="При любой раскладке клавиатуры текст будет, вводится на русском.">
+                        <div id="input_answer">
+                            <div id="language_answer">[ru]</div>
+                            <div id="line1"></div>
+                            <div id="text_answer">
+                                <!--contenteditable="true"-->
+                                <input 
+                                    type="text" 
+                                    id="text_answer"
+                                    autocomplete="off" 
+                                    placeholder="При любой раскладке клавиатуры текст будет, вводится на русском.">    
+                            </div>
+                        </div>
+                    </div>
+                    <div>
                         <progress id="progressBar" value="0" max="100"></progress>
-                    </form>
+                    </div>
                 </div>
+            
 
                 <!--Форма логирования входа в аккаунт-->
                 <div class="form-login" id="form-login">
@@ -304,8 +334,8 @@
                         <div class="arc-container" id="download-play" my-attribute="my-player" contenteditable="false">
                             <div class="arc" id="progress-circle" my-attribute="my-player"></div>
                             <div class="arc-2" my-attribute="my-player"></div>
-                            <div class="play_stop" my-attribute="my-player">
-                                <div id="play_stop" my-attribute="my-player">
+                            <div class="play_stop_block" my-attribute="my-player">
+                                <div id="play-stop" my-attribute="my-player">
                                     <div class="triangle-left" my-attribute="my-player"></div>
                                     <div class="progress_stop" my-attribute="my-player"></div>
                                 </div>
