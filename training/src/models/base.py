@@ -65,7 +65,11 @@ class DataTraining(BaseModel):
     id_file: str  # id файла
 
 
-class DataTrainingResponse(DataTraining):
+class DataTrainingResponse(BaseModel):
+    id_tree: str  # id в дереве тем
+    id_material: str  # id в материалах
+    language_input: str  # какой раскладкой будем вводить в поле Input
     text: str | None  # текст
     question: str  # вопрос
-    id_audio: str | None  # id файла аудио
+    id_audio: str | None  # id файла аудио вопроса который нужно подгрузить в последствии
+    answer_text: bool | None # ответ будет текстом или аудио
