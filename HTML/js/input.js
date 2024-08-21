@@ -1,66 +1,95 @@
+
+
 /**
  * Функция для определения видимости объекта по id 
  * @param {*} id идентификатор объекта по id
  * @returns true если блок отрисован на сайте false - нет
  */
-function isVisibleById(id) {
+/*function isVisibleById(id) {
     const element = document.getElementById(id);
     return !!(element && element.offsetWidth > 0 && element.offsetHeight > 0);
-}
+}*/
 
 /**
- * Изменение формы в зависимости от поученных данных с сайта
- * @param {*} data словарь с данными для модификации
+ * Для работы с формой фопросы отображение объектов 
  */
-function change_form_question(data){
-    if (data){
-        const microphone = document.getElementById("microphone");
-        const input_answer = document.getElementById("input_answer");
-        const text_answer = document.getElementById("text_answer");
-        const language_answer = document.getElementById("language_answer");
-        const question_player = document.getElementById('question-player');
-        const question_text = document.getElementById('question-text')
+class FormQuestion{
 
-        const id_tree = data['id_tree']
-        const id_material = data['id_material']
-        const language_input = data['language_input']
-        const text = data['text'] || null
-        const question_task = data['question']
-        const id_audio = data['id_audio'] || null
-        const answer_text = data['answer_text'] || null
-        console.log('data', data);
+data_old={} // старое состояние полученных данных
 
-        document.getElementById('question-task').textContent = question_task;
-
-        if (id_audio==null){
-            question_player.style.display = 'none';
-        }
-        else {
-            question_player.style.display = 'flex';
-
+    /**
+     * Функция для визуализация пропадания и появления текста
+     * @param {*} obj объект для модификации для модификации
+     * @param {*} key_text ключ словаря с данными для модификации текста и его видимости
+     * @param {*} key_param ключ словаря определяющий нужность модификации ели он находится в видимой 
+     * части true - без проверки
+     */
+    async ModificText(obj, key_text, key_param=true) {
+        // асинхронность что бы все элементы одновременно меняли прозрачность
+        const text = this.data[key_text]
+        let modific = true
+        if (typeof key_param === "string") {
+            modific = (this.data_old[key_param] === this.data[key_param])
         }
 
-        if (text===null){
-            question_text.style.display = 'none';
+        
+        if ((this.data_old[key_text] !==this.data[key_text]) && (modific)) {
+            obj.style.opacity = 0;
+            setTimeout(() => {
+            obj.textContent = text;
+            obj.style.opacity = 1;}, 500);
         } else {
-            question_text.textContent = text;
-            question_text.style.display = 'flex';
+            obj.textContent = text;
         }
+    }
 
 
+    /**
+     * Изменение формы в зависимости от поученных данных с сайта
+     * @param {*} data словарь с данными для модификации
+     */
+    async change_form_question(data){
+        if (data){
+            this.data = data;
+            this.block_down = document.getElementById("form-question-block-down");
+            this.block_up = document.getElementById("form-question-block-up");
+            this.question_task_h3 = document.getElementById("question-task-h3");
+            this.text_answer = document.getElementById("text_answer");
+            this.language_answer = document.getElementById("language_answer");
+            this.question_text = document.getElementById('question-text-h1')
 
-        if (answer_text===null){
-            microphone.style.display = 'none';
-            input_answer.style.display = 'flex';
-            language_answer.textContent = language_input;
-            text_answer.focus();
-        } else {
-            microphone.style.display = 'block';
-            input_answer.style.display = 'none';
+            await this.ModificText(this.question_task_h3,'question')
+
+            const id_audio = data['id_audio']
+            const text = data['text']
+            const answer_text = data['answer_text'] || null
+
+            if (id_audio==null){
+                this.block_up.style.left='-100%'
+            }
+            else {
+                this.block_up.style.left='0%'
+            }
+
+            if (text===null){
+            } else {
+                await this.ModificText(this.question_text,'text', 'id_audio')
+            }
+
+            if (answer_text===null){
+                this.block_down.style.left='-100%'
+                await this.ModificText(this.language_answer,'language_input','answer_text')
+                this.text_answer.focus();
+            } else {
+                this.block_down.style.left='0%'
+            }
+            this.data_old = data
         }
     }
 }
 
+
+const form_question = new FormQuestion();
 
 /**
  * Функция для определения видимости объекта по id 
@@ -69,7 +98,6 @@ function change_form_question(data){
  * @returns true если блок отрисован на сайте false - нет
  */
 function upload(Url, audioBlob = null) {
-    console.log('audioBlob',audioBlob)
     const formData = new FormData();
     const jsonData = {
         key1: "value1",
@@ -85,7 +113,7 @@ function upload(Url, audioBlob = null) {
     })
     .then(response => response.json())
     .then(data => {
-        this.change_form_question(data);
+        form_question.change_form_question(data);
         console.log('Успешно загружено:', data);
         //console.log('language_input', data['language_input']);
     })
@@ -93,6 +121,7 @@ function upload(Url, audioBlob = null) {
         console.error('Ошибка загрузки:', error);
     });
 }
+
 
 
 class InputAudio{
@@ -109,8 +138,9 @@ class InputAudio{
         this.analyser = null;
         this.dataArray = null; // Массив данных аудио
         this.bufferLength = null; // Длина буфера
-
+        
         this.initMedia();
+        
     }
 
     /**
@@ -129,13 +159,19 @@ class InputAudio{
                 const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const audio = new Audio(audioUrl);
-                audio.play();
-                // Отправка аудиофайла на сервер
-                upload(this.Url, audioBlob);
+                const duration = audio.duration;
+                // не отправляются маленьки файлы менее 1с так как в них нет информации
+                if (audioBlob.size>10000){
+                    audio.play();
+                    upload(this.Url, audioBlob);
+                }
             };
-
+            const microphone = document.getElementById("microphone");
             document.addEventListener('keydown', this.startRecording.bind(this));
             document.addEventListener('keyup', this.stopRecording.bind(this));
+
+            microphone.addEventListener('mousedown', this.startRecording.bind(this));
+            microphone.addEventListener('mouseup', this.stopRecording.bind(this));
 
             this.setupVisualizer(stream);
             this.drawVisualizer();
@@ -151,16 +187,13 @@ class InputAudio{
      * @param {*} event 
      */
     startRecording(event) {
-        if (event.code === 'Space' && !this.isRecording) {
-            if (isVisibleById('microphone')){
-                this.isRecording = true;
-                this.audioChunks = [];
-                this.recorder.start();
-
-                this.recordingTimeout = setTimeout(() => {
-                    this.stopRecording();
-                }, 10000); // Максимальное время записи - 15 секунд
-            }
+        if (((event.ctrlKey && event.key === 'ArrowDown') || event.type === 'mousedown' ) && !this.isRecording) {
+            this.isRecording = true;
+            this.audioChunks = [];
+            this.recorder.start();
+            this.recordingTimeout = setTimeout(() => {
+                this.stopRecording();
+            }, 10000); // Максимальное время записи - 15 секунд
         }
     }
 
@@ -172,10 +205,9 @@ class InputAudio{
             this.isRecording = false;
             clearTimeout(this.recordingTimeout);
             this.recorder.stop();
-            console.log('recorder.stop');
         }
-
     }
+
     /**
      * Подключение к источнику аудиопотака и настройка буфера и обработчика сигнала
      * @param {*} stream 
@@ -247,11 +279,9 @@ class InputKey{
           "en":"qwertyuiop[]asdfghjkl;'zxcvbnm,."    }
 
     constructor() {
-        document.addEventListener('DOMContentLoaded', () => {
-            this.Url = 'http://213.178.34.212:18000/api/v1/training/answer-text'; // Замените на ваш URL
-            this.keyboardLayout('ru','en')
-            this.InitEventInputKey();
-        })
+        this.Url = 'http://213.178.34.212:18000/api/v1/training/answer-text'; // Замените на ваш URL
+        this.keyboardLayout('ru','en')
+        this.InitEventInputKey();
     }
 
     /**
@@ -289,16 +319,16 @@ class InputKey{
     InitEventInputKey(){
         const inputElement = document.getElementById('text_answer');
         inputElement.addEventListener('input', (e) => {
-            let inputText = e.target.textContent;
+            let inputText = e.target.value;
             let convertedText = this.convertLayout(inputText, this.key_main, this.key_other ); // Переключаем с русскую на английской
-            e.target.textContent = convertedText;
+            e.target.value = convertedText;
         });
         // Добавляем обработчик события нажатия клавиши
         inputElement.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+            if (e.ctrlKey && e.key === 'Enter') {
                 console.log('Нажата клавиша Enter');
-                upload(this.Url)
-                // Здесь можно добавить код, который должен выполняться при нажатии Enter
+                upload(this.Url);
+                inputElement.value ='';
             }
         });
     }
@@ -309,6 +339,24 @@ const input_audio = new InputAudio();
 const input_key = new InputKey();
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-})
+
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'ArrowRight') {
+        // Действие при нажатии Ctrl+Up
+        console.log('Ctrl+Right was pressed');
+        const parentElement = document.getElementById("form-question")
+        console.log(parentElement.style.margin);
+        if (parentElement) {
+            // Найти все дочерние элементы
+            const childElements = parentElement.querySelectorAll('*');
+        
+            // Установить border для каждого дочернего элемента
+            childElements.forEach(element => {
+                element.style.border = '1px solid rgb(39, 37, 180)';
+            });
+        } else {
+            console.log('Элемент с указанным id не найден.');
+        }
+    } 
+});
+

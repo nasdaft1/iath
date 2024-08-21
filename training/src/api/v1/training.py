@@ -38,7 +38,7 @@ async def answer_audio(
     logging.warning(f"File saved at: {file_path}")
 
     if random.randint(1, 2) == 1:
-        text = 'Tell me your name.'
+        text = f'Tell me your name.{random.randint(1, 20)}'
         id_audio = None
     else:
         text = None
@@ -65,7 +65,7 @@ async def answer_text(data: str = Form(...)) -> DataTrainingResponse:
 
     # для определения задание текстом или аудио
     if random.randint(1, 2) == 1:
-        text = 'Tell me your name.'
+        text = f'Tell me your name.{random.randint(1, 20)}'
         id_audio = None
     else:
         text = None

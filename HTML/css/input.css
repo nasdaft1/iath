@@ -3,156 +3,230 @@
 
 
 
-.form-question {
+#form-question {
     position: absolute;
-    background-color: #fff;
-    top: calc(40% - 100px);
+    background-color: var(--header-menu-background);
+    top: calc(35% - 100px);
     left: calc(50% - 20%);
-    height: 440px;
+    height: 500px;
     width: 40%;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1; /*размещаем по верх остальных блоков на form*/
     /*box-sizing: border-box; /* Учитываем padding в ширине */
-    /*display: flex;*/
+    
 }
 
-#form-question-block-up{
+
+.form-question1{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+    margin: 0px; /*устранение бага при нажатой мышки и смещения*/
+}
+
+#form-block-up{
+    position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 40%;
-    padding: 0px;
-    background-color: red;
-    /*transition: left 0.5s ease; /* Анимация смещения */
+    overflow: hidden; /* Обрезает все содержимое, выходящее за пределы блока */
 }
 
-.question-player-block{
+#form-question-block-up{
     position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: left 0.5s ease; /* Анимация смещения */
+}
+
+#question-player-block{
+    position: absolute;
+    box-sizing: border-box;
+    left: 0px;
     width: 100%;
     height: 100%;
 }
 
+#question-text{
+    position: absolute;
+    box-sizing: border-box;
+    margin-left: 100%;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
 
-.form-question h1 {
-    position: relative;
-    text-align: center;
-    height: auto;
+#question-text h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
     font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
     font-size: 50px; /* Измените размер шрифта на желаемый */
-    box-sizing: border-box;
+    text-align: center; /* Выравнивание текста по центру по горизонтали */
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Плавное изменение прозрачности */    
 }
 
 #form-question-block-center{
-    top: 40%;
+    position: absolute;
     left: 0px;
+    top: 40%;
     width: 100%;
     height: 20%;
-    padding: 0px;
-    background-color: rgb(183, 0, 255);
-    transition: left 0.5s ease; /* Анимация смещения */
 }
 
-#question-task{
-    position: relative;
-    top: 20px;
-    border: 0px;
+
+.question-task {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    width: 100%;
+    height: 100%;
     text-align: center;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
+    margin-left: 0px;  
 }
 
-#form-question-block-down{
+
+.question-task h3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Плавное изменение прозрачности */    
+}
+
+#form-block-down{
+    position: absolute;
     top: 60%;
     left: 0px;
     width: 100%;
     height: 40%;
-    background-color: rgb(0, 255, 64);
+    overflow: hidden; /* Обрезает все содержимое, выходящее за пределы блока */
+}
+
+#form-question-block-down{
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
     transition: left 0.5s ease; /* Анимация смещения */
 }
 
 #microphone {
-    position: relative;
-    height: 200px;
-     width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #microphone #oscilloscope{
     position: absolute;
-    height: 200px;
-    width: 200px;
+    height: var(--question_microphone_height);
+    width: auto;
     z-index: 1;
-
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
 }
 
 #microphone .menu-img{
     position: absolute;
-    top: 20px;
-    left: 20px;
-    height: 160px;
-    width: 160px;
+    height: var(--question_player_height); 
+    width: var(--question_player_height); 
     z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
 }
 
 
-
-.form-question #textInput {
+#input_answer_block{
+    position: absolute;
     box-sizing: border-box;
-    position: relative;
-    top: 30px;
-    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
-    font-size: 30px; /* Измените размер шрифта на желаемый */
+    top: 0px;
+    margin-left: 100%;
     width: 100%;
-    display: none;
+    height: 100%;
 }
 
-/* Стили для placeholder */
-#textInput::placeholder {
-    font-size: 20px; /* Измените размер шрифта на желаемый */
-    text-align: center; /* Горизонтальное центрирование текста */
-    line-height: 50px; /* Вертикальное центрирование текста */
-}
-
-
-
-#input_answer{
+#input_answer_block2{
+    position: absolute;
+    width: 90%;
+    height: 60%;
     display: flex;
-    font-size: 20px; /* Измените размер шрифта на желаемый */
-    height: 60px;
-    align-items: center;
     border: 1px solid var(--select);
     border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
 }
 
-#input_answer #line1{
+#input_answer_block2 #line1{
     height: 100%;
     border-left: 1px solid var(--select);
-
+    display: flex; /* Включаем Flexbox */
+    
 }
 
-#input_answer #language_answer{
-    align-items: center;
-    height: auto;
+.answer{
     margin-left: 10px;
     margin-right: 10px;
-}
-
-#input_answer #text_answer{
-    width: calc(100% - 80px);
-    height: auto;
+    font-family: Verdana, sans-serif; /* Выбор другого шрифта*/ 
+    font-size: var(--question_font-size_input); /* Измените размер шрифта на желаемый */
     align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
+    justify-content: center; /* Центрируем по горизонтали */
 }
 
-#text_answer[contenteditable="true"] {
-    background: transparent;  /* Убирает выделение текста */
-    outline: none;
+#input_answer_block2 #language_answer{
+    position: relative;
+    display: flex; /* Включаем Flexbox */
+    height: 100%;
+    width: 50px;
+    transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
+    margin-left: 0px;  
 }
 
 
+
+#input_answer_block2 #text_answer{
+    position: absolute;
+    width: calc(100% - 90px);
+    height: 93%;
+}
+
+
+#text_answer{
+    outline: none; /* Убираем обводку при фокусе */
+    overflow: hidden;
+    border: none;    
+    resize: none; /* Отключает возможность изменения размеров textarea */
+    
+}
+
+#text_answer:focus{
+    caret-color: rgb(252, 0, 0); /* Пусть они почувствуют себя как в Матрице */
+    caret-shape: block;
+}
 
 .form-question progress {
     width: 100%;
@@ -168,10 +242,11 @@
     position: absolute;
     width: auto;
     height: 100%;
-    left: calc(50% - var(--play_width_question)/2);
-    z-index: 30;
-    display: flex;
-    /*table-layout: fixed; /* Фиксированная ширина колонок */
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
   }
 
   #question-player #question-play{

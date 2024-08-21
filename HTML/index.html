@@ -17,18 +17,19 @@
 </head>
 <body>
     <!-- для передачи данных на сервер и обратно -->
-    <script src="js/sidebar.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/tree.js"></script>
-    <script src="js/mouse.js"></script>
-    <script src="js/javascript.js"></script>
-    <script src="js/menu_contex_tree.js"></script>
-    <script src="js/local.js"></script>
-    <script src="js/help.js"></script>
-    <script src="js/play.js"></script>
-    <script src="js/material.js"></script>
-    <script src="js/input.js"></script>
-    <script src="js/menu_contex_material.js"></script>
+    <!--  defer загрузка js после отрисовки html-->
+    <script src="js/sidebar.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/tree.js" defer></script>
+    <script src="js/mouse.js" defer></script>
+    <script src="js/javascript.js" defer></script>
+    <script src="js/menu_contex_tree.js" defer></script>
+    <script src="js/local.js" defer></script>
+    <script src="js/help.js" defer></script>
+    <script src="js/play.js" defer></script>
+    <script src="js/material.js" defer></script>
+    <script src="js/input.js" defer></script>
+    <script src="js/menu_contex_material.js" defer></script>
 
     <div class="form-general" id="form-general"> 
         <div class="help" id="help"> </div>
@@ -137,52 +138,62 @@
         
             <div class="content" id="content">
                 <!-- Основное содержание страницы--> 
+                <audio id="audio-play-question" controls style="display: none;"></audio>
                 <div class="form-question" id="form-question">
-                    <audio id="audio-play-question" controls style="display: none;"></audio>
-                    <div id="form-question-block-up">
-                        <div id="question-player-block">
-                            <div id="question-player">
-                                <!--Отображается если стоит запрет на воспроизведение или отсутствие аудио файла-->
-                                <div id="question-play">
-                                    <div class="question-play-arc" id="question-progress-circle"></div>
-                                    <div class="question-play-arc-2"></div>
-                                    <div class="question-play-stop-block">
-                                        <div id="question-play-stop">
-                                            <div class="question-play-triangle-left"></div>
-                                            <div class="question-play-progress-stop"></div>
+                    <div id="form-block-up">
+                        <div id="form-question-block-up">
+                            <div id="question-player-block">
+                                <div id="question-player">
+                                    <!--Отображается если стоит запрет на воспроизведение или отсутствие аудио файла-->
+                                    <div id="question-play">
+                                        <div class="question-play-arc" id="question-progress-circle"></div>
+                                        <div class="question-play-arc-2"></div>
+                                        <div class="question-play-stop-block">
+                                            <div id="question-play-stop">
+                                                <div class="question-play-triangle-left"></div>
+                                                <div class="question-play-progress-stop"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="question-text">
+                                    <h1 id="question-text-h1">I want coffee</h1>
+                                </div>
                             </div>
-                            <h1 id="question-text">I want coffee</h1>
                         </div>
                     </div>
                     <div id="form-question-block-center">
-                        <h3 id="question-task">Введите перевод1:</h3>
-                        <h3 id="question-task1">Введите перевод2:</h3>
-                    </div>
-                    <div id="form-question-block-down">
-                        <!-- Для визуализации голосового ввода--> 
-                        <div id="microphone" class="microphone">
-                            <canvas id="oscilloscope" width="160" height="160"></canvas>
-                            <img class="menu-img" src="png\microphone-t.png">
+                        <div id="question-task" class="question-task">
+                            <h3 id="question-task-h3">Для проверки микрофона и его использования зажмите </h3>
                         </div>
-                        <div id="input_answer">
-                            <div id="language_answer">[ru]</div>
-                            <div id="line1"></div>
-                            <div id="text_answer">
-                                <!--contenteditable="true"-->
-                                <input 
-                                    type="text" 
-                                    id="text_answer"
-                                    autocomplete="off" 
-                                    placeholder="При любой раскладке клавиатуры текст будет, вводится на русском.">    
+                    </div>
+                    <div id="form-block-down">
+                        <div id="form-question-block-down">
+                            <!-- Для визуализации голосового ввода--> 
+                            <div id="microphone" class="microphone">
+                                <canvas id="oscilloscope" width="160" height="160"></canvas>
+                                <img class="menu-img" src="png\microphone-t.png">
+                            </div>
+                            <div id="input_answer_block">
+                                <div id="input_answer_block2">
+                                    <div id="language_answer" class="answer">[ru]</div>
+                                    <div id="line1"></div>
+                                    <div id="input_answer" >
+                                        <!--contenteditable="true"-->
+                                        <textarea 
+                                            wrap="hard"
+                                            rows="2"
+                                            type="text" 
+                                            id="text_answer"
+                                            class="answer"
+                                            autocomplete="off" 
+                                            placeholder="При любой раскладке клавиатуры текст будет, вводится на русском."></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <progress id="progressBar" value="0" max="100"></progress>
-                    </div>
+                            <progress id="progressBar" value="0" max="100"></progress>
                 </div>
             
 
