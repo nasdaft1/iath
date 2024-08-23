@@ -110,51 +110,65 @@ class Player{
         })
     }
 
+
+    async handleDownloadPlay() {
+        if (this.question_play_stop.style.left!=='-100%' ){
+            try {
+                this.question_play_stop.style.left='-100%';
+                //console.log('start_audio');
+                const response = await fetch(this.audioURL);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const blob = await response.blob();
+                this.question_audio.src = window.URL.createObjectURL(blob);;
+                this.question_audio.play();
+                
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+            } 
+        } else {
+            this.question_play_stop.style.left='0%';
+            this.question_audio.pause();        // Останавливаем воспроизведение
+            this.question_audio.currentTime = 0; // Сбрасываем позицию к началу
+            this.question_progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+            setTimeout(() => {//Для корректной отработки возвращение ползунка в исходное состояние при прерывании воспроизведения
+                this.question_progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+            }, 100)
+        }
+    }
+
+
     /**
      * Функция по навешиванию обработчика событий на нужный нам объект и связывает его с плеером
      */
     question_player_addEvent(){
-        const audio = document.getElementById('audio-play-question');
-        const progressFill = document.getElementById("question-progress-circle");
-        const play_stop = document.getElementById("question-play-stop");
+        this.question_audio = document.getElementById('audio-play-question');
+        this.question_progressFill = document.getElementById("question-progress-circle");
+        this.question_play_stop = document.getElementById("question-play-stop");
         
         
-        audio.addEventListener('timeupdate', () => {
-            var percentage = (audio.currentTime / audio.duration) * 100;
+        this.question_audio.addEventListener('timeupdate', () => {
+            var percentage = (this.question_audio.currentTime / this.question_audio.duration) * 100;
             var degrees = (percentage / 100) * 360;
-            progressFill.style.background = `conic-gradient(from 0deg, transparent 0deg, #34db34 0deg ${degrees}deg, transparent ${degrees}deg)`;
+            this.question_progressFill.style.background = `conic-gradient(from 0deg, transparent 0deg, #34db34 0deg ${degrees}deg, transparent ${degrees}deg)`;
         });
         // () => используем вместо function () чтобы работали переменные через this
-        audio.addEventListener('ended', () => {
-            play_stop.style.left='0%';
-            progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
+        this.question_audio.addEventListener('ended', () => {
+            this.question_play_stop.style.left='0%';
+            this.question_progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
         });
-        document.getElementById('question-play').addEventListener('click', async () => {
-            if (play_stop.style.left!=='-100%' ){
-                try {
-                    play_stop.style.left='-100%';
-                    //console.log('start_audio');
-                    const response = await fetch(this.audioURL);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const blob = await response.blob();
-                    audio.src = window.URL.createObjectURL(blob);;
-                    audio.play();
-                    
-                } catch (error) {
-                    console.error('There has been a problem with your fetch operation:', error);
-                } 
-            } else {
-                play_stop.style.left='0%';
-                audio.pause();        // Останавливаем воспроизведение
-                audio.currentTime = 0; // Сбрасываем позицию к началу
-                progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
-                setTimeout(() => {//Для корректной отработки возвращение ползунка в исходное состояние при прерывании воспроизведения
-                    progressFill.style.background = 'conic-gradient(from 0deg, transparent 0deg, #34db34 0deg 360deg, transparent 360deg)';
-                }, 100)
+        // Добавление события по клику на элемент с id='download-play'
+        document.getElementById('question-play').addEventListener('click', this.handleDownloadPlay.bind(this));
+
+        // Добавление события по нажатию пробела на клавиатуре
+        document.addEventListener('keydown', (event) => {
+            if ((event.ctrlKey && event.key === 'ArrowUp')) {
+                event.preventDefault(); // предотвращает прокрутку страницы при нажатии пробела
+                this.handleDownloadPlay();
             }
-        })
+        });
+
     }
 
 

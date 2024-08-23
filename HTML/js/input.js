@@ -15,15 +15,23 @@
  */
 class FormQuestion{
 
-data_old={} // старое состояние полученных данных
+    data_old={} // старое состояние полученных данных
+    visible_microphone = null
+    visible_player = null
+    
 
     /**
-     * Функция для визуализация пропадания и появления текста
-     * @param {*} obj объект для модификации для модификации
-     * @param {*} key_text ключ словаря с данными для модификации текста и его видимости
-     * @param {*} key_param ключ словаря определяющий нужность модификации ели он находится в видимой 
-     * части true - без проверки
+     * Функция для визуализация смещения блока
+     * @param {*} obj объект для модификации 
+     * @param {String} param модификации смещение в left и его видимости
      */
+    async ModificBlock(obj, param) {
+        // асинхронность что бы все элементы одновременно меняли прозрачность
+        obj.style.left=param;
+        setTimeout(() => {
+        }, 500);
+    }
+
     async ModificText(obj, key_text, key_param=true) {
         // асинхронность что бы все элементы одновременно меняли прозрачность
         const text = this.data[key_text]
@@ -42,6 +50,7 @@ data_old={} // старое состояние полученных данных
             obj.textContent = text;
         }
     }
+
 
 
     /**
@@ -65,10 +74,12 @@ data_old={} // старое состояние полученных данных
             const answer_text = data['answer_text'] || null
 
             if (id_audio==null){
-                this.block_up.style.left='-100%'
+                await this.ModificBlock(this.block_up, '-100%')
+                this.visible_player=false;
             }
             else {
-                this.block_up.style.left='0%'
+                await this.ModificBlock(this.block_up, '0%')
+                this.visible_player=true;
             }
 
             if (text===null){
@@ -77,11 +88,14 @@ data_old={} // старое состояние полученных данных
             }
 
             if (answer_text===null){
-                this.block_down.style.left='-100%'
+                await this.ModificBlock(this.block_down, '-100%')
+                this.visible_microphone = false;
                 await this.ModificText(this.language_answer,'language_input','answer_text')
                 this.text_answer.focus();
             } else {
-                this.block_down.style.left='0%'
+                await this.ModificBlock(this.block_down, '0%')
+                this.text_answer.blur();
+                this.visible_microphone = true;
             }
             this.data_old = data
         }
@@ -339,6 +353,10 @@ const input_audio = new InputAudio();
 const input_key = new InputKey();
 
 
+/***
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Для временного тестирования расположение блоков 
+ */
 
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.key === 'ArrowRight') {
