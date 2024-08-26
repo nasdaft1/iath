@@ -48,51 +48,51 @@ flex-direction: column;
 }
 
 .sidebar .icon img {
-        width: 42px;
-        height: 42px;
-        /*mix-blend-mode: multiply; /* Множение */
-        filter: var(--filter-img); /* Делает изображение темнее */
-    }
+    width: var(--sidebar-icon-height);
+    height: var(--sidebar-icon-height);
+    /*mix-blend-mode: multiply; /* Множение */
+    filter: var(--filter-img); /* Делает изображение темнее */
+}
 
-    .sidebar .icon-sidebar img {
-        width: 42px;
-        height: 42px;
-        /*mix-blend-mode: multiply; /* Множение */
-        filter: var(--filter-img); /* Делает изображение темнее */
-    }
+.sidebar .icon-sidebar img {
+    width: var(--sidebar-icon-height);
+    height: var(--sidebar-icon-height);
+    /*mix-blend-mode: multiply; /* Множение */
+    filter: var(--filter-img); /* Делает изображение темнее */
+}
 
-    .sidebar .icon::after {
-        content: attr(data-description);
-        position: absolute;
-        font-size: 20px; /* Измените размер шрифта на желаемый */
-        left: 60px; /*размещение текста после иконки*/
-        top: 50%; /* Расположение радом с иконкой */
-        font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
-        transform: translateY(-50%);
-        white-space: nowrap; /* Оставить текст в одну строку */
-        padding: 5px 10px;
-        border-radius: 3px;
-        pointer-events: none;
-        
-    }
-
-    .sidebar .text {
-    display: none;
+.sidebar .icon::after {
+    content: attr(data-description);
     position: absolute;
-    }
+    font-size: 20px; /* Измените размер шрифта на желаемый */
+    left: calc(var(--sidebar-icon-height) + 20px); /*размещение текста после иконки*/
+    top: 50%; /* Расположение радом с иконкой */
+    font-family: 'Arial', sans-serif; /* Выбор другого шрифта */
+    transform: translateY(-50%);
+    white-space: nowrap; /* Оставить текст в одну строку */
+    padding: 5px 10px;
+    border-radius: 3px;
+    pointer-events: none;
+    
+}
 
-    .sidebar:hover .icon::after {
-        opacity: 0.9;
-    }
+.sidebar .text {
+display: none;
+position: absolute;
+}
 
-    .sidebar .icon:hover {
-        background-color: var(--sidebar-hover-color);
-        transition: background-color 0.2s ease-in 0.02s ;
-        opacity: 1;
-        height: 101%;
-    }
+.sidebar:hover .icon::after {
+    opacity: 0.9;
+}
 
-    .sidebar:hover .icon.selected {
-        background-color: var(--sidebar-select-color);
-        transition: background-color 0.2s ease-in 0.02s ;
-    }
+.sidebar .icon:hover {
+    background-color: var(--sidebar-hover-color);
+    transition: background-color 0.2s ease-in 0.02s ;
+    opacity: 1;
+    height: var(--sidebar-icon-height);
+}
+
+.sidebar:hover .icon.selected {
+    background-color: var(--sidebar-select-color);
+    transition: background-color 0.2s ease-in 0.02s ;
+}

@@ -367,10 +367,10 @@ document.addEventListener('keydown', function(event) {
         if (parentElement) {
             // Найти все дочерние элементы
             const childElements = parentElement.querySelectorAll('*');
-        
+            messageError('Произошла ошибка <br> d <br> d <br> d <br> d <br> d <br> dз <br> d <br> d <br> dапроса');
             // Установить border для каждого дочернего элемента
             childElements.forEach(element => {
-                element.style.border = '1px solid rgb(39, 37, 180)';
+                //element.style.border = '1px solid rgb(39, 37, 180)';
             });
         } else {
             console.log('Элемент с указанным id не найден.');

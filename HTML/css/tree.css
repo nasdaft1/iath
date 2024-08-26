@@ -17,7 +17,7 @@
 .content .form-theme {
         left: 0px;
         height: 100%;
-        width: 100%;
+        width: var(--tree-width-all);
         
         background-color: var(--tree-background);
         border-bottom: 1px solid var(--line-out-color); /*внешняя отрисовка границы от фона*/
@@ -25,7 +25,7 @@
 
     .content .form-theme .table-menu {
         padding-top: 5px;
-        padding-left: 20px;
+        padding-left: 10px;
         padding-right: 30px;
     }
 
@@ -102,7 +102,7 @@
         .content .form-theme .table-theme {
             display: flex;
             position: relative;
-            height: 32px; /*делаем чуть меньше icon чтоб не прерывался рисунок*/
+            height: var(--tree-table-height); /*делаем чуть меньше icon чтоб не прерывался рисунок*/
             margin: 2px; /*оставляем зазор для выделения при клике на элемент*/
             border-radius: 6px; /* Закругленные углы трека */
             outline: none; /* Убираем outline по умолчанию */
@@ -113,7 +113,7 @@
         .content .form-theme .table-theme img{
             position:relative;
             margin-top: -2px;
-            height: 34px;
+            height: var(--tree-table-img-height);
         }
 
         .table-theme-text{

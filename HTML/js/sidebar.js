@@ -1,12 +1,14 @@
 /**
  * Функция для визуализации блоков в sidebar
- * @param {string} block_2 - block||none включение выключения визуализации блока
- * @param {string} block_3 - block||none включение выключения визуализации блока
- * @param {string} block_4 - block||none включение выключения визуализации блока
+ * @param {string} block_2 - block||form-question, block-method
+ * @param {string} block_3 - block||none block-languages
+ * @param {string} block_4 - block||none block-4
+ * @param {string} block_5 - block||none material 
  */
-function block_visible(block_2, block_3, block_4) {
+function block_visible(block_2, block_3, block_4, block_5 ) {
     document.getElementById('block-method').style.display = block_2; // block_2 - teach
     document.getElementById('form-question').style.display = block_2;
+    document.getElementById('table-container-material').style.display = block_5; 
     document.getElementById('block-languages').style.display = block_3; // block_3 - 
     document.getElementById('block-4').style.display = block_4; // block_4 - material
 }
@@ -43,13 +45,13 @@ class Sidebar{
         const menu = icon.getAttribute('id');
         switch(menu) {
             case "material":
-                block_visible('none', 'none', 'block');
+                block_visible('none', 'none', 'block', 'block');
                 break;
             case "teach":
-                block_visible('block', 'block', 'none');
+                block_visible('block', 'block', 'none', 'none');
                 break;
             case "analysis":
-                block_visible('none', 'none', 'none');
+                block_visible('none', 'none', 'none', 'none');
                 break;
             default:
                 // Действие для любого другого значения (если необходимо)
@@ -120,5 +122,5 @@ const sidebar_material = new Sidebar();
 
 document.addEventListener('DOMContentLoaded', () => {
     sidebar_material.sidebarAddEvent();
-    block_visible('none', 'none', 'none')
+    block_visible('none', 'none', 'none', 'none')
 });

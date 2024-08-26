@@ -6,13 +6,14 @@
 #form-question {
     position: absolute;
     background-color: var(--header-menu-background);
-    top: calc(35% - 100px);
-    left: calc(50% - 20%);
+    top: 50%;
+    left: 50%;
     height: 500px;
     width: 40%;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%); /* Центрируем по середине контейнера */
     z-index: 1; /*размещаем по верх остальных блоков на form*/
     /*box-sizing: border-box; /* Учитываем padding в ширине */
     
@@ -185,7 +186,6 @@
     height: 100%;
     border-left: 1px solid var(--select);
     display: flex; /* Включаем Flexbox */
-    
 }
 
 .answer{
@@ -297,8 +297,6 @@
     border-radius: 50%;
     border: 2px solid var(--scrollbar-header);
   }
-
-
 
   .question-play-stop-block{
     position: absolute;

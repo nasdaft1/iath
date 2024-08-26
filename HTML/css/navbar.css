@@ -11,7 +11,7 @@
 html body {
     margin: 0px;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     padding-left: 60px;
     padding-right: 60px;
     box-sizing: border-box;
@@ -91,8 +91,9 @@ html body .form-general .navbar {
         align-items: center;
         color: var(--header-hover-color);
         text-decoration: none; /*чтобы не подчеркивать текст*/
+
         padding-top: 0px;
-        padding-bottom: 2px;
+        padding-bottom: 0px;
         padding-left: 10px;
         padding-right: 10px;
         margin-left: 10px; /* -10px */
@@ -101,22 +102,45 @@ html body .form-general .navbar {
 
     .navbar .navbar-menu span {
         display: flex;
-        margin-top: 2px; /* -10px */
         text-align: center;
         align-items: center;
         text-decoration: none; /*чтобы не подчеркивать текст*/
     }
 
     .navbar .navbar-menu li img {
-        width: 24px;
-        height: 24px;
+        width: var(--navbar-menu-li);
+        height: var(--navbar-menu-li);
         margin-right: 10px; /* между текстом и иконкой растояние*/
+        filter: var(--filter-img); /* Делает изображение темнее */
     }
 
-    .navbar .navbar-menu a:hover {
-        background-color: var(--header-hover); /* Полупрозрачный серый цвет */
+    .navbar .navbar-menu .navbar-menu-a {
         border-radius: 6px;
     }
+
+    .navbar .navbar-menu .menu-user {
+        box-sizing: border-box;
+        border-radius: 6px 6px 0px 0px;
+    }
+
+    .navbar .navbar-menu .navbar-menu-a:hover {
+        background-color: var(--header-menu-user-background); /* Полупрозрачный серый цвет */
+        box-shadow: 0 0 2px var(--header-menu-user-background); /*убираем арифакты*/
+        transition: background-color 0.2s ease 0.02s ;
+    }
+
+    .navbar .navbar-menu .menu-user:hover {
+        background-color: var(--header-menu-user-background); /* Полупрозрачный серый цвет */
+        transition: background-color 0.13s; /* Плавный переход */
+        /*убираем арифакты*/
+        box-shadow: 
+        0 -2px 2px var(--header-menu-user-background-1), /* Тень сверху */
+        2px 0 2px var(--header-menu-user-background-1),  /* Тень справа */
+        -2px 0 2px var(--header-menu-user-background-1); /* Тень слева */
+        z-index: 5; /* Ensure header is above the table rows */
+    }
+
+
 
 html body .form-1 {
     position: relative;
@@ -130,37 +154,51 @@ html body .form-1 {
 .menu-user {
     position: relative;
     z-index: 4; /* Ensure header is above the table rows */
+    
 }
 
 .menu-user ul {
     position: absolute;
     z-index: 1; /*размещаем по верх остальных блоков на */
-    left: -190px;
+    left: -184px;
     top: 100%;
     display: none;
     padding: 20px 0;
-    border-radius: 10px;
-    background: var(--header-menu-background);
-    border: 1px solid var(--header-menu-border);
+    border-radius: 6px 0px 6px 6px;
+    background-color: var(--header-menu-user-background);
+    box-shadow: 
+        0 2px 0 var(--header-menu-user-background-1), /* Тень сверху */
+        2px 0 2px var(--header-menu-user-background-1),  /* Тень справа */
+        -2px 0 2px var(--header-menu-user-background-1); /* Тень слева */
 }
 
 .menu-user:hover > ul {
     display: block;
+
+}
+
+
+.menu-user-1{
+    width: 90px;
 }
 
 .menu-user li {
+    position: relative;
     list-style: none;
-    height: 20px;
+    height: var(--navbar-menu-li-2);
 }
 
 .menu-user li a {
     position: relative;
-    width: 230px;
+    width: 244px;
     border-radius: 5px;
-    height: 20px;
+    height: 100%;
 }
 
-.menu-user ul a:hover {
-    border: 1px solid var(--header-menu-border);
+.menu-user-a a:hover {
+    position: relative;
+    transition: background-color 0.2s ease-in 0.02s ;
+    background-color: var(--header-menu-border);
 }
+
 

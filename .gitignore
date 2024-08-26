@@ -337,5 +337,7 @@ $RECYCLE.BIN/
 # audio file
 *.oggopus
 *.mp3
+*.wav
+
 !test.oggopus
 !requirements.txt

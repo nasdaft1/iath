@@ -8,6 +8,8 @@
   --select2:rgb(211, 211, 211);
   --line-out-color: black;
 
+
+
   --html-background:linear-gradient(to right, #f7f2f2,#cecece, #ece8e8);
   --tree-background: var(--tree-and-header-table); /* Общая переменная для цвета */
   --tree-background1: var(--tree-and-header-table); /* Общая переменная для цвета для убирания артефакта*/
@@ -15,13 +17,21 @@
   --tree-select-background2: rgb(52, 208, 236);
   --tree-select-outline: 3.0px solid rgb(70, 52, 236);
   --tree-width: 400px;
+  --tree-width-all: calc(var(--tree-width) + 20px);
+  --tree-table-height: 32px;
+  --tree-table-img-height: calc(var(--tree-table-height) + 2px);
   
   --header-height: 70px; /* Общая переменная для цвета */
   --header-background: var(--scrollbar-header);/*фон заголовка*/
   --header-hover: var(--tree-and-header-table);/*фон заголовка*/
   --header-hover-color: black;/*фон заголовка*/
-  --header-menu-background: white; /*фон меню выпадающего в загаловке*/
-  --header-menu-border: rgb(128, 128, 128); /*границы меню выпадающего в загаловке*/
+  --header-menu-background: var(--tree-and-header-table); /*фон меню выпадающего в загаловке*/
+  --header-menu-border: white; /*границы меню выпадающего в загаловке*/
+  --navbar-menu-li: 32px; /* высота и ширина иконок в navbar*/
+  --navbar-menu-li-2: 40px; /*высота строк в выпадающем меню navbar*/
+  --header-menu-user-background: rgb(220, 220, 220);
+  --header-menu-user-background-1: rgb(151, 149, 149);
+
   
   /*меню по правому клику мышки*/
   --context-menu-background: white;
@@ -34,13 +44,14 @@
   --sidebar-hover-color: rgb(128, 128, 128); /* Общая переменная для цвета search*/
   --sidebar-select-color: var(--select);
   --sidebar-background: var(--scrollbar-header); /* Общая переменная для цвета */
-  --sidebar-width: 60px; /*минимальная ширина*/
   --sidebar-hover-width: 600px; /*максимальная ширина*/
   --sidebar-color: rgb(0, 0, 0);
   --sidebar-color2: rgb(0, 0, 0);
+  --sidebar-icon-height: 42px; /*максимальная ширина*/
+  --sidebar-width: calc(var(--sidebar-icon-height) + 25px); /*минимальная ширина*/
   
   /*цвета для визуализации добавления данных в дереве*/
-  --select-area-changes: rgb(56, 209, 171); /*цвет добавленного элемента*/
+  --select-area-changes: rgb(61, 209, 56); /*цвет добавленного элемента*/
   --select-element-changes: rgb(80, 89, 92); /*цвет добавленного элемента*/
   --select-element-add: rgb(247, 173, 76); /*цвет добавленного элемента*/
   
@@ -66,8 +77,13 @@
 
   /*Настройка help подсказки*/
   --help-background: var(--scrollbar-header);
-  --help-left: 500px;
+  --help-left: var(--tree-width-all);
   --help-width: 340px;
+  --help-height: calc(var(--tree-table-height) * 2);
+  --help-margin-top: calc(var(--tree-table-height) / 2);
+
+  /*Настройка error подсказки*/
+  --error-background:rgb(240, 127, 112);
   
   /*Настройки для аудио плеера*/
   --play_width: 40px;

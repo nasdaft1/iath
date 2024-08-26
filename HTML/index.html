@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,7 +34,7 @@
     <div class="form-general" id="form-general"> 
         <div class="help" id="help"> </div>
         <div class="dialog_del" id="dialog_del"> </div>
-        <div class="dialog_error" id="dialog_error"> </div>
+        
         <header class="header" id="header" >
         
             <!-- верхнее меню -->
@@ -45,27 +45,27 @@
                 <div class="navbar-menu">
                     <ul>
                         <li>
-                            <a href="#"> 
+                            <a href="#" class="navbar-menu-a"> 
                                 <img src="png\config.png">
                                 <span> Настройки </span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#" class="navbar-menu-a">
                                 <img src="png\money_rub.png">
                                 <span> Оплата </span>
                             </a>
                         </li>
                         <li>
                             <div class="menu-user">
-                                <a href="#">
+                                <a href="#" class="menu-user-1">
                                     <img src="png\user.png">
                                     <span> Вход </span>
                                 </a>
                                 <ul>
-                                    <li><a href="#service1" id="link-login">Login</a></li>
-                                    <li><a href="#service2" id="link-reg">Registration</a></li>
-                                    <li><a href="#logout">Logout</a></li>
+                                    <li class="menu-user-a"><a href="#service1" id="link-login">Login</a></li>
+                                    <li class="menu-user-a"><a href="#service2" id="link-reg">Registration</a></li>
+                                    <li class="menu-user-a"><a href="#logout">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -137,6 +137,13 @@
             </div>
         
             <div class="content" id="content">
+
+                <div id="error" class="error" style="display: none">
+                    <div id="error-div">
+                        <h1>Error</h1>
+                        <h3 id="error-h3"></h3>
+                    </div>
+                </div>
                 <!-- Основное содержание страницы--> 
                 <audio id="audio-play-question" controls style="display: none;"></audio>
                 <div class="form-question" id="form-question">
@@ -196,8 +203,6 @@
                     </div>
                             <progress id="progressBar" value="0" max="100"></progress>
                 </div>
-            
-
                 <!--Форма логирования входа в аккаунт-->
                 <div class="form-login" id="form-login">
                     <img src="png\close.png" id="close-login">
@@ -358,13 +363,13 @@
                             <div class="audio_play_text_write" id="audio_play_text_write" my-attribute="my-player" contenteditable="true"></div>
                         </div>
                     </div>
-                    <!--заглужка для лучшей визаализации с права в шапке таблицы-->
-                    <div class="stump" id="stump"></div>
                     <!--невидимый аудиоплеер для воспроизводства аудио-->
                     <audio id="audioPlayer" controls></audio>
                     <div class="table-container-material" id="table-container-material">
                         <!--шапка в таблицы с материалами-->
                         <table class="table-material">
+                            <!--заглужка для лучшей визаализации с права в шапке таблицы-->
+                            <div class="stump" id="stump"></div>
                             <thead>
                                 <tr> 
                                     <th class="header-col0"> </th>
@@ -378,6 +383,7 @@
                         </table>
                         <!--отобращается надпись если нет контента в таблицы с материалами-->
                         <div id ="no-data-table">НЕТ ДАННЫХ</div>
+                        <!--(bake header.html)-->
                     </div>
                 </div>
             </div>
@@ -385,4 +391,3 @@
     </div>
 </body>
 </html>
-

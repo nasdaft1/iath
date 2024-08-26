@@ -19,8 +19,8 @@ class Help {
         var element_id = document.getElementById(element.id);
         this.id=element_id.id;
         const rect = element_id.getBoundingClientRect();
-        this.top = rect.top;
-        this.left = Number(rect.right)+60;
+        this.top = rect.top -70;
+        this.left = Number(rect.right)+30;
 
         const elementHelp = document.getElementById('help');
         elementHelp.style.display = 'none';
@@ -88,6 +88,28 @@ document.addEventListener('mousemove', (event) => {
         HelpClass.delDescription();
     }
 });
+
+
+/**
+ * Вывод сообщение об ошибки
+ 
+ */
+function messageError(text) {
+    const elementError = document.getElementById('error');
+    const elementErrorH3 = document.getElementById('error-h3');
+    const form_question = document.getElementById('form-question');
+    elementErrorH3.innerHTML = text;    
+    elementError.style.display = 'block';
+    var question_display = form_question.style.display;
+    form_question.style.display = 'none';
+    setTimeout(() => {
+        elementError.style.display = 'none';
+        elementErrorH3.innerHTML = '';    
+    form_question.style.display = question_display;
+        }, 3500);
+}
+
+
 
 /**
  * Определяем функцию, которую будем вызывать через определенное время
